@@ -343,6 +343,195 @@ img { display: block; max-width: 100%; }
   &.collapsed .admin-card-body { display: none; }
 }
 
+.draggable-card {
+  &.dragging {
+    opacity: 0.55;
+    border-color: rgba($honey, 0.4);
+  }
+}
+
+.drag-handle {
+  color: $text-muted;
+  cursor: grab;
+  letter-spacing: -2px;
+  font-size: 18px;
+  user-select: none;
+}
+
+.order-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: $radius-full;
+  background: rgba($honey, 0.12);
+  border: 1px solid rgba($honey, 0.24);
+  color: $honey;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tag-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: $radius-full;
+  background: rgba($honey, 0.12);
+  border: 1px solid rgba($honey, 0.24);
+  color: $honey;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.inline-editor-row {
+  display: grid;
+  gap: $spacing-sm;
+
+  @include md {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+.sortable-list {
+  display: grid;
+  gap: 12px;
+}
+
+.sortable-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: $radius-md;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.sortable-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.image-row {
+  align-items: flex-start;
+}
+
+.image-row-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+
+  img {
+    width: 76px;
+    height: 76px;
+    object-fit: cover;
+    border-radius: $radius-md;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 12px;
+    color: $text-muted;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+}
+
+.image-placeholder-box {
+  width: 76px;
+  height: 76px;
+  border-radius: $radius-md;
+  background: rgba(255,255,255,0.04);
+  border: 1px dashed rgba(255,255,255,0.12);
+  color: $text-muted;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-align: center;
+  padding: 8px;
+}
+
+.upload-card {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: $radius-lg;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-top: 16px;
+}
+
+.upload-card-copy {
+  display: grid;
+  gap: 4px;
+
+  strong {
+    color: $white;
+    font-size: 15px;
+  }
+
+  span {
+    color: $text-muted;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}
+
+.upload-card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.storage-path-chip {
+  font-size: 12px;
+  color: $text-muted;
+  padding: 10px 12px;
+  border-radius: $radius-md;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  word-break: break-all;
+}
+
+.file-upload-btn {
+  position: relative;
+  overflow: hidden;
+
+  input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &.is-busy {
+    opacity: 0.8;
+  }
+}
+
+.empty-hint {
+  color: rgba(255,255,255,0.35);
+  font-size: 14px;
+  padding: 12px 0;
+}
+
 // Table
 .admin-table {
   width: 100%;

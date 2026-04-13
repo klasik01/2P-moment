@@ -38,11 +38,41 @@ export type GiftVoucher = {
   validUntil: string;
 };
 
+export type SurroundingPlace = {
+  id: string;
+  enabled: boolean;
+  sortOrder: number;
+  title: string;
+  subtitle: string;
+  distance: string;
+  description: string;
+  imageUrl: string;
+  imageStoragePath?: string;
+  linkHref: string;
+  tags: string[];
+};
+
+export type ManagedImage = {
+  url: string;
+  storagePath?: string;
+  alt?: string;
+};
+
+export type RoomContent = {
+  id: string;
+  title: string;
+  description: string;
+  labels: string[];
+  images: ManagedImage[];
+};
+
 export type AppId = "hive-house";
 
 export type AdminSection =
   | "dashboard"
   | "promotions"
+  | "surroundings"
+  | "room"
   | "permits"
   | "vouchers"
   | "statistics";
