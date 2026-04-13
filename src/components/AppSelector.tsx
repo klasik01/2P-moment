@@ -4,14 +4,19 @@ type Props = {
   onSelect: (app: AppId) => void;
 };
 
-const APPS = [
+const APPS: { id: AppId; icon: string; name: string; desc: string }[] = [
   {
-    id: "hive-house" as AppId,
+    id: "hive-house",
     icon: "🐝",
     name: "2P Hive House",
     desc: "Glamping ubytování — sezonní akce, povolenky, poukázky, statistiky",
   },
-  // Zde lze v budoucnu přidat další aplikace
+  {
+    id: "stavebni",
+    icon: "🏗️",
+    name: "2P Stavební",
+    desc: "Stavební firma — projekty, galerie, promo akce, tým",
+  },
 ];
 
 export function AppSelector({ onSelect }: Props) {

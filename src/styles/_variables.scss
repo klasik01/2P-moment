@@ -1,18 +1,26 @@
-// 2P Moment Admin — sdílené proměnné s hive-house
-$honey:      #F0A500;
-$honey-dark: #C97B00;
-$honey-light: #FFD166;
-$amber:      #E87C2A;
-$dark:       #120E07;
-$dark-2:     #1E1810;
-$dark-3:     #2C2318;
-$cream:      #FDF4E3;
-$white:      #FFFFFF;
-$text-light: rgba(255, 255, 255, 0.88);
-$text-muted: rgba(255, 255, 255, 0.50);
-$text-dark:  #2C2410;
+// 2P Moment Admin — light téma (červeno-světlé, jako 2P Stavební)
+$red:        #eb1c24;
+$red-dark:   #c0151c;
+$red-light:  #ff4d53;
+// honey aliases pro zpětnou kompatibilitu
+$honey:      $red;
+$honey-dark: $red-dark;
+$honey-light: $red-light;
+$amber:      #e05a1a;
 
-$font-serif: 'Cormorant Garamond', Georgia, serif;
+// Light palette
+$dark:       #f2f2f2;      // tělo / pozadí stránky
+$dark-2:     #ffffff;      // karty, sidebar, topbar
+$dark-3:     #f7f7f7;      // inputy, sekundární pozadí
+$cream:      #f4f4f4;
+$white:      #ffffff;
+
+// Text
+$text-light: #111111;      // primární text
+$text-muted: #5d5d5d;      // sekundární text
+$text-dark:  #111111;
+
+$font-serif: 'Oswald', sans-serif;
 $font-body:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
 $spacing-sm:  8px;
@@ -28,8 +36,13 @@ $radius-xl:   24px;
 $radius-full: 9999px;
 
 $transition:  0.3s ease;
-$shadow-md:   0 8px 32px rgba(0, 0, 0, 0.20);
-$shadow-honey: 0 8px 32px rgba(240, 165, 0, 0.25);
+$shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.06);
+$shadow-md:   0 8px 32px rgba(0, 0, 0, 0.10);
+$shadow-lg:   0 20px 60px rgba(0, 0, 0, 0.10);
+$shadow-honey: 0 8px 32px rgba(235, 28, 36, 0.20);
+
+$border-light: rgba(17, 17, 17, 0.08);
+$border-mid:   rgba(17, 17, 17, 0.12);
 
 $bp-md: 768px;
 $bp-lg: 1024px;

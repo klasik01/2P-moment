@@ -6,16 +6,22 @@ html { font-size: 16px; }
 
 body {
   font-family: $font-body;
-  background: $dark;
+  background:
+    radial-gradient(circle at top right, rgba($red, 0.12), transparent 30%),
+    linear-gradient(180deg, #f7f7f7 0%, #efefef 100%);
+  background-attachment: fixed;
   color: $text-light;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 :root {
+  --red: #{$red};
+  --red-dark: #{$red-dark};
   --honey: #{$honey};
   --honey-dark: #{$honey-dark};
-  --dark: #{$dark};
+  --dark: #{$text-light};
   --dark-2: #{$dark-2};
   --dark-3: #{$dark-3};
   --font-serif: #{$font-serif};
@@ -24,12 +30,13 @@ body {
   --radius-lg: #{$radius-lg};
 }
 
-h1, h2, h3, h4 { font-family: $font-serif; line-height: 1.15; }
+h1, h2, h3, h4 { font-family: $font-serif; font-weight: 600; line-height: 1.15; text-transform: uppercase; }
 a { text-decoration: none; color: inherit; }
 button, input, select, textarea { font: inherit; }
 img { display: block; max-width: 100%; }
 
-// Layout
+// ── Layout ────────────────────────────────────────────────────────────────────
+
 .admin-shell {
   display: flex;
   min-height: 100vh;
@@ -37,8 +44,9 @@ img { display: block; max-width: 100%; }
 
 .admin-sidebar {
   width: 260px;
-  background: $dark-2;
-  border-right: 1px solid rgba(255,255,255,0.06);
+  background: $white;
+  border-right: 1px solid $border-light;
+  box-shadow: 2px 0 16px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -59,7 +67,7 @@ img { display: block; max-width: 100%; }
 
   &-brand {
     padding: $spacing-xl $spacing-lg;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid $border-light;
 
     .brand {
       display: flex;
@@ -67,10 +75,10 @@ img { display: block; max-width: 100%; }
       gap: 8px;
       font-family: $font-serif;
       font-size: 20px;
-      color: $white;
+      color: $text-light;
       margin-bottom: 4px;
 
-      .hex { color: $honey; }
+      .hex { color: $red; }
     }
 
     .brand-sub {
@@ -84,11 +92,11 @@ img { display: block; max-width: 100%; }
   &-app-badge {
     margin: $spacing-md $spacing-lg;
     padding: $spacing-sm $spacing-md;
-    background: rgba($honey, 0.1);
-    border: 1px solid rgba($honey, 0.2);
+    background: rgba($red, 0.08);
+    border: 1px solid rgba($red, 0.18);
     border-radius: $radius-md;
     font-size: 13px;
-    color: $honey;
+    color: $red;
     font-weight: 600;
   }
 
@@ -115,14 +123,15 @@ img { display: block; max-width: 100%; }
         text-align: left;
 
         &:hover {
-          color: $white;
-          background: rgba(255,255,255,0.04);
+          color: $text-light;
+          background: rgba(17,17,17,0.04);
         }
 
         &.active {
-          color: $honey;
-          background: rgba($honey, 0.08);
-          border-right: 2px solid $honey;
+          color: $red;
+          background: rgba($red, 0.07);
+          border-right: 3px solid $red;
+          font-weight: 600;
         }
 
         .nav-icon { font-size: 16px; flex-shrink: 0; }
@@ -135,14 +144,14 @@ img { display: block; max-width: 100%; }
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
+      color: rgba(17,17,17,0.3);
       margin-top: $spacing-sm;
     }
   }
 
   &-footer {
     padding: $spacing-lg;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid $border-light;
 
     .user-info {
       font-size: 13px;
@@ -170,8 +179,9 @@ img { display: block; max-width: 100%; }
   align-items: center;
   justify-content: space-between;
   padding: $spacing-md $spacing-lg;
-  background: $dark-2;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: $white;
+  border-bottom: 1px solid $border-light;
+  box-shadow: $shadow-sm;
   position: sticky;
   top: 0;
   z-index: 50;
@@ -185,8 +195,8 @@ img { display: block; max-width: 100%; }
   h1 {
     font-family: $font-serif;
     font-size: 22px;
-    font-weight: 500;
-    color: $white;
+    font-weight: 600;
+    color: $text-light;
   }
 
   .hamburger {
@@ -204,7 +214,7 @@ img { display: block; max-width: 100%; }
       display: block;
       width: 20px;
       height: 1.5px;
-      background: $white;
+      background: $text-light;
     }
   }
 }
@@ -218,15 +228,16 @@ img { display: block; max-width: 100%; }
   }
 }
 
-// Shared form styles
+// ── Forms ─────────────────────────────────────────────────────────────────────
+
 .form-group {
   margin-bottom: $spacing-lg;
 
   label {
     display: block;
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: $text-muted;
     margin-bottom: 8px;
@@ -234,16 +245,16 @@ img { display: block; max-width: 100%; }
 
   input, select, textarea {
     width: 100%;
-    padding: 12px 14px;
-    background: $dark-3;
-    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px 16px;
+    background: $white;
+    border: 2px solid rgba(17,17,17,0.12);
     border-radius: $radius-md;
-    color: $white;
+    color: $text-light;
     font-size: 14px;
     transition: border-color $transition;
 
-    &::placeholder { color: rgba(255,255,255,0.25); }
-    &:focus { outline: none; border-color: $honey; }
+    &::placeholder { color: rgba(17,17,17,0.3); }
+    &:focus { outline: none; border-color: $red; }
   }
 
   textarea { resize: vertical; min-height: 80px; }
@@ -264,60 +275,66 @@ img { display: block; max-width: 100%; }
 
   input[type="checkbox"] {
     width: auto;
-    accent-color: $honey;
+    accent-color: $red;
+    border: none;
   }
 
   span { font-size: 14px; color: $text-muted; }
 }
 
-// Buttons
+// ── Buttons ───────────────────────────────────────────────────────────────────
+
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   border: none;
   cursor: pointer;
   transition: $transition;
   border-radius: $radius-md;
 
   &-primary {
-    background: $honey;
-    color: $dark;
-    &:hover { background: $honey-dark; transform: translateY(-1px); }
+    background: $red;
+    color: $white;
+    &:hover { background: $red-dark; transform: translateY(-1px); box-shadow: 0 6px 20px rgba($red, 0.3); }
   }
 
   &-secondary {
-    background: rgba(255,255,255,0.1);
-    color: $white;
-    border: 1px solid rgba(255,255,255,0.15);
-    &:hover { background: rgba(255,255,255,0.15); }
+    background: #ececec;
+    color: $text-light;
+    border: 1px solid rgba(17,17,17,0.10);
+    &:hover { background: #e0e0e0; transform: translateY(-1px); }
   }
 
   &-danger {
-    background: rgba(#c0392b, 0.15);
-    color: #f87171;
-    border: 1px solid rgba(#c0392b, 0.3);
-    &:hover { background: rgba(#c0392b, 0.25); }
+    background: rgba($red, 0.10);
+    color: $red;
+    border: 1px solid rgba($red, 0.20);
+    &:hover { background: rgba($red, 0.18); }
   }
 
   &-ghost {
     background: transparent;
-    color: $honey;
+    color: $red;
     padding: 0;
-    &:hover { color: $honey-light; }
+    &:hover { color: $red-dark; }
   }
 
-  &:disabled { opacity: 0.5; cursor: not-allowed; }
+  &:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 }
 
-// Cards
+// ── Cards ─────────────────────────────────────────────────────────────────────
+
 .admin-card {
-  background: $dark-2;
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.96);
+  border: 1px solid $border-light;
   border-radius: $radius-lg;
+  box-shadow: $shadow-md;
   padding: $spacing-xl;
   margin-bottom: $spacing-lg;
 
@@ -331,7 +348,7 @@ img { display: block; max-width: 100%; }
     h3 {
       font-family: $font-serif;
       font-size: 18px;
-      color: $white;
+      color: $text-light;
     }
 
     .card-actions {
@@ -344,9 +361,15 @@ img { display: block; max-width: 100%; }
 }
 
 .draggable-card {
+  cursor: grab;
+  transition: box-shadow $transition, transform $transition, opacity $transition;
+
+  &:active { cursor: grabbing; }
+
   &.dragging {
-    opacity: 0.55;
-    border-color: rgba($honey, 0.4);
+    opacity: 0.6;
+    transform: scale(0.985);
+    box-shadow: 0 22px 52px rgba(0,0,0,0.14);
   }
 }
 
@@ -356,6 +379,7 @@ img { display: block; max-width: 100%; }
   letter-spacing: -2px;
   font-size: 18px;
   user-select: none;
+  opacity: 0.5;
 }
 
 .order-chip {
@@ -366,9 +390,9 @@ img { display: block; max-width: 100%; }
   height: 28px;
   padding: 0 8px;
   border-radius: $radius-full;
-  background: rgba($honey, 0.12);
-  border: 1px solid rgba($honey, 0.24);
-  color: $honey;
+  background: rgba($red, 0.10);
+  border: 1px solid rgba($red, 0.20);
+  color: $red;
   font-size: 12px;
   font-weight: 700;
 }
@@ -385,21 +409,11 @@ img { display: block; max-width: 100%; }
   gap: 6px;
   padding: 7px 12px;
   border-radius: $radius-full;
-  background: rgba($honey, 0.12);
-  border: 1px solid rgba($honey, 0.24);
-  color: $honey;
+  background: rgba($red, 0.08);
+  border: 1px solid rgba($red, 0.18);
+  color: $red;
   font-size: 12px;
   font-weight: 600;
-}
-
-.inline-editor-row {
-  display: grid;
-  gap: $spacing-sm;
-
-  @include md {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-  }
 }
 
 .sortable-list {
@@ -414,8 +428,8 @@ img { display: block; max-width: 100%; }
   gap: 12px;
   padding: 14px 16px;
   border-radius: $radius-md;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: $dark-3;
+  border: 1px solid $border-light;
 }
 
 .sortable-actions {
@@ -425,56 +439,15 @@ img { display: block; max-width: 100%; }
   flex-shrink: 0;
 }
 
-.image-row {
-  align-items: flex-start;
-}
-
-.image-row-preview {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-
-  img {
-    width: 76px;
-    height: 76px;
-    object-fit: cover;
-    border-radius: $radius-md;
-    flex-shrink: 0;
-  }
-
-  span {
-    font-size: 12px;
-    color: $text-muted;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-all;
-  }
-}
-
-.image-placeholder-box {
-  width: 76px;
-  height: 76px;
-  border-radius: $radius-md;
-  background: rgba(255,255,255,0.04);
-  border: 1px dashed rgba(255,255,255,0.12);
-  color: $text-muted;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  text-align: center;
-  padding: 8px;
-}
+// ── Image upload ──────────────────────────────────────────────────────────────
 
 .upload-card {
   display: grid;
   gap: 12px;
   padding: 18px;
   border-radius: $radius-lg;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: $dark-3;
+  border: 1px solid $border-light;
   margin-top: 16px;
 }
 
@@ -482,32 +455,14 @@ img { display: block; max-width: 100%; }
   display: grid;
   gap: 4px;
 
-  strong {
-    color: $white;
-    font-size: 15px;
-  }
-
-  span {
-    color: $text-muted;
-    font-size: 13px;
-    line-height: 1.6;
-  }
+  strong { color: $text-light; font-size: 15px; }
+  span { color: $text-muted; font-size: 13px; line-height: 1.6; }
 }
 
 .upload-card-actions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-}
-
-.storage-path-chip {
-  font-size: 12px;
-  color: $text-muted;
-  padding: 10px 12px;
-  border-radius: $radius-md;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  word-break: break-all;
 }
 
 .file-upload-btn {
@@ -521,18 +476,43 @@ img { display: block; max-width: 100%; }
     cursor: pointer;
   }
 
-  &.is-busy {
-    opacity: 0.8;
-  }
+  &.is-busy { opacity: 0.8; }
+}
+
+.image-placeholder-box {
+  width: 76px;
+  height: 76px;
+  border-radius: $radius-md;
+  background: $dark-3;
+  border: 1px dashed rgba(17,17,17,0.18);
+  color: $text-muted;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-align: center;
+  padding: 8px;
+}
+
+.storage-path-chip {
+  font-size: 12px;
+  color: $text-muted;
+  padding: 10px 12px;
+  border-radius: $radius-md;
+  background: $dark-3;
+  border: 1px solid $border-light;
+  word-break: break-all;
 }
 
 .empty-hint {
-  color: rgba(255,255,255,0.35);
+  color: rgba(17,17,17,0.4);
   font-size: 14px;
   padding: 12px 0;
 }
 
-// Table
+// ── Table ─────────────────────────────────────────────────────────────────────
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;
@@ -543,24 +523,25 @@ img { display: block; max-width: 100%; }
     padding: $spacing-sm $spacing-md;
     color: $text-muted;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 2px solid $border-light;
   }
 
   td {
     padding: $spacing-md;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid $border-light;
     color: $text-light;
     vertical-align: middle;
   }
 
   tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(255,255,255,0.02); }
+  tr:hover td { background: rgba(17,17,17,0.02); }
 }
 
-// Badges
+// ── Badges ────────────────────────────────────────────────────────────────────
+
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -568,55 +549,57 @@ img { display: block; max-width: 100%; }
   padding: 3px 10px;
   border-radius: $radius-full;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
 
-  &-pending { background: rgba(#F59E0B, 0.15); color: #FCD34D; border: 1px solid rgba(#F59E0B, 0.3); }
-  &-paid    { background: rgba(#10B981, 0.15); color: #34D399; border: 1px solid rgba(#10B981, 0.3); }
-  &-used    { background: rgba(255,255,255,0.1); color: $text-muted; border: 1px solid rgba(255,255,255,0.15); }
-  &-cancelled { background: rgba(#EF4444, 0.1); color: #F87171; border: 1px solid rgba(#EF4444, 0.2); }
+  &-pending { background: rgba(#F59E0B, 0.12); color: #92680a; border: 1px solid rgba(#F59E0B, 0.30); }
+  &-paid    { background: rgba(#10B981, 0.12); color: #166534; border: 1px solid rgba(#10B981, 0.30); }
+  &-used    { background: rgba(17,17,17, 0.07); color: $text-muted; border: 1px solid $border-light; }
+  &-cancelled { background: rgba($red, 0.08); color: $red-dark; border: 1px solid rgba($red, 0.20); }
 }
 
-// Notice
+// ── Notices ───────────────────────────────────────────────────────────────────
+
 .notice {
   padding: $spacing-sm $spacing-md;
   border-radius: $radius-md;
   font-size: 13px;
+  font-weight: 500;
   margin-bottom: $spacing-md;
 
   &-success {
-    background: rgba(#10B981, 0.1);
-    border: 1px solid rgba(#10B981, 0.3);
-    color: #34D399;
+    background: rgba(#16a34a, 0.10);
+    border: 1px solid rgba(#16a34a, 0.25);
+    color: #14532d;
   }
 
   &-error {
-    background: rgba(#EF4444, 0.1);
-    border: 1px solid rgba(#EF4444, 0.2);
-    color: #F87171;
+    background: rgba($red, 0.08);
+    border: 1px solid rgba($red, 0.20);
+    color: $red-dark;
   }
 }
 
-// Stats grid
+// ── Stats grid ────────────────────────────────────────────────────────────────
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: $spacing-md;
   margin-bottom: $spacing-xl;
 
-  @include md {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  @include md { grid-template-columns: repeat(4, 1fr); }
 }
 
 .stat-card {
-  background: $dark-2;
-  border: 1px solid rgba(255,255,255,0.08);
+  background: $white;
+  border: 1px solid $border-light;
   border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
   padding: $spacing-lg;
 
   &-label {
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: $text-muted;
@@ -626,8 +609,8 @@ img { display: block; max-width: 100%; }
   &-value {
     font-family: $font-serif;
     font-size: 36px;
-    font-weight: 600;
-    color: $honey;
+    font-weight: 700;
+    color: $red;
     line-height: 1;
   }
 
@@ -638,22 +621,23 @@ img { display: block; max-width: 100%; }
   }
 }
 
-// Login
+// ── Login ─────────────────────────────────────────────────────────────────────
+
 .moment-login {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: $spacing-xl $spacing-lg;
-  background: $dark;
 
   &-card {
-    background: $dark-2;
-    border: 1px solid rgba(255,255,255,0.08);
+    background: $white;
+    border: 1px solid $border-light;
     border-radius: $radius-xl;
+    box-shadow: $shadow-lg;
     padding: $spacing-2xl $spacing-xl;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
 
     .brand {
       display: flex;
@@ -661,9 +645,9 @@ img { display: block; max-width: 100%; }
       gap: 8px;
       font-family: $font-serif;
       font-size: 26px;
-      color: $white;
+      color: $text-light;
       margin-bottom: 4px;
-      .hex { color: $honey; }
+      .hex { color: $red; }
     }
 
     .brand-sub {
@@ -677,8 +661,8 @@ img { display: block; max-width: 100%; }
     h2 {
       font-family: $font-serif;
       font-size: 24px;
-      color: $white;
-      font-weight: 400;
+      color: $text-light;
+      font-weight: 600;
       margin-bottom: $spacing-sm;
     }
 
@@ -690,14 +674,14 @@ img { display: block; max-width: 100%; }
   }
 }
 
-// App selector
+// ── App selector ──────────────────────────────────────────────────────────────
+
 .app-selector {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: $spacing-xl $spacing-lg;
-  background: $dark;
 
   &-inner {
     width: 100%;
@@ -711,9 +695,9 @@ img { display: block; max-width: 100%; }
       gap: 8px;
       font-family: $font-serif;
       font-size: 28px;
-      color: $white;
+      color: $text-light;
       margin-bottom: 4px;
-      .hex { color: $honey; }
+      .hex { color: $red; }
     }
 
     .brand-sub {
@@ -744,17 +728,18 @@ img { display: block; max-width: 100%; }
     align-items: center;
     gap: $spacing-md;
     padding: $spacing-xl;
-    background: $dark-2;
-    border: 1px solid rgba(255,255,255,0.08);
+    background: $white;
+    border: 1px solid $border-light;
     border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
     cursor: pointer;
     transition: $transition;
     text-align: left;
     width: 100%;
 
     &:hover {
-      border-color: rgba($honey, 0.4);
-      background: rgba($honey, 0.04);
+      border-color: rgba($red, 0.35);
+      box-shadow: 0 8px 32px rgba($red, 0.12);
       transform: translateY(-2px);
     }
 
@@ -764,7 +749,7 @@ img { display: block; max-width: 100%; }
       h3 {
         font-family: $font-serif;
         font-size: 20px;
-        color: $white;
+        color: $text-light;
         margin-bottom: 4px;
       }
 
@@ -783,22 +768,23 @@ img { display: block; max-width: 100%; }
   }
 }
 
-// Overlay pro sidebar na mobilu
+// ── Sidebar overlay (mobile) ──────────────────────────────────────────────────
+
 .sidebar-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba($dark, 0.7);
+  background: rgba(17,17,17,0.4);
   z-index: 99;
 
   &.show {
     display: block;
-
     @include lg { display: none; }
   }
 }
 
-// Loading
+// ── Loading ───────────────────────────────────────────────────────────────────
+
 .loading-screen {
   display: flex;
   align-items: center;
@@ -810,8 +796,8 @@ img { display: block; max-width: 100%; }
   .spinner {
     width: 36px;
     height: 36px;
-    border: 2px solid rgba($honey, 0.2);
-    border-top-color: $honey;
+    border: 2px solid rgba($red, 0.2);
+    border-top-color: $red;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
   }
@@ -821,12 +807,13 @@ img { display: block; max-width: 100%; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-// Misc
+// ── Misc helpers ──────────────────────────────────────────────────────────────
+
 .page-title {
   font-family: $font-serif;
   font-size: 28px;
-  font-weight: 500;
-  color: $white;
+  font-weight: 600;
+  color: $text-light;
   margin-bottom: $spacing-sm;
 }
 
@@ -834,15 +821,16 @@ img { display: block; max-width: 100%; }
   font-size: 14px;
   color: $text-muted;
   margin-bottom: $spacing-xl;
+  line-height: 1.7;
 }
 
 .divider {
   border: none;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid $border-light;
   margin: $spacing-xl 0;
 }
 
-.text-honey { color: $honey; }
+.text-honey { color: $red; }
 .text-muted { color: $text-muted; }
 
 .mt-sm { margin-top: $spacing-sm; }
@@ -857,3 +845,13 @@ img { display: block; max-width: 100%; }
 .gap-sm { gap: $spacing-sm; }
 .gap-md { gap: $spacing-md; }
 .flex-wrap { flex-wrap: wrap; }
+
+.inline-editor-row {
+  display: grid;
+  gap: $spacing-sm;
+
+  @include md {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}

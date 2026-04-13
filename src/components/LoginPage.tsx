@@ -22,48 +22,43 @@ export function LoginPage() {
   };
 
   return (
-    <div className="moment-login">
-      <div className="moment-login-card">
-        <div className="brand">
-          <span className="hex">⬡</span>
-          2P Moment
+    <main className="admin-shell">
+      <section className="admin-login">
+        <div className="admin-login-card">
+          <span className="section-label">Neveřejná správa</span>
+          <h1>2P Moment</h1>
+          <p>Administrační systém pro správu obsahu 2P Stavební a 2P Hive House.</p>
+
+          <form className="admin-login-form" onSubmit={handleSubmit}>
+            <label>
+              E-mail
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@2pmoment.cz"
+                required
+                autoComplete="email"
+              />
+            </label>
+            <label>
+              Heslo
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+                autoComplete="current-password"
+              />
+            </label>
+            {error ? <p className="admin-error">{error}</p> : null}
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? "Přihlašuji..." : "Přihlásit se"}
+            </button>
+          </form>
         </div>
-        <div className="brand-sub">Administrační systém</div>
-
-        <h2>Přihlášení</h2>
-        <p>Přihlaste se svým firemním účtem.</p>
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>E-mail</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@2pmoment.cz"
-              required
-              autoComplete="email"
-            />
-          </div>
-          <div className="form-group">
-            <label>Heslo</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              autoComplete="current-password"
-            />
-          </div>
-
-          {error && <div className="notice notice-error">{error}</div>}
-
-          <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: "100%", justifyContent: "center", marginTop: "8px" }}>
-            {loading ? "Přihlašuji..." : "Přihlásit se"}
-          </button>
-        </form>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

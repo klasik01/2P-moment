@@ -4,37 +4,43 @@ import { auth } from "./lib/firebase";
 import { LoginPage } from "./components/LoginPage";
 import { AppSelector } from "./components/AppSelector";
 import { HiveHouseAdmin } from "./components/HiveHouseAdmin";
+import { StavebniAdmin } from "./components/StavebniAdmin";
 import type { AdminSection, AppId } from "./types";
-import "./styles/main.scss";
+import type { StavebniSection } from "./types/stavebni-routing";
+import "./styles/main.css";
 
-type AppState = "loading" | "login" | "selector" | "hive-house";
+type AppState = "loading" | "login" | "selector" | AppId;
 
-const DEFAULT_APP: AppId = "hive-house";
 const DEFAULT_SECTION: AdminSection = "dashboard";
-const ADMIN_SECTIONS: AdminSection[] = [
+const DEFAULT_STAVEBNI_SECTION: StavebniSection = "projects";
+
+const HIVE_SECTIONS: AdminSection[] = [
   "dashboard",
   "promotions",
-  "surroundings",
   "room",
   "permits",
   "vouchers",
   "statistics",
 ];
 
-function parseHashRoute(): { app: AppId | null; section: AdminSection } {
+const STAVEBNI_SECTIONS: StavebniSection[] = ["projects", "promotions", "employees"];
+
+function parseHashRoute(): { app: AppId | null; section: string } {
   const rawHash = window.location.hash.replace(/^#\/?/, "");
   const parts = rawHash.split("/").filter(Boolean);
+  const appPart = parts[0];
 
-  const app: AppId | null = parts[0] === "hive-house" ? "hive-house" : null;
-  const section = parts[1] && ADMIN_SECTIONS.includes(parts[1] as AdminSection)
-    ? (parts[1] as AdminSection)
-    : DEFAULT_SECTION;
+  const app: AppId | null =
+    appPart === "hive-house" ? "hive-house" :
+    appPart === "stavebni" ? "stavebni" :
+    null;
 
+  const section = parts[1] ?? "";
   return { app, section };
 }
 
-function setHashRoute(app: AppId | null, section?: AdminSection) {
-  const nextHash = app ? `#/${app}/${section ?? DEFAULT_SECTION}` : "#/";
+function setHashRoute(app: AppId | null, section?: string) {
+  const nextHash = app ? `#/${app}/${section ?? ""}` : "#/";
   if (window.location.hash !== nextHash) {
     window.location.hash = nextHash;
   }
@@ -44,13 +50,29 @@ export default function App() {
   const [state, setState] = useState<AppState>("loading");
   const [user, setUser] = useState<User | null>(null);
   const [selectedApp, setSelectedApp] = useState<AppId | null>(() => parseHashRoute().app);
-  const [selectedSection, setSelectedSection] = useState<AdminSection>(() => parseHashRoute().section);
+  const [hiveSection, setHiveSection] = useState<AdminSection>(() => {
+    const { app, section } = parseHashRoute();
+    return app === "hive-house" && HIVE_SECTIONS.includes(section as AdminSection)
+      ? (section as AdminSection)
+      : DEFAULT_SECTION;
+  });
+  const [stavebniSection, setStavebniSection] = useState<StavebniSection>(() => {
+    const { app, section } = parseHashRoute();
+    return app === "stavebni" && STAVEBNI_SECTIONS.includes(section as StavebniSection)
+      ? (section as StavebniSection)
+      : DEFAULT_STAVEBNI_SECTION;
+  });
 
   useEffect(() => {
     const syncFromHash = () => {
       const { app, section } = parseHashRoute();
       setSelectedApp(app);
-      setSelectedSection(section);
+      if (app === "hive-house" && HIVE_SECTIONS.includes(section as AdminSection)) {
+        setHiveSection(section as AdminSection);
+      }
+      if (app === "stavebni" && STAVEBNI_SECTIONS.includes(section as StavebniSection)) {
+        setStavebniSection(section as StavebniSection);
+      }
     };
 
     syncFromHash();
@@ -62,7 +84,7 @@ export default function App() {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
       if (u) {
-        setState(selectedApp ? selectedApp : "selector");
+        setState(selectedApp ?? "selector");
       } else {
         setState("login");
         setSelectedApp(null);
@@ -73,9 +95,20 @@ export default function App() {
 
   const handleAppSelect = (app: AppId) => {
     setSelectedApp(app);
-    setSelectedSection(DEFAULT_SECTION);
     setState(app);
-    setHashRoute(app, DEFAULT_SECTION);
+    if (app === "hive-house") {
+      setHiveSection(DEFAULT_SECTION);
+      setHashRoute(app, DEFAULT_SECTION);
+    } else if (app === "stavebni") {
+      setStavebniSection(DEFAULT_STAVEBNI_SECTION);
+      setHashRoute(app, DEFAULT_STAVEBNI_SECTION);
+    }
+  };
+
+  const handleBack = () => {
+    setSelectedApp(null);
+    setState("selector");
+    setHashRoute(null);
   };
 
   if (state === "loading") {
@@ -99,16 +132,26 @@ export default function App() {
     return (
       <HiveHouseAdmin
         userEmail={user.email ?? ""}
-        initialSection={selectedSection}
+        initialSection={hiveSection}
         onSectionChange={(section) => {
-          setSelectedSection(section);
-          setHashRoute(DEFAULT_APP, section);
+          setHiveSection(section);
+          setHashRoute("hive-house", section);
         }}
-        onBack={() => {
-          setSelectedApp(null);
-          setState("selector");
-          setHashRoute(null);
+        onBack={handleBack}
+      />
+    );
+  }
+
+  if (state === "stavebni" && user) {
+    return (
+      <StavebniAdmin
+        userEmail={user.email ?? ""}
+        initialSection={stavebniSection}
+        onSectionChange={(section) => {
+          setStavebniSection(section);
+          setHashRoute("stavebni", section);
         }}
+        onBack={handleBack}
       />
     );
   }
