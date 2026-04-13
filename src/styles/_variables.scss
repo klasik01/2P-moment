@@ -1,0 +1,38 @@
+// 2P Moment Admin — sdílené proměnné s hive-house
+$honey:      #F0A500;
+$honey-dark: #C97B00;
+$honey-light: #FFD166;
+$amber:      #E87C2A;
+$dark:       #120E07;
+$dark-2:     #1E1810;
+$dark-3:     #2C2318;
+$cream:      #FDF4E3;
+$white:      #FFFFFF;
+$text-light: rgba(255, 255, 255, 0.88);
+$text-muted: rgba(255, 255, 255, 0.50);
+$text-dark:  #2C2410;
+
+$font-serif: 'Cormorant Garamond', Georgia, serif;
+$font-body:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+$spacing-sm:  8px;
+$spacing-md:  16px;
+$spacing-lg:  24px;
+$spacing-xl:  40px;
+$spacing-2xl: 64px;
+
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   16px;
+$radius-xl:   24px;
+$radius-full: 9999px;
+
+$transition:  0.3s ease;
+$shadow-md:   0 8px 32px rgba(0, 0, 0, 0.20);
+$shadow-honey: 0 8px 32px rgba(240, 165, 0, 0.25);
+
+$bp-md: 768px;
+$bp-lg: 1024px;
+
+@mixin md { @media (min-width: #{$bp-md}) { @content; } }
+@mixin lg { @media (min-width: #{$bp-lg}) { @content; } }
