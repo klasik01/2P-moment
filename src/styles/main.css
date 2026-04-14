@@ -904,6 +904,13 @@ img { display: block; max-width: 100%; }
   line-height: 1;
 }
 
+.moment-sidebar-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 .moment-sidebar-brand .brand-text {
   min-width: 0;
 }

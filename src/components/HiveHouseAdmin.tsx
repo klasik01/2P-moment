@@ -205,7 +205,12 @@ function Sidebar({
       <div className={`sidebar-overlay${open ? " show" : ""}`} onClick={onClose} />
       <aside className={`moment-sidebar${open ? " open" : ""}`}>
         <div className="moment-sidebar-brand">
-          <div className="brand-hex">⬡</div>
+          <img
+            src="/hive-house-logo.png"
+            alt="Hive House"
+            className="moment-sidebar-logo"
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+          />
           <div className="brand-text">
             <div className="brand-name">2P Moment</div>
             <div className="brand-app">Hive House</div>
@@ -1761,15 +1766,27 @@ function ManagedImageUploader({
 // ── FishingEditor ────────────────────────────────────────────────────────────
 function FishingEditor() {
   const [content, setContent] = useState<FishingContent>(newFishingContent());
+  const [original, setOriginal] = useState<FishingContent>(newFishingContent());
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
   const [notice, setNotice] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [activeTab, setActiveTab] = useState<"hero" | "info" | "gallery">("hero");
+  const [infoDraggingId, setInfoDraggingId] = useState<string | null>(null);
+  const [galleryDraggingIdx, setGalleryDraggingIdx] = useState<number | null>(null);
+  const [uploadingGalleryIdx, setUploadingGalleryIdx] = useState<number | null>(null);
+  const [addingGalleryImage, setAddingGalleryImage] = useState(false);
+  const [collapsedInfoCards, setCollapsedInfoCards] = useState<Set<string>>(() => new Set());
   const { requestConfirm, ConfirmDialog } = useConfirmDialog();
 
   useEffect(() => {
-    loadFishingContent().then((d) => setContent(d)).finally(() => setLoading(false));
+    loadFishingContent().then((d) => {
+      setContent(d);
+      setOriginal(d);
+      setCollapsedInfoCards(new Set(d.infoCards.map((c) => c.id)));
+    }).finally(() => setLoading(false));
   }, []);
+
+  const isDirty = useMemo(() => !isEqual(content, original), [content, original]);
 
   const showNotice = (type: "success" | "error", text: string) => {
     setNotice({ type, text }); setTimeout(() => setNotice(null), 3000);
@@ -1778,30 +1795,41 @@ function FishingEditor() {
   const updateCard = (id: string, patch: Partial<FishingInfoCard>) =>
     setContent((c) => ({ ...c, infoCards: c.infoCards.map((card) => card.id === id ? { ...card, ...patch } : card) }));
 
-  const handleSave = (section: "hero" | "info" | "gallery") => {
+  const toggleInfoCard = (id: string) => setCollapsedInfoCards((prev) => {
+    const isOpen = !prev.has(id);
+    if (isOpen) { const next = new Set(prev); next.add(id); return next; }
+    const next = new Set(content.infoCards.map((c) => c.id));
+    next.delete(id);
+    return next;
+  });
+
+  type FishingSection = "hero" | "info" | "gallery" | "all";
+  const handleSave = (section: FishingSection) => {
     requestConfirm({
       title: "Uložit změny?",
       message: "Změny se zapíšou do databáze.",
       confirmLabel: "Uložit",
       tone: "primary",
-      onConfirm: async () => {
-        setSaving(section);
-        try {
-          if (section === "hero") {
-            await saveFishingHero({ heroEyebrow: content.heroEyebrow, heroTitle: content.heroTitle, heroHighlight: content.heroHighlight, heroDescription: content.heroDescription, heroImage: content.heroImage, ctaLabel: content.ctaLabel, ctaHref: content.ctaHref });
-          }
-          if (section === "info") {
-            await saveFishingInfo({ infoCards: content.infoCards });
-          }
-          if (section === "gallery") {
-            await saveFishingGallery({ gallery: content.gallery });
-          }
-          const labels: Record<string, string> = { hero: "Hero uložena.", info: "Info karty uloženy.", gallery: "Galerie uložena." };
-          showNotice("success", labels[section]);
-        } catch { showNotice("error", "Chyba při ukládání."); }
-        finally { setSaving(null); }
-      },
+      onConfirm: () => performFishingSave(section),
     });
+  };
+  const performFishingSave = async (section: FishingSection) => {
+    setSaving(section);
+    try {
+      if (section === "hero" || section === "all") {
+        await saveFishingHero({ heroEyebrow: content.heroEyebrow, heroTitle: content.heroTitle, heroHighlight: content.heroHighlight, heroDescription: content.heroDescription, heroImage: content.heroImage, ctaLabel: content.ctaLabel, ctaHref: content.ctaHref });
+      }
+      if (section === "info" || section === "all") {
+        await saveFishingInfo({ infoCards: content.infoCards });
+      }
+      if (section === "gallery" || section === "all") {
+        await saveFishingGallery({ gallery: content.gallery });
+      }
+      setOriginal(content);
+      const labels: Record<FishingSection, string> = { hero: "Hero uložena.", info: "Info karty uloženy.", gallery: "Galerie uložena.", all: "Vše uloženo." };
+      showNotice("success", labels[section]);
+    } catch { showNotice("error", "Chyba při ukládání."); }
+    finally { setSaving(null); }
   };
 
   const handleDeleteCard = (id: string) => {
@@ -1816,18 +1844,6 @@ function FishingEditor() {
     });
   };
 
-  const handleDeleteGalleryImage = (idx: number) => {
-    requestConfirm({
-      title: "Smazat obrázek?",
-      message: "Obrázek bude odstraněn z galerie.",
-      confirmLabel: "Smazat",
-      tone: "danger",
-      onConfirm: () => {
-        setContent((c) => ({ ...c, gallery: c.gallery.filter((_, i) => i !== idx) }));
-      },
-    });
-  };
-
   if (loading) return <div className="loading-screen"><div className="spinner" /></div>;
 
   const tabs = [
@@ -1838,28 +1854,30 @@ function FishingEditor() {
 
   return (
     <div>
-      <div className="page-title">Rybaření</div>
-      <div className="page-desc">Správa stránky rybaření — hero, info karty, galerie</div>
+      <div className="flex-between" style={{ marginBottom: 24 }}>
+        <div>
+          <div className="page-title">Rybaření</div>
+          <div className="page-desc">Správa stránky rybaření — hero, info karty, galerie.</div>
+        </div>
+        <button className="btn btn-primary" onClick={() => handleSave("all")} disabled={saving !== null || !isDirty}>
+          {saving === "all" ? "Ukládám…" : "Uložit vše"}
+        </button>
+      </div>
 
       {notice && <div className={`notice-${notice.type}`}>{notice.text}</div>}
 
       <div style={{ display: "flex", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
         {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            className={`btn ${activeTab === tab.id ? "btn-primary" : "btn-secondary"}`}
-            onClick={() => setActiveTab(tab.id)}
-          >
+          <button key={tab.id} className={`btn ${activeTab === tab.id ? "btn-primary" : "btn-secondary"}`} onClick={() => setActiveTab(tab.id)}>
             {tab.label}
           </button>
         ))}
       </div>
 
-      {/* ===== HERO ===== */}
+      {/* ══════════ HERO ══════════ */}
       {activeTab === "hero" && (
         <div className="admin-card">
           <div className="admin-card-body open"><div className="admin-card-body-inner">
-            <h3 style={{ marginBottom: 16 }}>Hero sekce</h3>
             <div className="admin-grid">
               <label style={{ gridColumn: "1 / -1" }}>Eyebrow<input value={content.heroEyebrow} onChange={(e) => setContent((c) => ({ ...c, heroEyebrow: e.target.value }))} placeholder="Rybaření" /></label>
               <label>Hlavní nadpis<input value={content.heroTitle} onChange={(e) => setContent((c) => ({ ...c, heroTitle: e.target.value }))} /></label>
@@ -1873,65 +1891,174 @@ function FishingEditor() {
               <ManagedImageUploader image={content.heroImage} folder="fishing/hero" onUpload={(img) => setContent((c) => ({ ...c, heroImage: img }))} onRemove={() => setContent((c) => ({ ...c, heroImage: undefined }))} onNotice={showNotice} />
             </div>
             <div className="section-save-row">
-              <button className="btn btn-primary" onClick={() => handleSave("hero")} disabled={saving !== null}>
-                {saving === "hero" ? "Ukládám..." : "Uložit hero"}
+              <button className="btn btn-secondary" onClick={() => handleSave("hero")} disabled={saving !== null}>
+                {saving === "hero" ? "Ukládám…" : "Uložit hero"}
               </button>
             </div>
           </div></div>
         </div>
       )}
 
-      {/* ===== INFO KARTY ===== */}
+      {/* ══════════ INFO KARTY — collapsible drag-and-drop ══════════ */}
       {activeTab === "info" && (
-        <div className="admin-card">
-          <div className="admin-card-body open"><div className="admin-card-body-inner">
-            <h3 style={{ marginBottom: 16 }}>Info karty (oranžový pruh)</h3>
-            {content.infoCards.map((card) => (
-              <div key={card.id} className="inline-editor-row" style={{ marginBottom: "8px" }}>
-                <input value={card.label} onChange={(e) => updateCard(card.id, { label: e.target.value })} placeholder="Popisek" style={{ flex: 1 }} />
-                <input value={card.value} onChange={(e) => updateCard(card.id, { value: e.target.value })} placeholder="Hodnota" style={{ flex: 1 }} />
-                <button className="admin-icon-button danger" onClick={() => handleDeleteCard(card.id)}><Icon name="trash" size={16} /></button>
-              </div>
-            ))}
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "12px" }}>
-              <button className="btn btn-secondary" onClick={() => setContent((c) => ({ ...c, infoCards: [...c.infoCards, { id: `info-${Date.now()}`, label: "", value: "" }] }))}>+ Přidat kartu</button>
-              <button className="btn btn-primary" onClick={() => handleSave("info")} disabled={saving !== null}>
-                {saving === "info" ? "Ukládám..." : "Uložit info karty"}
-              </button>
-            </div>
-          </div></div>
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <p style={{ fontSize: 13, color: "rgba(17,17,17,0.45)", margin: 0 }}>Přetažením řaďte karty. Kliknutím na hlavičku rozbalit/sbalit.</p>
+            <button className="btn btn-secondary" type="button" onClick={() => {
+              const id = `info-${Date.now()}`;
+              setContent((c) => ({ ...c, infoCards: [...c.infoCards, { id, label: "", value: "" }] }));
+              setCollapsedInfoCards(() => {
+                const next = new Set(content.infoCards.map((c) => c.id));
+                next.delete(id);
+                return next;
+              });
+            }}>+ Přidat kartu</button>
+          </div>
+
+          {content.infoCards.map((card, idx) => {
+            const isCollapsed = collapsedInfoCards.has(card.id);
+            const handleInfoDrop = (targetId: string) => {
+              if (!infoDraggingId || infoDraggingId === targetId) return;
+              const from = content.infoCards.findIndex((c) => c.id === infoDraggingId);
+              const to = content.infoCards.findIndex((c) => c.id === targetId);
+              if (from < 0 || to < 0) return;
+              setContent((c) => ({ ...c, infoCards: moveItem(c.infoCards, from, to) }));
+              setInfoDraggingId(null);
+            };
+            return (
+              <article
+                key={card.id}
+                className={`admin-card draggable-card${infoDraggingId === card.id ? " dragging" : ""}`}
+                draggable
+                onDragStart={() => setInfoDraggingId(card.id)}
+                onDragEnd={() => setInfoDraggingId(null)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => handleInfoDrop(card.id)}
+                style={{ marginBottom: 10, padding: 0, overflow: "hidden" }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", cursor: "pointer", userSelect: "none" }} onClick={() => toggleInfoCard(card.id)}>
+                  <span className="drag-handle" onClick={(e) => e.stopPropagation()}>⋮⋮</span>
+                  <span className="order-chip">{idx + 1}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 600, fontSize: 14, color: "rgba(17,17,17,0.85)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      {card.label || "(bez názvu)"}
+                    </div>
+                    {card.value && <div style={{ fontSize: 12, color: "rgba(17,17,17,0.45)" }}>{card.value}</div>}
+                  </div>
+                  <button className="admin-icon-button danger" type="button" onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteCard(card.id);
+                  }}><Icon name="trash" size={15} /></button>
+                  <Icon name={isCollapsed ? "chevron-right" : "chevron-down"} size={16} />
+                </div>
+                {!isCollapsed && (
+                  <div style={{ borderTop: "1px solid rgba(17,17,17,0.07)", padding: 16 }}>
+                    <div className="admin-grid">
+                      <label>Popisek<input value={card.label} onChange={(e) => updateCard(card.id, { label: e.target.value })} placeholder="Délka pobytu" /></label>
+                      <label>Hodnota<input value={card.value} onChange={(e) => updateCard(card.id, { value: e.target.value })} placeholder="celý den" /></label>
+                    </div>
+                  </div>
+                )}
+              </article>
+            );
+          })}
+          {content.infoCards.length === 0 && <div className="empty-hint" style={{ padding: "32px 0" }}>Žádné info karty.</div>}
+
+          <div className="section-save-row" style={{ marginTop: 16 }}>
+            <button className="btn btn-secondary" onClick={() => handleSave("info")} disabled={saving !== null}>
+              {saving === "info" ? "Ukládám…" : "Uložit info karty"}
+            </button>
+          </div>
         </div>
       )}
 
-      {/* ===== GALERIE ===== */}
+      {/* ══════════ GALERIE — drag-and-drop jako Pokoj ══════════ */}
       {activeTab === "gallery" && (
         <div className="admin-card">
           <div className="admin-card-body open"><div className="admin-card-body-inner">
-            <h3 style={{ marginBottom: 16 }}>Galerie fotek</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: "12px", marginBottom: "16px" }}>
-              {content.gallery.map((img, idx) => (
-                <div key={`gal-${idx}`} style={{ position: "relative", borderRadius: "8px", overflow: "hidden" }}>
-                  <img src={img.url} alt={img.alt || ""} style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }} />
-                  <button
-                    className="admin-icon-button danger"
-                    style={{ position: "absolute", top: "4px", right: "4px", background: "rgba(0,0,0,0.5)", borderRadius: "50%" }}
-                    onClick={() => handleDeleteGalleryImage(idx)}
-                  >
-                    <Icon name="trash" size={14} />
-                  </button>
-                </div>
-              ))}
+            <div style={{ marginBottom: 16 }}>
+              <h3 style={{ marginBottom: 4 }}>Galerie fotek</h3>
+              <p style={{ fontSize: 13, color: "rgba(17,17,17,0.45)" }}>Přetažením řaďte fotky.</p>
             </div>
-            <ManagedImageUploader
-              image={undefined}
-              folder="fishing/gallery"
-              onUpload={(img) => setContent((c) => ({ ...c, gallery: [...c.gallery, img] }))}
-              onRemove={() => {}}
-              onNotice={showNotice}
-            />
+            <div className="admin-gallery-grid">
+              {content.gallery.map((img, idx) => {
+                const handleGalleryDrop = (targetIdx: number) => {
+                  if (galleryDraggingIdx === null || galleryDraggingIdx === targetIdx) return;
+                  setContent((c) => ({ ...c, gallery: moveItem(c.gallery, galleryDraggingIdx, targetIdx) }));
+                  setGalleryDraggingIdx(null);
+                };
+                return (
+                  <article
+                    key={`${img.url}-${idx}`}
+                    className={`admin-gallery-tile${galleryDraggingIdx === idx ? " dragging" : ""}`}
+                    draggable
+                    onDragStart={() => setGalleryDraggingIdx(idx)}
+                    onDragEnd={() => setGalleryDraggingIdx(null)}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={() => handleGalleryDrop(idx)}
+                  >
+                    <div className="admin-gallery-frame">
+                      <span className="admin-gallery-order">{idx + 1}</span>
+                      <span className="admin-gallery-drag" title="Přetáhnout">⋮⋮</span>
+                      <img className="admin-image-preview" src={img.url} alt={`Fotka ${idx + 1}`} />
+                    </div>
+                    <div className="admin-gallery-actions">
+                      <label className={`admin-icon-button admin-file-trigger${uploadingGalleryIdx === idx ? " is-busy" : ""}`}>
+                        <Icon name="upload" size={16} />
+                        <input type="file" accept="image/png,image/jpeg,image/jpg,image/webp" onChange={async (e) => {
+                          const f = e.target.files?.[0]; if (!f) return;
+                          setUploadingGalleryIdx(idx);
+                          try {
+                            if (img.storagePath) { try { await removeHiveHouseImage(img.storagePath); } catch { /* ok */ } }
+                            const uploaded = await uploadHiveHouseImage(f, `fishing/gallery`);
+                            setContent((c) => ({ ...c, gallery: c.gallery.map((im, i) => i === idx ? uploaded : im) }));
+                            showNotice("success", "Obrázek nahrán. Ulož změny.");
+                          } catch { showNotice("error", "Nahrání se nepodařilo."); }
+                          finally { setUploadingGalleryIdx(null); e.target.value = ""; }
+                        }} />
+                      </label>
+                      <button className="admin-icon-button danger" onClick={() => {
+                        requestConfirm({
+                          title: "Smazat obrázek?",
+                          message: "Obrázek bude odstraněn z galerie.",
+                          confirmLabel: "Smazat",
+                          tone: "danger",
+                          onConfirm: async () => {
+                            try { if (img.storagePath) await removeHiveHouseImage(img.storagePath); } catch { /* ok */ }
+                            setContent((c) => ({ ...c, gallery: c.gallery.filter((_, i) => i !== idx) }));
+                          },
+                        });
+                      }}><Icon name="trash" size={16} /></button>
+                    </div>
+                  </article>
+                );
+              })}
+              <article className="admin-gallery-tile admin-gallery-tile-add">
+                <div className="admin-gallery-frame">
+                  <div className="admin-image-placeholder admin-image-placeholder-add">
+                    <div className="admin-image-placeholder-copy"><Icon name="upload" size={24} /></div>
+                  </div>
+                </div>
+                <div className="admin-gallery-actions">
+                  <label className={`admin-icon-button admin-file-trigger admin-icon-button-wide${addingGalleryImage ? " is-busy" : ""}`}>
+                    <Icon name="upload" size={16} /><span>{addingGalleryImage ? "Nahrávám…" : "Přidat fotku"}</span>
+                    <input type="file" accept="image/png,image/jpeg,image/jpg,image/webp" onChange={async (e) => {
+                      const f = e.target.files?.[0]; if (!f) return;
+                      setAddingGalleryImage(true);
+                      try {
+                        const uploaded = await uploadHiveHouseImage(f, `fishing/gallery`);
+                        setContent((c) => ({ ...c, gallery: [...c.gallery, uploaded] }));
+                        showNotice("success", "Obrázek nahrán. Ulož změny.");
+                      } catch { showNotice("error", "Nahrání se nepodařilo."); }
+                      finally { setAddingGalleryImage(false); e.target.value = ""; }
+                    }} />
+                  </label>
+                </div>
+              </article>
+            </div>
             <div className="section-save-row">
-              <button className="btn btn-primary" onClick={() => handleSave("gallery")} disabled={saving !== null}>
-                {saving === "gallery" ? "Ukládám..." : "Uložit galerii"}
+              <button className="btn btn-secondary" onClick={() => handleSave("gallery")} disabled={saving !== null}>
+                {saving === "gallery" ? "Ukládám…" : "Uložit galerii"}
               </button>
             </div>
           </div></div>
@@ -2472,39 +2599,52 @@ function HomepageEditor() {
       .finally(() => setLoading(false));
   }, []);
 
+  const isDirty = useMemo(() =>
+    !isEqual(heroData, origHero) ||
+    !isEqual(offeringsData, origOfferings) ||
+    !isEqual(apitherapyData, origApitherapy) ||
+    !isEqual(trustbarData, origTrustbar) ||
+    !isEqual(reviewsCfg, origReviewsCfg),
+  [heroData, origHero, offeringsData, origOfferings, apitherapyData, origApitherapy, trustbarData, origTrustbar, reviewsCfg, origReviewsCfg]);
+
   const handleSave = (section: string) => {
     requestConfirm({
       title: "Uložit změny?",
       message: "Změny se zapíšou do databáze.",
       confirmLabel: "Uložit",
       tone: "primary",
-      onConfirm: async () => {
-        setSaving(section);
-        try {
-          if (section === "hero") {
-            await saveHomepageHero(heroData);
-            setOrigHero(heroData);
-          } else if (section === "offerings") {
-            await saveHomepageOfferings(offeringsData);
-            setOrigOfferings(offeringsData);
-          } else if (section === "apitherapy") {
-            await saveHomepageApitherapy(apitherapyData);
-            setOrigApitherapy(apitherapyData);
-          } else if (section === "trustbar") {
-            await saveHomepageTrustbar(trustbarData);
-            setOrigTrustbar(trustbarData);
-          } else if (section === "reviews") {
-            await saveHomepageReviewsConfig(reviewsCfg);
-            setOrigReviewsCfg(reviewsCfg);
-          }
-          showNotice("success", "Uloženo.");
-        } catch {
-          showNotice("error", "Chyba při ukládání.");
-        } finally {
-          setSaving(null);
-        }
-      },
+      onConfirm: () => performHomepageSave(section),
     });
+  };
+  const performHomepageSave = async (section: string) => {
+    setSaving(section);
+    try {
+      if (section === "hero" || section === "all") {
+        await saveHomepageHero(heroData);
+        setOrigHero(heroData);
+      }
+      if (section === "offerings" || section === "all") {
+        await saveHomepageOfferings(offeringsData);
+        setOrigOfferings(offeringsData);
+      }
+      if (section === "apitherapy" || section === "all") {
+        await saveHomepageApitherapy(apitherapyData);
+        setOrigApitherapy(apitherapyData);
+      }
+      if (section === "trustbar" || section === "all") {
+        await saveHomepageTrustbar(trustbarData);
+        setOrigTrustbar(trustbarData);
+      }
+      if (section === "reviews" || section === "all") {
+        await saveHomepageReviewsConfig(reviewsCfg);
+        setOrigReviewsCfg(reviewsCfg);
+      }
+      showNotice("success", section === "all" ? "Celá homepage uložena." : "Uloženo.");
+    } catch {
+      showNotice("error", "Chyba při ukládání.");
+    } finally {
+      setSaving(null);
+    }
   };
 
   const handleHeroImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -2559,8 +2699,15 @@ function HomepageEditor() {
 
   return (
     <div>
-      <div className="page-title">Homepage</div>
-      <div className="page-desc">Správa všech sekcí hlavní stránky</div>
+      <div className="flex-between" style={{ marginBottom: 24 }}>
+        <div>
+          <div className="page-title">Homepage</div>
+          <div className="page-desc">Správa všech sekcí hlavní stránky.</div>
+        </div>
+        <button className="btn btn-primary" onClick={() => handleSave("all")} disabled={saving !== null || !isDirty}>
+          {saving === "all" ? "Ukládám…" : "Uložit vše"}
+        </button>
+      </div>
 
       {notice && <div className={`notice-${notice.type}`}>{notice.text}</div>}
 
