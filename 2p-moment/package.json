@@ -6,7 +6,10 @@
   "scripts": {
     "dev-moment": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "tsc --noEmit",
+    "test:unit": "echo \"No unit tests configured yet\"",
+    "test": "npm run test:unit"
   },
   "dependencies": {
     "@types/react": "^19.1.0",

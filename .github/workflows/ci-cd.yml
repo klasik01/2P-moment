@@ -1,0 +1,166 @@
+name: CI/CD
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy_target:
+        description: Project to deploy to Netlify
+        type: choice
+        required: true
+        default: none
+        options:
+          - none
+          - moment
+          - stavebni
+          - hivehouse
+          - all
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-cd-${{ github.ref }}-${{ github.event.inputs.deploy_target || 'ci' }}
+  cancel-in-progress: true
+
+env:
+  VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+  VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+  VITE_FIREBASE_DATABASE_URL: ${{ secrets.VITE_FIREBASE_DATABASE_URL }}
+  VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+  VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+  VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+  VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+  VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
+
+jobs:
+  quality:
+    name: Lint, Unit Tests & Build (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: moment
+            path: 2p-moment
+            node-version: 22
+            build-env: ''
+          - name: stavebni
+            path: 2p-Stavebni
+            node-version: 22
+            build-env: DEPLOY_TARGET=netlify
+          - name: hivehouse
+            path: 2p-hive-house
+            node-version: 20
+            build-env: VITE_BASE=/
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.path }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: ${{ matrix.path }}/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test:unit
+
+      - name: Build module
+        run: |
+          if [ -n "${{ matrix.build-env }}" ]; then
+            env ${{ matrix.build-env }} npm run build
+          else
+            npm run build
+          fi
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}-dist
+          path: ${{ matrix.path }}/dist
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy-moment:
+    name: Deploy Moment to Netlify
+    runs-on: ubuntu-latest
+    needs: quality
+    if: github.event_name == 'workflow_dispatch' && (github.event.inputs.deploy_target == 'moment' || github.event.inputs.deploy_target == 'all')
+    steps:
+      - name: Download Moment build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: moment-dist
+          path: dist/moment
+
+      - name: Deploy Moment to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: ./dist/moment
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Manual deploy moment from GitHub Actions - ${{ github.sha }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_MOMENT_SITE_ID }}
+
+  deploy-stavebni:
+    name: Deploy Stavebni to Netlify
+    runs-on: ubuntu-latest
+    needs: quality
+    if: github.event_name == 'workflow_dispatch' && (github.event.inputs.deploy_target == 'stavebni' || github.event.inputs.deploy_target == 'all')
+    steps:
+      - name: Download Stavebni build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: stavebni-dist
+          path: dist/stavebni
+
+      - name: Deploy Stavebni to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: ./dist/stavebni
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Manual deploy stavebni from GitHub Actions - ${{ github.sha }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_STAVEBNI_SITE_ID }}
+
+  deploy-hivehouse:
+    name: Deploy HiveHouse to Netlify
+    runs-on: ubuntu-latest
+    needs: quality
+    if: github.event_name == 'workflow_dispatch' && (github.event.inputs.deploy_target == 'hivehouse' || github.event.inputs.deploy_target == 'all')
+    steps:
+      - name: Download HiveHouse build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: hivehouse-dist
+          path: dist/hivehouse
+
+      - name: Deploy HiveHouse to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: ./dist/hivehouse
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Manual deploy hivehouse from GitHub Actions - ${{ github.sha }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_HIVEHOUSE_SITE_ID }}
