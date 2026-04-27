@@ -1,0 +1,46 @@
+// ============================================================
+// 2P HIVE HOUSE — hlavní SCSS vstup.
+// Styly jsou rozdělené do funkčních celků:
+//   partials/   — tokeny (barvy, typografie, breakpointy, layout)
+//   components/ — jednotlivé vizuální komponenty
+// ============================================================
+
+@use "partials/breakpoints";
+@use "partials/colors";
+@use "partials/typography";
+@use "partials/tokens";
+@use "partials/honeycomb";
+@use "partials/cards";
+@use "partials/layout";
+
+@use "components/navbar";
+@use "components/hero";
+@use "components/how-it-works";
+@use "components/about";
+@use "components/offerings";
+@use "components/apitherapy";
+@use "components/video-section";
+@use "components/gallery";
+@use "components/contact";
+@use "components/page-hero";
+@use "components/reservation";
+@use "components/contact-page";
+@use "components/fishing-page";
+@use "components/footer";
+@use "components/modal";
+@use "components/article-modal";
+@use "components/loader";
+@use "components/cookie";
+@use "components/promo";
+
+// --- Drobné ad-hoc styly, které nemají vlastní partial ---
+.fishing-cta {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top, rgba(255, 209, 102, 0.22) 0%, transparent 55%),
+    linear-gradient(180deg, #FDF4E3 0%, #F7EDD8 100%);
+  text-align: center;
+  @include honeycomb.honeycomb-bg("D4881A", 0.06);
+  .section-desc { margin: 0 auto 24px; }
+}

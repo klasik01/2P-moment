@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hive House</title>
+  <meta name="robots" content="noindex" />
+  <script>
+    // SPA fallback pro statické hostingy (GitHub Pages), které neumí
+    // server-side SPA rewrite. Uložíme požadovanou cestu do sessionStorage
+    // a přesměrujeme na index.html — ten si ji přečte a pushState-ne tam.
+    (function () {
+      try {
+        sessionStorage.setItem("spa:redirect", location.pathname + location.search + location.hash);
+      } catch (_) {}
+      var base = "/";
+      location.replace(base);
+    })();
+  </script>
+</head>
+<body>
+  Přesměrovávám…
+</body>
+</html>

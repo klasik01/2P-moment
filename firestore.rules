@@ -1,0 +1,117 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helper ───────────────────────────────────────────────────────────
+    function isAdmin() {
+      return request.auth != null;
+    }
+
+    // ─── Obsah stránek (veřejné čtení, zápis jen admin) ───────────────────
+
+    // Sezonní akce
+    match /hive-house-promotions/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Správa pokoje (ubytování)
+    match /hive-house-room/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Rybaření — obsah stránky
+    match /hive-house-fishing/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Okolí — konfigurace hero stránky
+    match /hive-house-surroundings-page/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Okolí — jednotlivá místa
+    match /hive-house-surroundings/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Včelín & Glamping — obsah stránky
+    match /hive-house-apiary/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Recenze
+    match /hive-house-reviews/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Kontaktní informace (veřejné čtení — zobrazuje se na webu)
+    match /hive-house-contact/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Homepage — jednotlivé sekce (hero, offerings, apitherapy, trustbar, reviews-config)
+    match /hive-house-homepage/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Konfigurace formuláře dárkové poukázky (ceny, počet nocí, ...)
+    match /hive-house-voucher-config/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Konfigurace formuláře rybářské povolenky (ceny, slevy, ...)
+    match /hive-house-permit-config/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ─── Formuláře (zápis z veřejného webu, čtení jen admin) ──────────────
+
+    // Rybářské povolenky
+    // - host může vytvořit novou objednávku (create)
+    // - číst a měnit status smí jen admin
+    match /hive-house-permits/{doc} {
+      allow read, update, delete: if isAdmin();
+      allow create: if true
+        && request.resource.data.keys().hasAll([
+             'name', 'email', 'date', 'persons',
+             'isFirefighter', 'isHojanoviceChild',
+             'pricePaid', 'status', 'createdAt'
+           ])
+        && request.resource.data.status == 'pending'
+        && request.resource.data.name is string
+        && request.resource.data.email is string
+        && request.resource.data.persons is int
+        && request.resource.data.persons >= 1
+        && request.resource.data.persons <= 20;
+    }
+
+    // Dárkové poukázky
+    // - host může vytvořit novou objednávku (create)
+    // - číst a měnit status smí jen admin
+    match /hive-house-vouchers/{doc} {
+      allow read, update, delete: if isAdmin();
+      allow create: if true
+        && request.resource.data.keys().hasAll([
+             'recipientName', 'recipientEmail',
+             'senderName', 'senderEmail',
+             'nights', 'pricePaid', 'code',
+             'status', 'createdAt', 'validUntil'
+           ])
+        && request.resource.data.status == 'pending'
+        && request.resource.data.nights is int
+        && request.resource.data.nights >= 1
+        && request.resource.data.nights <= 30;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+/* Base element styling. */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--dark);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+body.modal-open { overflow: hidden; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+a { text-decoration: none; color: inherit; }
+
+button, input, textarea { font: inherit; }
+
+img { display: block; max-width: 100%; }

@@ -1,0 +1,100 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+@use "../partials/honeycomb" as *;
+
+// Kontakt sekce 1:1 dle hive-house
+.contact-panel {
+  background: var(--white);
+  padding-bottom: 0 !important;
+  overflow: hidden;
+  @include honeycomb-bg("D4881A", 0.05);
+}
+
+.contact-panel-inner {
+  display: grid;
+  gap: 48px;
+  @include lg {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+}
+
+.contact-panel-copy {
+  // Kontakt má větší display titulek než ostatní sekce — pouze overrides.
+  .big-title {
+    font-size: clamp(36px, 5.5vw, 64px);
+    line-height: 1.02;
+    letter-spacing: 0.005em;
+    margin: 4px 0 20px;
+  }
+  .section-desc {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-medium);
+    max-width: 520px;
+  }
+}
+
+.contact-panel-grid {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.contact-panel-map-frame {
+  overflow: hidden;
+  border-radius: 16px;
+  min-height: 380px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 20px 48px rgba(25, 19, 7, 0.14);
+  iframe {
+    width: 100%; height: 100%;
+    min-height: 380px;
+    border: 0; display: block;
+  }
+}
+
+// --- Medový pruh s údaji ---
+.contact-panel-strip {
+  background: var(--honey);
+  padding: 48px 0;
+  margin-top: 32px;
+}
+
+.contact-panel-strip-inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  align-items: center;
+  text-align: center;
+  @include md { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.contact-panel-strip-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--white);
+  text-decoration: none;
+  transition: opacity .2s ease;
+  &:hover { opacity: 0.92; }
+
+  strong {
+    display: block;
+    font-family: $font-display;
+    font-size: clamp(16px, 1.45vw, 28px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--white);
+    text-transform: uppercase;
+    word-break: break-word;
+  }
+  small {
+    display: block;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.5px;
+  }
+}

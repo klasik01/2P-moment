@@ -1,0 +1,7 @@
+node_modules
+dist
+.DS_Store
+.netlify
+.env
+.env.local
+.env.production

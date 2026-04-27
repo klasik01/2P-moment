@@ -1,0 +1,49 @@
+<\!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <title>2P Stavební – přesměrování</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+          sans-serif;
+        background: #111;
+        color: #eee;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 24px;
+        text-align: center;
+      }
+      a { color: #eb1c24; }
+    </style>
+    <script>
+      // GitHub Pages SPA fallback – rewrite the path so the root
+      // index.html can pick it up after hydration.
+      (function () {
+        var l = window.location;
+        var path = l.pathname;
+        // Strip any deployment subpath prefix (GitHub Pages project sites).
+        // E.g. "/2p-stavebni-web/..." → "/..."
+        var subpath = "/2p-stavebni-web/";
+        if (path.indexOf(subpath) === 0) {
+          path = path.slice(subpath.length - 1);
+        }
+        var target = subpath + "?spa=" + encodeURIComponent(path + l.search) + l.hash;
+        l.replace(target);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Přesměrovávám…</p>
+    <noscript>
+      <p>
+        Váš prohlížeč zakázal JavaScript. Přejděte prosím na
+        <a href="/">úvodní stránku</a>.
+      </p>
+    </noscript>
+  </body>
+</html>

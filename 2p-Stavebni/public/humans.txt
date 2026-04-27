@@ -1,0 +1,13 @@
+/* TEAM */
+2P Stavební s.r.o.
+Site: https://2pstavebni.cz
+Contact: info@2pstavebni.cz
+Location: Pacov, Czech Republic
+
+/* SITE */
+Last update: 2026/04/17
+Language: Czech
+Doctype: HTML5
+Standards: CSS Custom Properties, ES2020, React 19
+Components: Vite, TypeScript, Firebase Realtime Database
+Hosting: Netlify (production) / GitHub Pages (preview)

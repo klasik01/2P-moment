@@ -1,0 +1,52 @@
+/* About section. */
+.about-inner { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-visual { position: relative; }
+
+.about-img-main, .about-img-accent { object-fit: cover; border-radius: var(--radius); }
+.about-img-main { width: 100%; aspect-ratio: 4/3; }
+
+.about-img-accent {
+  position: absolute;
+  bottom: -32px;
+  right: -32px;
+  width: 48%;
+  aspect-ratio: 1;
+  border: 6px solid var(--white);
+  box-shadow: var(--shadow);
+}
+
+.about-badge {
+  position: absolute;
+  top: 32px;
+  left: -24px;
+  background: var(--red);
+  color: var(--white);
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(235, 28, 36, .4);
+  text-align: center;
+}
+
+.about-badge-num { font-family: var(--font-head); font-size: 40px; font-weight: 700; line-height: 1; }
+.about-badge-text { font-size: 11px; opacity: .9; letter-spacing: 1px; margin-top: 4px; }
+
+.about-content { padding-bottom: 32px; }
+.about-text { margin-bottom: 20px; font-size: 15px; line-height: 1.9; color: var(--text-muted); }
+.about-features { margin-top: 36px; display: flex; flex-direction: column; gap: 12px; }
+.about-feature { display: flex; align-items: flex-start; gap: 14px; }
+
+.about-feature-icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(235, 28, 36, .1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--red);
+}
+
+.about-feature-text { font-size: 15px; font-weight: 500; color: var(--dark); padding-top: 3px; }
+.about-cta { margin-top: 40px; }

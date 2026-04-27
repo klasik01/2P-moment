@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://2pstavebni.cz/</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://2pstavebni.cz/assets/images/projects/6/1.jpg</image:loc>
+      <image:title>Nástavba školy Košetice – 2P Stavební</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://2pstavebni.cz/assets/images/projects/2/12.jpg</image:loc>
+      <image:title>Rekonstrukce zámeckého objektu – 2P Stavební</image:title>
+    </image:image>
+  </url>
+</urlset>

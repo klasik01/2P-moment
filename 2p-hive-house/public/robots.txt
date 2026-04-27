@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Seznambot (CZ)
+User-agent: SeznamBot
+Allow: /
+
+# Nic co by se nemělo indexovat
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://hivehouse.2pmoment.cz/sitemap.xml
+Host: https://hivehouse.2pmoment.cz

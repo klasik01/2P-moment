@@ -1,0 +1,5 @@
+/* Type scale – families only. Size ramps live inside each block that needs them. */
+:root {
+  --font-head: "Oswald", sans-serif;
+  --font-body: "Inter", sans-serif;
+}

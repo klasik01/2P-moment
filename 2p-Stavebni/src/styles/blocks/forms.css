@@ -1,0 +1,44 @@
+/* Form controls used on the public pages. */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 16px; }
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e8e8e8;
+  border-radius: var(--radius);
+  font-size: 15px;
+  color: var(--dark);
+  background: var(--white);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--red); }
+
+.form-group textarea { resize: vertical; min-height: 120px; }
+
+.form-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 24px; }
+.form-check input { width: auto; margin-top: 3px; accent-color: var(--red); }
+.form-check label {
+  font-size: 13px;
+  color: var(--text-subtle);
+  line-height: 1.5;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.form-submit { width: 100%; justify-content: center; }
+.form-submit.is-success { background: var(--success); }

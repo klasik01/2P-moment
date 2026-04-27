@@ -1,0 +1,15 @@
+@use "../partials/breakpoints" as *;
+
+.cookie-banner {
+  position: fixed; left: 16px; right: 16px; bottom: 16px;
+  z-index: 300;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 14px;
+  @include md { flex-direction: row; align-items: center; max-width: 900px; margin: 0 auto; }
+  h5 { margin: 0 0 4px; }
+  p { margin: 0; font-size: 13px; color: var(--text-medium); line-height: 1.6; }
+  .cookie-actions { display: flex; gap: 10px; flex-shrink: 0; }
+}

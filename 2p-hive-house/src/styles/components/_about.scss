@@ -1,0 +1,92 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+@use "../partials/tokens" as *;
+@use "../partials/cards" as *;
+
+// =============================================================
+// O Hive House — editorial intro + 3 Q&A karty.
+// Karty i dekorace používají sdílené mixiny z partials/_cards.scss.
+// =============================================================
+
+.about-section {
+  position: relative;
+  overflow: hidden;
+  background: cream-bg(0.35);
+}
+
+.about-section-bg { @include hex-decor-bg; }
+
+.about-section .container { position: relative; z-index: 2; }
+
+// --- Hlavička ---
+.about-head {
+  max-width: 820px;
+  margin: 0 auto 56px;
+  text-align: center;
+
+  .section-eyebrow { justify-content: center; }
+
+  // .big-title styl je globální (viz partials/_typography.scss)
+}
+
+.about-lead {
+  font-family: $font-body;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-medium);
+  margin: 0;
+  position: relative;
+  padding: 0 20px;
+
+  &::before,
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 40px;
+    height: 2px;
+    background: var(--honey);
+    vertical-align: middle;
+    margin: 0 14px;
+  }
+
+  @include md { font-size: 20px; padding: 0 40px; }
+}
+
+// --- Q&A karty (sdílený honey-card mixin) ---
+.about-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+}
+
+.about-card {
+  @include honey-card;
+}
+
+.about-card-icon {
+  @include honey-card-icon;
+}
+.about-card:hover .about-card-icon {
+  @include honey-card-icon-active;
+}
+
+.about-card-question {
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-dark);
+  margin: 0 0 10px;
+
+  @include md { font-size: 22px; }
+}
+
+.about-card-answer {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-medium);
+  margin: 0;
+}

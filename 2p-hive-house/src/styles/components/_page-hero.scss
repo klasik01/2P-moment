@@ -1,0 +1,95 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+
+// =============================================================
+// Sdílená šablona hero sekce pro podstránky (Rezervace / Rybaření /
+// Kontakt). Jedno místo, kde se mění velikosti, padding i typografie —
+// všechny 3 stránky zůstanou vizuálně identické.
+// =============================================================
+
+.page-hero {
+  position: relative;
+  min-height: 60svh;
+  display: flex;
+  align-items: center;
+  padding: 120px 0 80px;
+  overflow: hidden;
+  background: #2C2410;
+
+  @include md { min-height: 52svh; padding: 140px 0 100px; }
+  @include lg { min-height: 460px;  padding: 140px 0 100px; }
+}
+
+.page-hero-bg,
+.page-hero-overlay { position: absolute; inset: 0; }
+
+.page-hero-bg {
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+}
+
+.page-hero-overlay {
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(22, 16, 8, 0.72) 0%,
+    rgba(22, 16, 8, 0.5) 38%,
+    rgba(22, 16, 8, 0.3) 68%,
+    rgba(22, 16, 8, 0.18) 100%
+  );
+  @include md {
+    background: linear-gradient(
+      110deg,
+      rgba(22, 16, 8, 0.74) 0%,
+      rgba(22, 16, 8, 0.52) 34%,
+      rgba(22, 16, 8, 0.28) 64%,
+      rgba(22, 16, 8, 0.12) 100%
+    );
+  }
+}
+
+.page-hero .container { position: relative; z-index: 2; width: 100%; }
+
+.page-hero-content {
+  max-width: 820px;
+  color: var(--white);
+
+  h1 {
+    font-family: $font-display;
+    font-weight: 700;
+    font-size: clamp(30px, 5.2vw, 64px);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    color: var(--white);
+    text-transform: uppercase;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    margin: 0 0 18px;
+
+    .hero-word { font-style: normal; display: inline; }
+    .hero-word-1 { color: var(--white); }
+    .hero-word-2 { color: var(--honey); }
+  }
+}
+
+.page-hero-lead {
+  font-family: $font-body;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #FFFFFF;
+  max-width: 620px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.55);
+  margin: 0;
+
+  @include md { font-size: 17px; line-height: 1.7; }
+  @include lg { font-size: 18px; }
+}
+
+.page-hero-actions {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  @include md { margin-top: 28px; }
+}

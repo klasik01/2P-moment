@@ -1,0 +1,295 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 64px;
+  overflow: hidden;
+  background: #2C2410;
+
+  @include md {
+    align-items: center;
+    padding-bottom: 0;
+  }
+}
+
+.hero-bg-stack,
+.hero-bg,
+.hero-overlay { position: absolute; inset: 0; }
+
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.2s ease, transform 8s ease;
+  &.is-active { opacity: 1; transform: scale(1); }
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(22, 16, 8, 0.68) 0%,
+    rgba(22, 16, 8, 0.45) 38%,
+    rgba(22, 16, 8, 0.28) 68%,
+    rgba(22, 16, 8, 0.15) 100%
+  );
+  @include md {
+    background: linear-gradient(
+      110deg,
+      rgba(22, 16, 8, 0.72) 0%,
+      rgba(22, 16, 8, 0.5) 34%,
+      rgba(22, 16, 8, 0.26) 64%,
+      rgba(22, 16, 8, 0.1) 100%
+    );
+  }
+  z-index: 1;
+}
+
+.hero .container { position: relative; z-index: 2; width: 100%; }
+
+.hero-content {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 72px;
+  color: var(--white);
+  @include md { padding-top: 88px; }
+}
+
+// Badge = bílý kruh s medovým rámečkem, uvnitř logo
+// Když má volání intro videa, chová se jako button s play ikonou a pulse ringem.
+.hero-logo-badge {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 4px solid var(--honey);
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.08),
+    0 14px 40px rgba(0, 0, 0, 0.35),
+    inset 0 2px 8px rgba(245, 166, 35, 0.15);
+  padding: 16px;
+  @include md { width: 200px; height: 200px; padding: 20px; margin-bottom: 30px; }
+  @include lg { width: 230px; height: 230px; padding: 22px; margin-bottom: 36px; }
+
+  // --- Playable varianta ---
+  &.is-playable {
+    cursor: pointer;
+    transition: transform .35s ease, box-shadow .35s ease;
+    &:hover {
+      transform: scale(1.04);
+      box-shadow:
+        0 0 0 8px rgba(255, 255, 255, 0.12),
+        0 20px 48px rgba(0, 0, 0, 0.4),
+        inset 0 2px 8px rgba(245, 166, 35, 0.2);
+    }
+    &:hover .hero-logo-play {
+      background: var(--honey);
+      color: var(--dark);
+      transform: scale(1.1);
+    }
+  }
+}
+
+.hero-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+// Pulse ring — nenápadně naznačuje, že badge je kliknutelný
+.hero-logo-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 3px solid var(--honey);
+  opacity: 0;
+  animation: heroLogoPulse 2.6s ease-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes heroLogoPulse {
+  0%   { transform: scale(1);    opacity: 0.55; }
+  80%  { transform: scale(1.28); opacity: 0;    }
+  100% { transform: scale(1.28); opacity: 0;    }
+}
+
+// Malá play ikona v rohu badge
+.hero-logo-play {
+  position: absolute;
+  bottom: 4px; right: 4px;
+  width: 36px; height: 36px;
+  border-radius: 9999px;
+  background: var(--dark);
+  color: var(--honey-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  transition: transform .25s ease, background .25s ease, color .25s ease;
+  z-index: 2;
+  svg { margin-left: 2px; }
+  @include md { width: 44px; height: 44px; bottom: 8px; right: 8px; }
+  @include lg { width: 52px; height: 52px; bottom: 10px; right: 10px; }
+}
+
+// Eyebrow nad hero h1 — styl jako v hive-house: krátká medová čárka + malé caps
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  &-line {
+    width: 40px;
+    height: 2px;
+    background: var(--honey);
+  }
+
+  span:not(.hero-eyebrow-line) {
+    font-family: $font-body;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255, 248, 231, 0.88);
+  }
+}
+
+.hero h1 {
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: clamp(38px, 9vw, 110px);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  color: var(--white);
+  text-transform: uppercase;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  margin-bottom: 20px;
+
+  .hero-word { font-style: normal; }
+  .hero-word-1 { color: var(--white); }
+  .hero-word-2 { color: var(--honey); }
+}
+
+// Hero popis — editorial styl, světlý, prodyšný
+.hero-desc {
+  margin: 6px auto 24px;
+  font-family: $font-body;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0.005em;
+  color: rgba(255, 248, 231, 0.94);
+  max-width: 560px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  @include md { font-size: 20px; max-width: 680px; line-height: 1.7; }
+  @include lg { font-size: 22px; }
+}
+
+.hero-actions {
+  display: flex; flex-direction: column; gap: 12px;
+  justify-content: center;
+  @include sm { flex-direction: row; }
+}
+
+.hero-stats {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  > div { text-align: center; }
+}
+
+.hero-stat-num {
+  font-family: $font-display;
+  font-weight: $fw-bold;
+  font-size: 22px;
+  color: var(--honey-light);
+  @include md { font-size: 28px; }
+}
+.hero-stat-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 231, 0.8);
+  margin-top: 4px;
+}
+
+.hero-dots {
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; z-index: 3;
+  button {
+    width: 6px; height: 6px; border-radius: 9999px;
+    background: rgba(255,255,255,0.4);
+    transition: width .25s ease, background .25s ease;
+    &.active { width: 22px; background: var(--honey); }
+  }
+}
+
+// ---- „Již brzy" badge + datum ----
+.hero-coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  animation: comingSoonFade 0.8s ease both 0.3s;
+}
+
+.hero-coming-soon-badge {
+  display: inline-block;
+  padding: 6px 18px;
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--honey);
+  color: var(--dark);
+  border-radius: 9999px;
+  box-shadow: 0 4px 20px rgba(245, 166, 35, 0.45);
+  @include md { font-size: 15px; padding: 8px 24px; }
+}
+
+.hero-coming-soon-date {
+  font-family: $font-display;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  color: var(--honey-light, #FFD166);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  @include md { font-size: 28px; }
+  @include lg { font-size: 34px; }
+}
+
+@keyframes comingSoonFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+// ---- Pulsing varianta (bez videa, ale s animací) ----
+.hero-logo-badge.is-pulsing {
+  .hero-logo-ring {
+    animation: heroLogoPulse 2.6s ease-out infinite;
+  }
+}

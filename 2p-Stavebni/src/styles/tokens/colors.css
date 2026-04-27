@@ -1,0 +1,23 @@
+/* Brand and neutral palette. Single source of truth for every color used. */
+:root {
+  /* Brand */
+  --red: #eb1c24;
+  --red-dark: #c0151c;
+  --red-glow: rgba(235, 28, 36, .35);
+
+  /* Neutrals */
+  --dark: #111111;
+  --dark-2: #1e1e1e;
+  --dark-3: #2a2a2a;
+  --gray-light: #f4f4f4;
+  --white: #ffffff;
+
+  /* Semantic / overlays */
+  --text-muted: #555;
+  --text-subtle: #666;
+  --text-faint: #999;
+  --success: #2ecc71;
+
+  --overlay-soft: rgba(17, 17, 17, .08);
+  --overlay-strong: rgba(17, 17, 17, .92);
+}

@@ -1,0 +1,125 @@
+/* FAQ sekce – odhalitelné otázky, konzistentní s vizuálním stylem webu. */
+.faq {
+  padding: 100px 0;
+  background: var(--white);
+}
+
+.faq-header {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.faq-header .section-label,
+.faq-header .section-title,
+.faq-header .section-desc {
+  text-align: center;
+}
+
+.faq-list {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-item {
+  background: var(--gray-light);
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.faq-item[open] {
+  background: var(--white);
+  border-color: rgba(235, 28, 36, .18);
+  box-shadow: var(--shadow-soft);
+}
+
+.faq-item:hover:not([open]) {
+  background: #efefef;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 28px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.4;
+  user-select: none;
+}
+
+/* Skrýt default disclosure triangle ve všech prohlížečích */
+.faq-question::-webkit-details-marker { display: none; }
+.faq-question::marker { content: ""; }
+
+.faq-question-text {
+  flex: 1;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--red);
+  position: relative;
+  transition: transform .25s ease;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: "";
+  position: absolute;
+  background: var(--white);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.faq-icon::before {
+  width: 12px;
+  height: 2px;
+}
+
+.faq-icon::after {
+  width: 2px;
+  height: 12px;
+  transition: transform .25s ease;
+}
+
+.faq-item[open] .faq-icon {
+  background: var(--dark);
+  transform: rotate(180deg);
+}
+
+.faq-item[open] .faq-icon::after {
+  transform: translate(-50%, -50%) scaleY(0);
+}
+
+.faq-answer {
+  padding: 0 28px 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 720px;
+}
+
+/* Reveal animation – plynulé rozbalení při open */
+.faq-item[open] .faq-answer {
+  animation: faq-slide-down .3s ease both;
+}
+
+@keyframes faq-slide-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,178 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+@use "../partials/honeycomb" as *;
+
+// =============================================================
+// „Jak to funguje" — navazuje na hero (medové tóny), dekorace
+// hexagonů v pozadí jako odkaz na včelí plást.
+// Mobile-first: vertikální timeline; desktop: 4 sloupce s čárou.
+// =============================================================
+
+// HowItWorks = cream varianta (alternuje s bílými sekcemi)
+.how-it-works {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top, rgba(255, 209, 102, 0.28) 0%, transparent 55%),
+    linear-gradient(180deg, #FDF4E3 0%, #F7EDD8 100%);
+  @include honeycomb-bg("D4881A", 0.06);
+}
+
+// Dekorativní hexagony v pozadí
+.how-it-works-bg {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  .hex {
+    position: absolute;
+    width: 260px; height: 260px;
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    opacity: 0.08;
+  }
+  .hex-1 { top: -60px; left: -40px; background: var(--honey-dark); }
+  .hex-2 { bottom: -80px; right: -50px; width: 320px; height: 320px; background: var(--amber); opacity: 0.1; }
+  .hex-3 { top: 40%; left: 55%; width: 140px; height: 140px; background: var(--honey); opacity: 0.06; }
+}
+
+.how-it-works .container { position: relative; z-index: 2; }
+
+// Hlavička sekce
+.how-it-works-head {
+  text-align: center;
+  margin-bottom: 48px;
+  .section-eyebrow { justify-content: center; }
+  // .big-title styl je globální; tady jen zkracujeme spodní margin
+  .big-title { margin: 4px 0 16px; }
+  .section-desc {
+    margin: 0 auto;
+    max-width: 620px;
+  }
+}
+
+// Seznam kroků
+.how-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 20px;
+  position: relative;
+
+  @include md {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  @include lg {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+// Propojovací čára mezi kroky (jen desktop)
+@include lg {
+  .how-steps::before {
+    content: "";
+    position: absolute;
+    top: 48px;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--honey) 0 6px,
+      transparent 6px 12px
+    );
+    opacity: 0.45;
+    z-index: 0;
+  }
+}
+
+// Jeden krok
+.how-step {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 24px 22px 22px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  box-shadow: 0 8px 24px rgba(25, 19, 7, 0.06);
+  border: 1px solid rgba(245, 166, 35, 0.12);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  position: relative;
+  z-index: 1;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(212, 136, 26, 0.18);
+    border-color: rgba(245, 166, 35, 0.3);
+  }
+
+  @include lg {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    padding: 28px 20px 24px;
+  }
+}
+
+// Kruhový badge s ikonou a číslem
+.how-step-badge {
+  position: relative;
+  width: 64px; height: 64px;
+  flex-shrink: 0;
+  background: var(--white);
+  border: 3px solid var(--honey);
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(245, 166, 35, 0.25);
+
+  @include lg { width: 74px; height: 74px; }
+}
+
+.how-step-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--honey-dark);
+  transition: transform .3s ease;
+}
+.how-step:hover .how-step-icon { transform: scale(1.08); }
+
+.how-step-num {
+  position: absolute;
+  top: -8px; right: -8px;
+  min-width: 26px; height: 26px;
+  padding: 0 6px;
+  background: var(--honey);
+  color: var(--dark);
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.how-step-body {
+  flex: 1;
+  h3 {
+    font-family: $font-display;
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text-dark);
+    margin: 0 0 8px;
+    @include lg { font-size: 20px; }
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-medium);
+    margin: 0;
+  }
+}

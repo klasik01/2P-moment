@@ -1,0 +1,48 @@
+/**
+ * Global stylesheet entry. Order matters – tokens first, then base, then
+ * blocks, then responsive overrides. Keep all @imports in cascade order so
+ * the resulting stylesheet behaves identically to the old monolith.
+ */
+
+/* Design tokens */
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/radii.css";
+@import "./tokens/shadows.css";
+@import "./tokens/motion.css";
+
+/* Base */
+@import "./base/reset.css";
+@import "./base/elements.css";
+@import "./base/layout.css";
+
+/* UI primitives */
+@import "./blocks/section-heading.css";
+@import "./blocks/buttons.css";
+
+/* Navigation */
+@import "./blocks/navbar.css";
+
+/* Home page sections */
+@import "./blocks/hero.css";
+@import "./blocks/trust-bar.css";
+@import "./blocks/services.css";
+@import "./blocks/about.css";
+@import "./blocks/projects.css";
+@import "./blocks/diary.css";
+@import "./blocks/faq.css";
+@import "./blocks/contact.css";
+@import "./blocks/forms.css";
+@import "./blocks/footer.css";
+
+/* Overlays */
+@import "./blocks/project-modal.css";
+@import "./blocks/promo-popup.css";
+@import "./blocks/cookie-banner.css";
+
+/* Lifecycle states */
+@import "./blocks/loading.css";
+
+/* Responsive breakpoints (always last) */
+@import "./responsive/tablet.css";
+@import "./responsive/mobile.css";

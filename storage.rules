@@ -1,0 +1,28 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ─── Helper ───────────────────────────────────────────────────────────
+    function isAdmin() {
+      return request.auth != null;
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/(jpeg|jpg|png|webp|gif)');
+    }
+
+    function isReasonableSize() {
+      // max 8 MB
+      return request.resource.size < 8 * 1024 * 1024;
+    }
+
+    // ─── Obrázky spravované adminem ───────────────────────────────────────
+    // Složky: room/, surroundings/, fishing/, apiary/, ...
+    match /hive-house/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && isImage() && isReasonableSize();
+      allow delete: if isAdmin();
+    }
+
+  }
+}

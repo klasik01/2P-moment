@@ -1,0 +1,58 @@
+// =============================================================
+// HONEYCOMB — sdílené dekorativní pozadí s plástvovým vzorem.
+// Použití:
+//   .my-section {
+//     @include honeycomb-bg;            // jemný pattern přes celou sekci
+//   }
+//   .my-section { @include honeycomb-corners($honey, $amber); } // velké hexy v rozích
+//
+// Celý pattern je čistě CSS (repeating gradient na clip-path
+// není potřeba — SVG jako data URI je nejlevnější pro výkon).
+// =============================================================
+
+// Opakující se plástvový vzor jako inline SVG. Barva je zakódovaná
+// do data URI → hex kód (bez #). Pattern je velmi jemný (opacity v alfa).
+@function honeycomb-svg($color, $alpha) {
+  $hex: $color; // očekáváme hex bez #
+  // dvojřadé hexagony: každý o výšce 28 px, šířce 32 px
+  @return "data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='56' height='48' viewBox='0 0 56 48'>\
+<g fill='none' stroke='%23#{$hex}' stroke-opacity='#{$alpha}' stroke-width='1'>\
+<polygon points='14,1 27,1 34,12 27,24 14,24 7,12'/>\
+<polygon points='42,1 55,1 55,12 42,24 35,12 42,1'/>\
+<polygon points='14,25 27,25 34,36 27,47 14,47 7,36'/>\
+</g></svg>";
+}
+
+// Jemný pattern přes celý element (za obsahem)
+@mixin honeycomb-bg($color: "D4881A", $alpha: 0.07, $opacity: 1) {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute; inset: 0;
+    z-index: 0;
+    background-image: url("#{honeycomb-svg($color, $alpha)}");
+    background-repeat: repeat;
+    background-size: 56px 48px;
+    pointer-events: none;
+    opacity: $opacity;
+  }
+
+  // Obsah musí mít vyšší z-index než pattern
+  > .container,
+  > * { position: relative; z-index: 1; }
+}
+
+// Velké dekorativní hexy v rozích (jako v Hero/About)
+@mixin honeycomb-corners {
+  .honeycomb-corner {
+    position: absolute;
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    pointer-events: none;
+    opacity: 0.07;
+    z-index: 0;
+  }
+  .honeycomb-corner-tl { top: -40px;  left: -60px;  width: 240px; height: 240px; background: var(--honey); }
+  .honeycomb-corner-br { bottom: -60px; right: -70px; width: 300px; height: 300px; background: var(--amber); opacity: 0.06; }
+}

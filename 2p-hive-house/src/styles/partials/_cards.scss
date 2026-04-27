@@ -1,0 +1,80 @@
+@use "tokens" as *;
+
+// =============================================================
+// Sdílené mixiny pro karty a dekorativní hexy.
+// =============================================================
+
+/// Standardní „honey card" — bílá karta s medovým proužkem nahoře.
+/// Použití: `@include honey-card;`
+@mixin honey-card {
+  position: relative;
+  background: $card-bg;
+  border: 1px solid rgba(245, 166, 35, 0.15);
+  border-radius: $radius-md;
+  padding: 32px 26px 28px;
+  box-shadow: $shadow-card-sm;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: $card-top-stripe;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-card-hover;
+    border-color: rgba(245, 166, 35, 0.35);
+  }
+}
+
+/// Ikonový badge uvnitř honey karty. Hover efekt si musí zařídit parent
+/// (používej `&:hover .honey-card-icon { ... }`).
+@mixin honey-card-icon {
+  width: 58px; height: 58px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, rgba(245, 166, 35, 0.18) 0%, rgba(255, 209, 102, 0.06) 100%);
+  border: 1px solid rgba(245, 166, 35, 0.28);
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--honey-dark);
+  transition: transform .4s ease, background .4s ease, color .4s ease;
+}
+
+/// Aktivní stav `honey-card-icon` (na hover rodičovské karty).
+@mixin honey-card-icon-active {
+  transform: rotate(-6deg) scale(1.06);
+  background: linear-gradient(135deg, var(--honey) 0%, var(--amber) 100%);
+  border-color: var(--honey-dark);
+  color: var(--white);
+}
+
+// =============================================================
+// Hexagonální dekorace v rozích (stejný pattern jako .about-section-bg
+// a .fishing-about-bg). Vytvoří dva velké pozadí-only hexy v rozích.
+//
+// HTML:
+//   <div class="hex-bg" aria-hidden="true">
+//     <span class="hex hex-a" /><span class="hex hex-b" />
+//   </div>
+// Obsah sekce pak musí mít vyšší z-index (používáme `.container` {position:relative; z-index:2;}).
+// =============================================================
+
+@mixin hex-decor-bg {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  .hex {
+    position: absolute;
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    opacity: 0.07;
+  }
+  .hex-a { top: -40px;  right: -60px;  width: 240px; height: 240px; background: var(--honey); }
+  .hex-b { bottom: -80px; left: -70px;  width: 300px; height: 300px; background: var(--amber); opacity: 0.06; }
+}

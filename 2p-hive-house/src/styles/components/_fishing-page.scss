@@ -1,0 +1,82 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+@use "../partials/honeycomb" as *;
+@use "../partials/tokens" as *;
+@use "../partials/cards" as *;
+
+// ============================================================
+// RYBAŘENÍ — mobile-first, stejný vizuální jazyk jako ostatní stránky.
+// Hero je sdílený přes <PageHero />. CTA band využívá <FishingCtaBand />.
+// Karty a hex dekorace používají sdílené mixiny z partials/_cards.scss.
+// ============================================================
+
+.fishing-page {
+  position: relative;
+  padding-bottom: 96px;
+  background: cream-bg(0.15);
+  @include honeycomb-bg("D4881A", 0.05);
+}
+
+// ---- INFO (editorial + karty) -------------------------------
+.fishing-about {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  @include honeycomb-bg("D4881A", 0.06);
+}
+
+.fishing-about-bg { @include hex-decor-bg; }
+
+.fishing-about .container { position: relative; z-index: 2; }
+
+.fishing-about-head {
+  max-width: 820px;
+  margin: 0 auto 48px;
+  text-align: center;
+
+  .section-eyebrow { justify-content: center; }
+
+  // .big-title styl je globální (viz partials/_typography.scss)
+}
+
+.fishing-about-lead {
+  font-family: $font-body;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-medium);
+  margin: 0 auto;
+  max-width: 60ch;
+  @include md { font-size: 18px; }
+}
+
+.fishing-about-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+}
+
+// Sdílené honey-card / honey-card-icon mixiny
+.fishing-about-card      { @include honey-card; }
+.fishing-about-card-icon { @include honey-card-icon; }
+.fishing-about-card:hover .fishing-about-card-icon { @include honey-card-icon-active; }
+
+.fishing-about-card-title {
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-dark);
+  margin: 0 0 10px;
+
+  @include md { font-size: 22px; }
+}
+
+.fishing-about-card-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-medium);
+  margin: 0;
+}

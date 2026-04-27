@@ -1,0 +1,4 @@
+# Netlify SPA fallback (also honored by many static hosts).
+# Redundant with netlify.toml – kept here as a belt-and-suspenders guarantee
+# that deep links always resolve to the React shell.
+/*    /index.html   200

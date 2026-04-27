@@ -1,0 +1,97 @@
+// ============================================================
+// LAYOUT — reset, container, section padding, utility třídy,
+// tlačítka a sdílené UI primitivy. Pouze strukturální.
+// ============================================================
+
+@use "breakpoints" as *;
+@use "typography" as *;
+
+// --- Reset ---
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+img, svg, video { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; background: none; border: 0; cursor: pointer; color: inherit; }
+
+body {
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+body.modal-open { overflow: hidden; }
+
+// --- Container ---
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  @include md { padding: 0 24px; }
+}
+
+// --- Sections ---
+.section-pad     { padding: 56px 0; @include md { padding: 96px 0; } }
+.section-pad-sm  { padding: 40px 0; @include md { padding: 64px 0; } }
+
+// --- Tlačítka ---
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 9999px;
+  font-family: $font-display;
+  font-weight: $fw-semibold;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+  &:active { transform: translateY(1px); }
+}
+
+.btn-primary {
+  background: var(--honey);
+  color: var(--dark);
+  box-shadow: 0 8px 24px rgba(245, 166, 35, 0.28);
+  &:hover { background: var(--honey-dark); color: var(--white); }
+}
+
+.btn-outline-honey {
+  background: transparent;
+  color: var(--honey-dark);
+  border: 2px solid var(--honey-dark);
+  &:hover { background: var(--honey); color: var(--dark); }
+}
+
+.btn-white {
+  background: var(--white);
+  color: var(--dark);
+  &:hover { background: var(--sunlight, #FFF8E7); }
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-dark);
+  border: 2px solid rgba(44, 36, 16, 0.15);
+  &:hover { border-color: var(--text-dark); background: rgba(0,0,0,0.04); }
+}
+
+// --- Utility ---
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+// --- Reveal animace ---
+.reveal, .reveal-left, .reveal-right {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+  &.visible { opacity: 1; transform: none; }
+}
+.reveal-left  { transform: translateX(-20px); }
+.reveal-right { transform: translateX(20px); }

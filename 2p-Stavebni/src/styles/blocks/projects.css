@@ -1,0 +1,95 @@
+/* Projects section (dark). */
+.projects-header {
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto auto;
+  gap: 16px;
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  cursor: pointer;
+  background: var(--dark-3);
+  border: none;
+  text-align: left;
+}
+
+.project-card.is-featured { grid-column: span 2; }
+.project-card:nth-child(4) { grid-column: span 2; }
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+  transition: transform var(--transition-slow), filter var(--transition-slow);
+  filter: brightness(.85);
+}
+
+.project-card.is-featured .project-img { min-height: 380px; }
+.project-card:hover .project-img { transform: scale(1.07); filter: brightness(.7); }
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, .8) 0%, transparent 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+}
+
+.project-cat {
+  font-family: var(--font-head);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .3s ease .1s, transform .3s ease .1s;
+}
+
+.project-cat.static { opacity: 1; transform: none; }
+
+.project-title {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+  text-transform: uppercase;
+  transform: translateY(6px);
+  transition: transform .3s ease;
+}
+
+.project-arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: var(--red);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.project-card:hover .project-cat { opacity: 1; transform: none; }
+.project-card:hover .project-title { transform: none; }
+.project-card:hover .project-arrow { opacity: 1; transform: scale(1); }

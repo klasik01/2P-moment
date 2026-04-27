@@ -1,0 +1,45 @@
+/* Full-screen loading state shown while content is hydrating from the backend. */
+.loading-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(235, 28, 36, .16), transparent 30%),
+    linear-gradient(180deg, #f7f7f7 0%, #efefef 100%);
+  color: var(--dark);
+}
+
+.loading-state {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.loading-card {
+  width: min(520px, 100%);
+  border-radius: 24px;
+  padding: 40px;
+  background: rgba(255, 255, 255, .96);
+  border: 1px solid var(--overlay-soft);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .08);
+  text-align: center;
+}
+
+.loading-card h1 {
+  font-family: var(--font-head);
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 18px 0 8px;
+}
+
+.loading-card p {
+  font-size: 15px;
+  color: var(--text-subtle);
+  line-height: 1.6;
+}
+
+.loading-card .hero-brand-logo {
+  width: 160px;
+  margin: 0 auto 16px;
+}

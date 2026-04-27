@@ -1,0 +1,71 @@
+/* Main content sections share padding + bg utilities here. */
+.services, .about, .projects, .contact { padding: 100px 0; }
+.services, .contact { background: var(--gray-light); }
+.about { background: var(--white); }
+.projects { background: var(--dark); }
+
+.services-header,
+.about-inner,
+.contact-grid,
+.footer-top { display: grid; }
+
+.services-header {
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 64px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.service-card {
+  background: var(--white);
+  padding: 44px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--red);
+  transition: width .4s ease;
+}
+
+.service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-elevated); z-index: 1; }
+.service-card:hover::before { width: 100%; }
+
+.service-icon {
+  width: 52px;
+  height: 52px;
+  background: var(--red);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: var(--white);
+}
+
+.service-num {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-family: var(--font-head);
+  font-size: 52px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, .04);
+  line-height: 1;
+}
+
+.service-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 14px; color: var(--dark); }
+.service-card p { font-size: 14px; line-height: 1.7; color: var(--text-subtle); }

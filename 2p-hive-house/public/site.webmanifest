@@ -1,0 +1,14 @@
+{
+  "name": "Hive House",
+  "short_name": "Hive House",
+  "description": "Glamping se včelami v Hojanovicích na Vysočině",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#F5A623",
+  "lang": "cs-CZ",
+  "icons": [
+    { "src": "/logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

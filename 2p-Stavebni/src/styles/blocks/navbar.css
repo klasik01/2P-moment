@@ -1,0 +1,102 @@
+/* Top navigation bar. */
+.navbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
+  padding: 20px 0;
+}
+
+.navbar.scrolled {
+  background: var(--dark);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, .3);
+  padding: 12px 0;
+}
+
+.navbar-inner,
+.navbar-nav,
+.hero-actions,
+.hero-stats,
+.trust-bar-inner,
+.projects-header,
+.diary-inner,
+.footer-bottom,
+.footer-social { display: flex; }
+
+.navbar-inner { align-items: center; justify-content: space-between; }
+
+.navbar-logo { display: flex; align-items: center; gap: 12px; }
+.navbar-logo img { height: 44px; width: auto; filter: brightness(10); }
+
+.logo-fallback {
+  display: none;
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.logo-fallback span { color: var(--red); }
+
+.navbar-nav { align-items: center; gap: 36px; list-style: none; }
+
+.navbar-nav a {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .85);
+  transition: color var(--transition);
+  position: relative;
+}
+
+.navbar-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--red);
+  transition: width var(--transition);
+}
+
+.navbar-nav a:hover { color: var(--white); }
+.navbar-nav a:hover::after { width: 100%; }
+
+.navbar-cta {
+  background: var(--red);
+  color: var(--white) !important;
+  padding: 8px 20px;
+  border-radius: var(--radius);
+}
+.navbar-cta::after { display: none !important; }
+.navbar-cta:hover { background: var(--red-dark) !important; }
+
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+}
+
+/* Scroll-spy active state on nav links. */
+.navbar-nav a.active {
+  color: var(--white);
+}
+
+.navbar-nav a.active::after {
+  width: 100%;
+}
+
+/* CTA button stays visually distinct even when active. */
+.navbar-nav a.navbar-cta.active {
+  background: var(--red-dark);
+}
+
+.navbar-nav a.navbar-cta.active::after {
+  display: none;
+}

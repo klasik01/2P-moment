@@ -1,0 +1,13 @@
+/* Tablet and smaller-laptop layout adjustments. */
+@media (max-width: 1024px) {
+  .services-grid,
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .project-card.is-featured,
+  .project-card:nth-child(4) { grid-column: span 1; }
+
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: span 2; }
+
+  .project-modal { grid-template-columns: 1fr; }
+}

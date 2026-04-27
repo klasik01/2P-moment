@@ -1,0 +1,127 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+@use "../partials/honeycomb" as *;
+
+// Sekce Apiterapie — bílé pozadí s jemným plástvovým patternem
+.apitherapy-section {
+  background: var(--white);
+  overflow: hidden;
+  @include honeycomb-bg("D4881A", 0.05);
+}
+
+.hook-grid {
+  display: grid;
+  gap: 28px;
+  @include lg {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+  }
+}
+
+// --- Nadpis sekce ---
+.apitherapy-title {
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin-bottom: 24px;
+  em { font-style: normal; color: var(--honey-dark); }
+}
+
+// --- Body text ---
+.apitherapy-text {
+  font-family: $font-body;
+  color: var(--text-medium);
+  line-height: 1.85;
+  margin-bottom: 18px;
+  max-width: 640px;
+}
+.apitherapy-text-lead { font-size: 16px; }
+.apitherapy-text:last-of-type { margin-bottom: 28px; font-size: 15px; line-height: 1.8; }
+
+// --- Benefit cards ---
+.apitherapy-benefits {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 28px;
+  @include sm { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.apitherapy-benefit-card {
+  background: var(--sunlight, #FFF8E7);
+  border: 1px solid rgba(245, 166, 35, 0.12);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+
+  &:hover {
+    box-shadow: 0 8px 32px rgba(245, 166, 35, 0.20);
+    transform: translateY(-2px);
+    border-color: rgba(245, 166, 35, 0.3);
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-medium);
+    margin: 0;
+  }
+}
+
+.apitherapy-benefit-icon {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(245, 166, 35, 0.18) 0%, rgba(255, 209, 102, 0.08) 100%);
+  border: 1px solid rgba(245, 166, 35, 0.25);
+  border-radius: 14px;
+  color: var(--honey-dark);
+  flex-shrink: 0;
+  transition: transform .3s ease, background .3s ease, border-color .3s ease;
+}
+.apitherapy-benefit-card:hover .apitherapy-benefit-icon {
+  transform: scale(1.08) rotate(-4deg);
+  background: linear-gradient(135deg, var(--honey) 0%, var(--amber) 100%);
+  border-color: var(--honey-dark);
+  color: var(--white);
+}
+
+// --- CTA řádek ---
+.apitherapy-actions {
+  display: flex; flex-direction: column; gap: 12px;
+  @include sm { flex-direction: row; }
+}
+
+// --- Vizuál vpravo ---
+.hook-visual {
+  display: grid; gap: 14px;
+}
+.hook-visual-main,
+.hook-visual-stack img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.hook-visual-main { height: 340px; }
+.hook-visual-stack {
+  display: grid; gap: 14px;
+  @include sm { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  img { height: 180px; }
+}
+
+// --- Sidebar varianta benefitů (místo fotek v pravém sloupci) ---
+.apitherapy-benefits--sidebar {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+  margin-bottom: 0;
+  @include lg {
+    align-self: start;
+  }
+}

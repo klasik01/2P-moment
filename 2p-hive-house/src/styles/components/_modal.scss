@@ -1,0 +1,258 @@
+@use "../partials/breakpoints" as *;
+
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.55);
+  // Vyšší než navbar (1000). Konzistentní s article-modal-backdrop.
+  z-index: 1200;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+  animation: fadeIn .25s ease;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 520px; width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  padding: 28px;
+  position: relative;
+  animation: slideUp .3s ease;
+  @include md { padding: 36px; }
+}
+
+.modal-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 36px; height: 36px; border-radius: 9999px;
+  background: var(--cream);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700;
+  color: var(--dark);
+  &:hover { background: var(--honey); }
+}
+
+.modal-title { margin: 0 0 10px; }
+.modal-desc { color: var(--text-medium); margin: 0 0 20px; font-size: 15px; line-height: 1.6; }
+
+.modal-placeholder {
+  padding: 20px;
+  border: 2px dashed var(--honey);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--text-medium);
+  font-size: 14px;
+  background: var(--sunlight, #FFF8E7);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+// ---- Construction modal ----
+.construction-modal-backdrop {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(20, 12, 2, 0.72);
+}
+
+.construction-modal {
+  text-align: center;
+  max-width: 480px;
+}
+
+.construction-modal-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.construction-modal-logo-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 14px;
+  @include md { width: 76px; height: 76px; }
+}
+
+.construction-modal-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 14px 20px;
+  background: var(--sunlight, #FFF8E7);
+  border: 1px solid rgba(245, 166, 35, 0.2);
+  border-radius: 14px;
+}
+
+.construction-modal-date-label {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--honey-dark, #B8741A);
+  padding: 4px 12px;
+  background: var(--honey);
+  color: var(--white);
+  border-radius: 9999px;
+}
+
+.construction-modal-date-value {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-dark);
+  @include md { font-size: 22px; }
+}
+
+.construction-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.construction-modal-input {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 15px;
+  border: 2px solid rgba(245, 166, 35, 0.3);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color .2s ease;
+
+  &:focus { border-color: var(--honey); }
+  &::placeholder { color: rgba(0, 0, 0, 0.35); }
+}
+
+.construction-modal-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.construction-modal-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 14px;
+  font-weight: 600;
+  color: #2e7d32;
+  font-size: 15px;
+
+  span {
+    width: 28px; height: 28px;
+    border-radius: 9999px;
+    background: #2e7d32;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+}
+
+.construction-modal-error {
+  color: #c62828;
+  font-size: 13px;
+  margin: 0;
+  text-align: center;
+}
+
+// ---- Legal modal (obchodní podmínky / GDPR / cookies) ----
+.legal-modal-backdrop {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: rgba(20, 12, 2, 0.55);
+}
+
+.legal-modal {
+  max-width: 760px;
+  padding: 28px 24px;
+  @include md { padding: 40px 44px; }
+}
+
+.legal-modal-header {
+  margin: 0 30px 18px 0; // nedo touching close button
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border, #E2E8F0);
+}
+
+.legal-modal-title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--dark);
+  @include md { font-size: 28px; }
+}
+
+.legal-modal-subtitle {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: var(--text-medium);
+  line-height: 1.5;
+}
+
+.legal-modal-updated {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--text-medium);
+  opacity: 0.75;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.legal-modal-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--dark);
+  @include md { font-size: 15px; }
+}
+
+.legal-modal-section {
+  margin: 0 0 18px;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.legal-modal-section-title {
+  margin: 18px 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--honey-dark, #B8841E);
+  letter-spacing: 0.01em;
+
+  &:first-child { margin-top: 0; }
+
+  @include md { font-size: 16px; }
+}
+
+.legal-modal-paragraph {
+  margin: 0 0 10px;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.legal-modal-list {
+  margin: 4px 0 12px 20px;
+  padding: 0;
+
+  li {
+    margin-bottom: 6px;
+    padding-left: 4px;
+
+    &:last-child { margin-bottom: 0; }
+  }
+}
+
+.legal-modal-list-ordered {
+  list-style: decimal;
+}
+
+ul.legal-modal-list:not(.legal-modal-list-ordered) {
+  list-style: disc;
+}

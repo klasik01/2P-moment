@@ -1,0 +1,61 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+@use "../partials/honeycomb" as *;
+
+// ============================================================
+// REZERVACE — full-bleed hero (obrázek jako pozadí + overlay)
+// + embed panel, který se negativním margin-top překrývá nahoru
+// do obrázku ("hustý" efekt).
+// ============================================================
+
+.reservation-page {
+  position: relative;
+  padding-bottom: 96px;
+  background:
+    radial-gradient(ellipse at top, rgba(255, 209, 102, 0.15) 0%, transparent 55%),
+    linear-gradient(180deg, #FDF4E3 0%, #F7EDD8 100%);
+  @include honeycomb-bg("D4881A", 0.05);
+}
+
+// Hero je sdílený přes <PageHero /> a CSS `_page-hero.scss`.
+
+// ---- EMBED PANEL --------------------------------------------
+.reservation-embed-wrap {
+  position: relative;
+  overflow: hidden;
+  margin-top: 48px;            // panel sedí hezky pod hero bannerem
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow:
+    0 40px 80px rgba(40, 20, 0, 0.18),
+    0 8px 20px rgba(40, 20, 0, 0.08);
+  border: 1px solid rgba(212, 136, 26, 0.18);
+  @include honeycomb-bg("D4881A", 0.05);
+
+  @include md { margin-top: 64px; padding: 32px; }
+
+  @media (max-width: 767px) {
+    padding: 18px;
+    border-radius: 20px;
+  }
+}
+
+.reservation-embed {
+  width: 100%;
+  min-height: 640px;
+
+  > iframe,
+  iframe {
+    width: 100%;
+    min-height: 640px;
+    border: 0;
+    display: block;
+  }
+
+  @media (max-width: 767px) {
+    min-height: 540px;
+    > iframe,
+    iframe { min-height: 540px; }
+  }
+}

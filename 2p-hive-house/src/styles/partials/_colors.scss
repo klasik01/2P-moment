@@ -1,0 +1,50 @@
+// ============================================================
+// BARVY — jediný zdroj pravdy pro barevnou paletu.
+// Přidávej sem všechny hex kódy / rgba.
+// ============================================================
+
+// Medová / sunny bee
+$honey:          #F5A623;
+$honey-dark:     #D4881A;
+$honey-light:    #FFD166;
+$amber:          #E8942A;
+$amber-dark:     #C46018;
+
+// Teplé světlé podklady
+$sunlight:       #FFF8E7;
+$cream:          #FDF4E3;
+$cream-2:        #F7EDD8;
+$sand:           #EFE0C4;
+
+$white:          #FFFFFF;
+$black:          #000000;
+
+// Tmavá paleta (text, footer)
+$dark:           #2C2410;
+$dark-2:         #3D3220;
+$dark-3:         #5C4A2A;
+
+// Texty
+$text-dark:      #2C2410;
+$text-medium:    #5C4A2A;
+$text-muted:     #8B7A5E;
+$text-light:     rgba(255, 255, 255, 0.92);
+
+// Stavové
+$danger:         #C0392B;
+$success:        #2E7D32;
+
+// CSS proměnné vystavené na :root
+:root {
+  --honey: #{$honey};
+  --honey-dark: #{$honey-dark};
+  --honey-light: #{$honey-light};
+  --amber: #{$amber};
+  --cream: #{$cream};
+  --sunlight: #{$sunlight};
+  --dark: #{$dark};
+  --text-dark: #{$text-dark};
+  --text-medium: #{$text-medium};
+  --text-muted: #{$text-muted};
+  --white: #{$white};
+}

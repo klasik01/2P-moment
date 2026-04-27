@@ -1,19 +1,1391 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cs">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2P Moment — Administrace</title>
-    <meta name="robots" content="noindex, nofollow" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hive House – Glamping na Vysočině | 2P Moment</title>
+  <meta name="description" content="Unikátní glamping ubytování u rybníka na Vysočině. Hive House – místo klidu, přírody a nezapomenutelných zážitků. Rezervujte termín ještě dnes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; color: #2C2410; background: #fff; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== VARIABLES ===== */
+    :root {
+      --orange:      #E87C2A;
+      --orange-dark: #C46018;
+      --orange-lt:   #F5A04E;
+      --amber:       #F0B429;
+      --amber-lt:    #FCD06B;
+      --brown:       #6B3F1C;
+      --td:          #2C2410;
+      --tm:          #5C4A2A;
+      --tl:          #9C8060;
+      --white:       #FFFFFF;
+      --cream:       #FFFBF5;
+      --warm:        #FDF6EC;
+      --sand:        #F7EDD8;
+      --border:      #EDD9B8;
+      --r:           16px;
+      --sh:          0 4px 24px rgba(107,63,28,.10);
+      --sh-lg:       0 20px 70px rgba(107,63,28,.16);
+      --ease:        cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ===== TYPE ===== */
+    h1,h2,h3,h4 { font-family:'Cormorant Garamond',serif; font-weight:400; line-height:1.12; color:var(--td); }
+    h1 { font-size:clamp(3rem,6vw,5.8rem); }
+    h2 { font-size:clamp(2rem,4vw,3.4rem); }
+    h3 { font-size:clamp(1.35rem,2.5vw,1.9rem); }
+    p  { line-height:1.75; color:var(--tm); }
+    .container { max-width:1160px; margin:0 auto; padding:0 32px; }
+    .label {
+      display:block; font-size:.70rem; font-weight:700; letter-spacing:.20em;
+      text-transform:uppercase; color:var(--orange); margin-bottom:12px;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display:inline-flex; align-items:center; gap:8px; padding:15px 34px;
+      border-radius:50px; font-family:'Inter',sans-serif; font-size:.84rem;
+      font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+      cursor:pointer; transition:all .3s var(--ease); border:none;
+    }
+    .btn-orange { background:var(--orange); color:#fff; box-shadow:0 4px 20px rgba(232,124,42,.30); }
+    .btn-orange:hover { background:var(--orange-dark); transform:translateY(-2px); box-shadow:0 8px 32px rgba(232,124,42,.42); }
+    .btn-outline { background:transparent; color:var(--orange); border:2px solid var(--orange); }
+    .btn-outline:hover { background:var(--orange); color:#fff; transform:translateY(-2px); }
+    .btn-white { background:#fff; color:var(--orange-dark); box-shadow:0 4px 20px rgba(0,0,0,.12); }
+    .btn-white:hover { background:var(--warm); transform:translateY(-2px); }
+    .btn-amber { background:var(--amber); color:var(--td); }
+    .btn-amber:hover { background:var(--amber-lt); transform:translateY(-2px); }
+    .btn-ghost { background:rgba(255,255,255,.15); color:#fff; border:1.5px solid rgba(255,255,255,.5); backdrop-filter:blur(8px); }
+    .btn-ghost:hover { background:rgba(255,255,255,.28); border-color:#fff; transform:translateY(-2px); }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      padding:20px 0; transition:all .35s var(--ease);
+    }
+    .navbar.scrolled {
+      background:rgba(255,255,255,.97); backdrop-filter:blur(20px);
+      padding:13px 0; box-shadow:0 2px 20px rgba(107,63,28,.08);
+      border-bottom:1px solid var(--border);
+    }
+    .navbar-inner {
+      display:flex; align-items:center; justify-content:space-between;
+      max-width:1160px; margin:0 auto; padding:0 32px;
+    }
+    .logo { display:flex; align-items:center; gap:11px; }
+    .logo-icon {
+      width:44px; height:44px;
+      background:linear-gradient(135deg,var(--amber),var(--orange));
+      border-radius:11px; display:flex; align-items:center; justify-content:center;
+      font-size:1.3rem; box-shadow:0 4px 14px rgba(232,124,42,.32);
+    }
+    .logo-text strong {
+      display:block; font-family:'Cormorant Garamond',serif;
+      font-size:1.25rem; font-weight:600; color:var(--td); line-height:1;
+    }
+    .logo-text span { font-size:.62rem; letter-spacing:.13em; text-transform:uppercase; color:var(--tl); }
+    .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+    .nav-links a { font-size:.83rem; font-weight:500; color:var(--td); transition:color .25s; position:relative; }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-3px; left:0; right:0;
+      height:2px; background:var(--orange); border-radius:2px;
+      transform:scaleX(0); transform-origin:left; transition:transform .28s var(--ease);
+    }
+    .nav-links a:hover { color:var(--orange); }
+    .nav-links a:hover::after { transform:scaleX(1); }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .hamburger span { width:24px; height:2px; background:var(--td); border-radius:2px; transition:all .28s; }
+    .mobile-menu {
+      display:none; position:fixed; inset:0; z-index:999; background:#fff;
+      padding:100px 40px 40px; flex-direction:column;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu ul { list-style:none; display:flex; flex-direction:column; gap:22px; }
+    .mobile-menu ul a { font-family:'Cormorant Garamond',serif; font-size:2.2rem; color:var(--td); }
+    .mobile-menu ul a:hover { color:var(--orange); }
+    .mobile-close { position:absolute; top:24px; right:32px; background:none; border:none; font-size:1.6rem; cursor:pointer; color:var(--td); }
+
+    /* =====================================================================
+       HERO — redesigned
+    ===================================================================== */
+    .hero {
+      position:relative; min-height:100vh;
+      display:grid; place-items:center;
+      overflow:hidden;
+    }
+
+    /* Slideshow background */
+    .hero-slides { position:absolute; inset:0; }
+    .hero-slide {
+      position:absolute; inset:0;
+      background-size:cover; background-position:center;
+      opacity:0; transition:opacity 1.4s ease;
+    }
+    .hero-slide.active { opacity:1; }
+    .hero-slide::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(
+        155deg,
+        rgba(255,251,240,.80) 0%,
+        rgba(255,245,225,.55) 40%,
+        rgba(240,180,41,.08)  100%
+      );
+    }
+
+    /* Diagonal amber accent strip */
+    .hero-accent {
+      position:absolute; bottom:-60px; right:-60px;
+      width:520px; height:520px;
+      background:radial-gradient(circle, rgba(240,180,41,.18) 0%, transparent 70%);
+      pointer-events:none; z-index:1;
+    }
+
+    .hero-content {
+      position:relative; z-index:2;
+      width:100%; max-width:1160px; padding:160px 32px 100px;
+      display:grid; grid-template-columns:1fr 460px; gap:60px; align-items:center;
+    }
+
+    /* Left text block */
+    .hero-text { }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:9px;
+      background:rgba(255,255,255,.82); backdrop-filter:blur(12px);
+      border:1px solid var(--border); border-radius:50px;
+      padding:8px 18px; margin-bottom:28px;
+      font-size:.75rem; font-weight:600; color:var(--brown);
+      letter-spacing:.06em; text-transform:uppercase;
+    }
+    .hero-badge span { color:var(--orange); font-size:1rem; }
+    .hero-text h1 { color:var(--td); font-weight:300; margin-bottom:6px; }
+    .hero-text h1 em { font-style:italic; color:var(--orange); }
+    .hero-sub {
+      font-size:1.12rem; color:var(--tm); line-height:1.8;
+      max-width:500px; margin:20px 0 40px;
+    }
+    .hero-actions { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+    .hero-actions .play-link {
+      display:inline-flex; align-items:center; gap:9px;
+      font-size:.82rem; font-weight:600; color:var(--td);
+      letter-spacing:.05em; transition:color .25s;
+    }
+    .hero-actions .play-link:hover { color:var(--orange); }
+    .hero-actions .play-icon {
+      width:42px; height:42px; border-radius:50%;
+      background:var(--amber); display:flex; align-items:center; justify-content:center;
+      font-size:.9rem; box-shadow:0 4px 16px rgba(240,180,41,.40);
+      transition:transform .28s var(--ease);
+    }
+    .hero-actions .play-link:hover .play-icon { transform:scale(1.12); }
+
+    /* Right floating panel */
+    .hero-panel {
+      background:rgba(255,255,255,.90); backdrop-filter:blur(20px);
+      border:1px solid var(--border); border-radius:22px;
+      padding:36px 32px; box-shadow:var(--sh-lg);
+    }
+    .hero-panel h3 { font-size:1.55rem; color:var(--td); margin-bottom:22px; }
+    .hero-chips { display:flex; flex-wrap:wrap; gap:9px; margin-bottom:26px; }
+    .chip {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:7px 14px; border-radius:50px;
+      background:var(--warm); border:1px solid var(--border);
+      font-size:.78rem; font-weight:500; color:var(--tm);
+      transition:all .25s;
+    }
+    .chip:hover { background:var(--orange); color:#fff; border-color:var(--orange); }
+    .hero-divider { border:none; border-top:1px solid var(--border); margin:22px 0; }
+    .hero-stat-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+    .h-stat { text-align:center; padding:16px 10px; background:var(--warm); border-radius:12px; border:1px solid var(--border); }
+    .h-stat-n { display:block; font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--orange); line-height:1; }
+    .h-stat-l { font-size:.68rem; color:var(--tl); margin-top:4px; }
+    .hero-cta-mini { margin-top:22px; width:100%; justify-content:center; font-size:.82rem; }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+      z-index:2; display:flex; flex-direction:column; align-items:center; gap:8px;
+      color:var(--tl); font-size:.67rem; letter-spacing:.18em; text-transform:uppercase;
+      animation:scrollBounce 2.2s infinite;
+    }
+    .hero-scroll::before { content:''; width:1px; height:42px; background:linear-gradient(to bottom,transparent,var(--orange)); }
+    @keyframes scrollBounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+
+    /* Slide dots */
+    .hero-dots {
+      position:absolute; bottom:42px; right:48px; z-index:3;
+      display:flex; gap:8px;
+    }
+    .hero-dot {
+      width:8px; height:8px; border-radius:50%;
+      background:var(--border); cursor:pointer; transition:all .3s;
+    }
+    .hero-dot.active { background:var(--orange); width:24px; border-radius:4px; }
+
+    /* ===== STRIP ===== */
+    .strip { background:var(--orange); padding:15px 0; overflow:hidden; }
+    .strip-track { display:flex; animation:marquee 24s linear infinite; white-space:nowrap; }
+    .strip-item {
+      display:inline-flex; align-items:center; gap:10px; padding:0 38px;
+      font-size:.76rem; font-weight:600; letter-spacing:.11em; text-transform:uppercase;
+      color:rgba(255,255,255,.92); flex-shrink:0;
+    }
+    .strip-item::after { content:'✦'; margin-left:10px; font-size:.5rem; opacity:.5; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ===== ABOUT ===== */
+    .about { padding:110px 0; background:#fff; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .about-images { position:relative; height:560px; }
+    .about-img-main { position:absolute; top:0; left:0; width:74%; height:74%; border-radius:var(--r); overflow:hidden; box-shadow:var(--sh-lg); }
+    .about-img-main img { width:100%; height:100%; object-fit:cover; }
+    .about-img-secondary { position:absolute; bottom:0; right:0; width:60%; height:54%; border-radius:var(--r); overflow:hidden; box-shadow:var(--sh-lg); border:5px solid #fff; }
+    .about-img-secondary img { width:100%; height:100%; object-fit:cover; }
+    .about-badge {
+      position:absolute; top:50%; left:62%; transform:translate(-50%,-50%);
+      width:96px; height:96px; border-radius:50%;
+      background:linear-gradient(135deg,var(--amber),var(--orange));
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      font-family:'Cormorant Garamond',serif; font-size:.72rem; font-weight:600;
+      color:#fff; text-align:center; line-height:1.3;
+      box-shadow:0 6px 28px rgba(232,124,42,.40); border:4px solid #fff; z-index:3;
+    }
+    .about-badge strong { font-size:1.9rem; line-height:1; display:block; }
+    .about-text h2 { margin-bottom:20px; }
+    .about-text > p { margin-bottom:28px; font-size:1.03rem; }
+    .about-features { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:38px; }
+    .about-feature {
+      display:flex; align-items:flex-start; gap:11px; padding:14px;
+      background:var(--warm); border-radius:12px; border:1px solid var(--border);
+    }
+    .about-feature-icon {
+      width:34px; height:34px; background:linear-gradient(135deg,var(--amber),var(--orange));
+      border-radius:8px; display:flex; align-items:center; justify-content:center;
+      font-size:.95rem; flex-shrink:0;
+    }
+    .about-feature-text strong { display:block; font-size:.83rem; font-weight:600; color:var(--td); margin-bottom:2px; }
+    .about-feature-text small { font-size:.73rem; color:var(--tl); }
+
+    /* ===== EXPERIENCE ===== */
+    .experience { padding:110px 0; background:var(--cream); }
+    .experience-header { text-align:center; margin-bottom:65px; }
+    .experience-header h2 { margin-bottom:16px; }
+    .experience-header p { max-width:520px; margin:0 auto; font-size:1.02rem; }
+    .experience-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+    .exp-card { background:#fff; border-radius:var(--r); overflow:hidden; border:1px solid var(--border); transition:all .32s var(--ease); box-shadow:var(--sh); }
+    .exp-card:hover { transform:translateY(-7px); box-shadow:var(--sh-lg); border-color:var(--orange-lt); }
+    .exp-card-img { height:210px; overflow:hidden; }
+    .exp-card-img img { width:100%; height:100%; object-fit:cover; transition:transform .55s ease; }
+    .exp-card:hover .exp-card-img img { transform:scale(1.05); }
+    .exp-card-body { padding:26px; }
+    .exp-card-icon { width:46px; height:46px; background:var(--warm); border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:1.35rem; margin-bottom:14px; border:1px solid var(--border); }
+    .exp-card-body h3 { font-size:1.4rem; margin-bottom:9px; }
+    .exp-card-body p { font-size:.88rem; line-height:1.72; }
+
+    /* =====================================================================
+       CARD SECTIONS — with popup trigger buttons
+    ===================================================================== */
+    .card-section { padding:110px 0; }
+    .card-section.bg-white { background:#fff; }
+    .card-section.bg-warm  { background:var(--warm); }
+    .card-section.bg-cream { background:var(--cream); }
+    .section-header { margin-bottom:55px; }
+    .section-header h2 { margin-bottom:14px; }
+    .cards-grid { display:grid; gap:24px; }
+    .cards-grid.cols-3 { grid-template-columns:repeat(3,1fr); }
+    .cards-grid.cols-2 { grid-template-columns:repeat(2,1fr); }
+
+    /* Universal popup card */
+    .popup-card {
+      background:#fff; border-radius:var(--r); overflow:hidden;
+      border:1px solid var(--border); box-shadow:var(--sh);
+      transition:all .32s var(--ease); cursor:pointer; position:relative;
+    }
+    .popup-card:hover { transform:translateY(-6px); box-shadow:var(--sh-lg); border-color:var(--orange-lt); }
+    .popup-card-img { height:220px; overflow:hidden; }
+    .popup-card-img img { width:100%; height:100%; object-fit:cover; transition:transform .55s; }
+    .popup-card:hover .popup-card-img img { transform:scale(1.06); }
+    .popup-card-body { padding:24px 26px; }
+    .popup-card-body h3 { font-size:1.4rem; margin-bottom:8px; }
+    .popup-card-body p { font-size:.86rem; line-height:1.7; margin-bottom:18px; }
+    .popup-card-footer {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 26px; border-top:1px solid var(--border);
+      background:var(--warm);
+    }
+    .popup-card-tags { display:flex; gap:6px; flex-wrap:wrap; }
+    .tag { font-size:.68rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:4px 10px; border-radius:50px; background:var(--sand); color:var(--tm); }
+    .open-popup-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:.76rem; font-weight:600; letter-spacing:.06em;
+      text-transform:uppercase; color:var(--orange); transition:gap .25s;
+      background:none; border:none; cursor:pointer; padding:0;
+    }
+    .open-popup-btn:hover { gap:10px; }
+    .open-popup-btn::after { content:'→'; }
+
+    /* Activity bento grid */
+    .act-bento { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .act-item { border-radius:var(--r); overflow:hidden; position:relative; cursor:pointer; transition:all .32s var(--ease); }
+    .act-item:hover { transform:translateY(-4px); box-shadow:var(--sh-lg); }
+    .act-item:nth-child(1) { grid-column:span 2; }
+    .act-item:nth-child(4) { grid-column:span 2; }
+    .act-img { width:100%; height:200px; object-fit:cover; display:block; }
+    .act-item:nth-child(1) .act-img,
+    .act-item:nth-child(4) .act-img { height:250px; }
+    .act-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(44,36,16,.78) 0%,transparent 55%);
+      padding:20px; display:flex; flex-direction:column; justify-content:flex-end;
+      transition:background .32s;
+    }
+    .act-item:hover .act-overlay { background:linear-gradient(to top,rgba(44,36,16,.90) 0%,rgba(44,36,16,.20) 70%,transparent 100%); }
+    .act-overlay h4 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:500; color:#fff; margin-bottom:3px; }
+    .act-overlay p { font-size:.74rem; color:rgba(255,255,255,.78); }
+    .act-overlay .act-more {
+      display:none; margin-top:12px;
+      font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+      color:var(--amber-lt); align-items:center; gap:5px;
+    }
+    .act-item:hover .act-more { display:flex; }
+
+    /* =====================================================================
+       POPUP / MODAL SYSTEM
+    ===================================================================== */
+    .modal-backdrop {
+      display:none; position:fixed; inset:0; z-index:2000;
+      background:rgba(44,36,16,.55); backdrop-filter:blur(6px);
+      align-items:center; justify-content:center; padding:24px;
+    }
+    .modal-backdrop.open { display:flex; animation:fadeIn .28s ease; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    .modal {
+      background:#fff; border-radius:24px; max-width:820px; width:100%;
+      max-height:90vh; overflow-y:auto; box-shadow:0 30px 100px rgba(44,36,16,.30);
+      animation:slideUp .32s var(--ease);
+      position:relative;
+    }
+    @keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    .modal-hero { position:relative; height:300px; overflow:hidden; border-radius:24px 24px 0 0; }
+    .modal-hero img { width:100%; height:100%; object-fit:cover; }
+    .modal-hero-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(44,36,16,.60) 0%,transparent 60%);
+      display:flex; align-items:flex-end; padding:30px 36px;
+    }
+    .modal-hero-overlay h2 { color:#fff; font-size:2.4rem; }
+    .modal-close {
+      position:absolute; top:20px; right:20px; width:40px; height:40px;
+      border-radius:50%; background:rgba(255,255,255,.92); border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; color:var(--td); box-shadow:var(--sh); transition:all .25s;
+      z-index:1;
+    }
+    .modal-close:hover { background:var(--orange); color:#fff; }
+    .modal-body { padding:36px 36px 40px; }
+    .modal-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+    .modal-chip {
+      padding:6px 14px; border-radius:50px; background:var(--warm);
+      border:1px solid var(--border); font-size:.75rem; font-weight:600;
+      color:var(--tm);
+    }
+    .modal-body > p { font-size:1rem; line-height:1.78; margin-bottom:22px; }
+    .modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px; }
+    .modal-feature {
+      display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+      background:var(--warm); border-radius:12px; border:1px solid var(--border);
+    }
+    .modal-feature-icon { font-size:1.3rem; flex-shrink:0; }
+    .modal-feature-text strong { display:block; font-size:.85rem; font-weight:600; color:var(--td); margin-bottom:3px; }
+    .modal-feature-text small { font-size:.75rem; color:var(--tl); }
+    .modal-cta { margin-top:8px; }
+    .modal-section-title { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--td); margin-bottom:16px; }
+    .modal-list { list-style:none; display:flex; flex-direction:column; gap:9px; margin-bottom:24px; }
+    .modal-list li { display:flex; align-items:center; gap:10px; font-size:.9rem; color:var(--tm); }
+    .modal-list li::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--orange); flex-shrink:0; }
+    .modal-img-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:28px; }
+    .modal-img-row img { width:100%; height:120px; object-fit:cover; border-radius:10px; }
+
+    /* =====================================================================
+       BREAKFAST
+    ===================================================================== */
+    .breakfast { padding:110px 0; background:var(--cream); }
+    .breakfast-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:80px; align-items:center; }
+    .breakfast-img { border-radius:var(--r); overflow:hidden; height:500px; box-shadow:var(--sh-lg); }
+    .breakfast-img img { width:100%; height:100%; object-fit:cover; }
+    .breakfast-text h2 { margin-bottom:18px; }
+    .breakfast-text > p { margin-bottom:30px; font-size:1.03rem; }
+    .menu-items { display:flex; flex-direction:column; gap:11px; margin-bottom:36px; }
+    .menu-item {
+      display:flex; align-items:center; gap:13px; padding:13px 18px;
+      background:#fff; border-radius:10px; font-size:.88rem; font-weight:500;
+      color:var(--td); border:1px solid var(--border); transition:all .25s;
+    }
+    .menu-item:hover { border-color:var(--orange-lt); background:var(--warm); }
+    .menu-item span { font-size:1.25rem; }
+
+    /* =====================================================================
+       REVIEWS
+    ===================================================================== */
+    .reviews { padding:110px 0; background:var(--warm); }
+    .reviews-header { text-align:center; margin-bottom:55px; }
+    .reviews-header h2 { margin-bottom:14px; }
+    .reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .review-card { background:#fff; border-radius:var(--r); padding:32px; border:1px solid var(--border); box-shadow:var(--sh); transition:all .32s var(--ease); }
+    .review-card:hover { box-shadow:var(--sh-lg); transform:translateY(-4px); border-color:var(--orange-lt); }
+    .review-stars { color:var(--amber); font-size:.95rem; letter-spacing:2px; margin-bottom:16px; }
+    .review-text { font-size:.92rem; line-height:1.75; color:var(--tm); margin-bottom:22px; font-style:italic; }
+    .review-author { display:flex; align-items:center; gap:13px; }
+    .review-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--amber),var(--orange)); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Cormorant Garamond',serif; font-size:1.25rem; flex-shrink:0; }
+    .review-author-info strong { display:block; font-size:.86rem; color:var(--td); font-weight:600; }
+    .review-author-info small { font-size:.73rem; color:var(--tl); }
+
+    /* =====================================================================
+       BOOKING — external tool
+    ===================================================================== */
+    .booking { padding:110px 0; background:#fff; }
+    .booking-wrap {
+      background:linear-gradient(155deg,var(--warm) 0%,var(--sand) 100%);
+      border-radius:28px; border:1px solid var(--border); overflow:hidden;
+      box-shadow:var(--sh-lg);
+    }
+    .booking-header {
+      background:linear-gradient(135deg,var(--orange) 0%,var(--orange-dark) 100%);
+      padding:55px 60px 50px; position:relative; overflow:hidden;
+    }
+    .booking-header::before { content:'🐝'; position:absolute; bottom:-20px; right:30px; font-size:9rem; opacity:.08; line-height:1; }
+    .booking-header .label { color:rgba(255,255,255,.75); }
+    .booking-header h2 { color:#fff; margin-bottom:14px; }
+    .booking-header p { color:rgba(255,255,255,.82); font-size:1.05rem; max-width:600px; }
+    .booking-contacts {
+      display:flex; gap:40px; flex-wrap:wrap; margin-top:32px;
+    }
+    .booking-contact-item { display:flex; align-items:center; gap:11px; color:rgba(255,255,255,.90); font-size:.88rem; }
+    .booking-contact-item > span:first-child { font-size:1rem; }
+    .booking-contact-item a { color:inherit; }
+
+    /* The external tool embed area */
+    .booking-tool-wrap {
+      padding:50px 60px 55px;
+      min-height:320px;
+    }
+    .booking-tool-placeholder {
+      border:2px dashed var(--border); border-radius:16px;
+      padding:60px 40px; text-align:center;
+      background:rgba(255,255,255,.7);
+    }
+    .booking-tool-placeholder .ph-icon { font-size:2.8rem; margin-bottom:16px; }
+    .booking-tool-placeholder h3 { font-size:1.7rem; color:var(--td); margin-bottom:10px; }
+    .booking-tool-placeholder p { color:var(--tm); max-width:420px; margin:0 auto 24px; font-size:.9rem; }
+    .booking-tool-placeholder code {
+      display:block; background:var(--sand); border-radius:8px; padding:12px 18px;
+      font-family:monospace; font-size:.82rem; color:var(--brown);
+      margin:0 auto; max-width:400px; text-align:left;
+    }
+
+    /* ===== NEWSLETTER ===== */
+    .newsletter { background:linear-gradient(135deg,var(--amber) 0%,var(--orange-lt) 100%); padding:70px 0; }
+    .newsletter-inner { display:flex; align-items:center; justify-content:space-between; gap:40px; }
+    .newsletter-text h3 { font-size:2.1rem; color:var(--td); margin-bottom:7px; }
+    .newsletter-text p { color:var(--brown); font-size:.93rem; }
+    .newsletter-form { display:flex; gap:11px; flex-shrink:0; }
+    .newsletter-input { padding:14px 22px; border:none; border-radius:50px; font-family:'Inter',sans-serif; font-size:.88rem; width:300px; outline:none; background:rgba(255,255,255,.85); color:var(--td); }
+    .newsletter-input:focus { background:#fff; }
+    .newsletter-btn { background:var(--td); color:#fff; border:none; padding:14px 28px; border-radius:50px; font-family:'Inter',sans-serif; font-size:.82rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; cursor:pointer; transition:all .28s; white-space:nowrap; }
+    .newsletter-btn:hover { background:var(--brown); }
+
+    /* ===== FOOTER ===== */
+    .footer { background:#1A1108; color:rgba(255,255,255,.65); padding:65px 0 28px; }
+    .footer-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:48px; margin-bottom:55px; }
+    .footer-logo { display:flex; align-items:center; gap:11px; margin-bottom:18px; }
+    .footer-logo-icon { width:40px; height:40px; background:linear-gradient(135deg,var(--amber),var(--orange)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; }
+    .footer-logo strong { font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:#fff; }
+    .footer-logo span { display:block; font-size:.62rem; letter-spacing:.12em; color:var(--amber); }
+    .footer-brand p { font-size:.84rem; line-height:1.75; max-width:250px; }
+    .footer-social { display:flex; gap:9px; margin-top:22px; }
+    .social-btn { width:36px; height:36px; background:rgba(255,255,255,.07); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.95rem; transition:all .25s; }
+    .social-btn:hover { background:var(--orange); }
+    .footer-col h4 { font-size:.72rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:18px; }
+    .footer-links { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .footer-links a { font-size:.86rem; color:rgba(255,255,255,.60); transition:color .25s; }
+    .footer-links a:hover { color:var(--amber); }
+    .footer-contact-item { display:flex; align-items:flex-start; gap:9px; font-size:.84rem; margin-bottom:11px; }
+    .footer-contact-item span { color:var(--amber); flex-shrink:0; margin-top:1px; }
+    .footer-contact-item a { color:rgba(255,255,255,.60); transition:color .25s; }
+    .footer-contact-item a:hover { color:var(--amber); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.07); padding-top:26px; display:flex; align-items:center; justify-content:space-between; font-size:.75rem; color:rgba(255,255,255,.28); }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal { opacity:0; transform:translateY(26px); transition:opacity .65s ease,transform .65s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1024px){
+      .hero-content { grid-template-columns:1fr; }
+      .hero-panel { display:none; }
+      .about-grid,.breakfast-grid { grid-template-columns:1fr; gap:48px; }
+      .about-images { height:380px; }
+      .experience-grid,.reviews-grid { grid-template-columns:1fr 1fr; }
+      .cards-grid.cols-3 { grid-template-columns:1fr 1fr; }
+      .act-bento { grid-template-columns:1fr 1fr; }
+      .act-item:nth-child(1),.act-item:nth-child(4) { grid-column:span 2; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:36px; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      .booking-header,.booking-tool-wrap { padding:40px; }
+    }
+    @media(max-width:640px){
+      .container { padding:0 20px; }
+      .hero-content { padding:120px 20px 60px; }
+      h2 { font-size:2.1rem; }
+      .experience-grid,.reviews-grid { grid-template-columns:1fr; }
+      .cards-grid.cols-3,.cards-grid.cols-2 { grid-template-columns:1fr; }
+      .act-bento { grid-template-columns:1fr; }
+      .act-item:nth-child(1),.act-item:nth-child(4) { grid-column:span 1; }
+      .about-features,.modal-grid { grid-template-columns:1fr; }
+      .newsletter-inner { flex-direction:column; text-align:center; }
+      .newsletter-form { flex-direction:column; width:100%; }
+      .newsletter-input { width:100%; }
+      .footer-grid { grid-template-columns:1fr; }
+      .booking-contacts { flex-direction:column; gap:14px; }
+      .booking-header,.booking-tool-wrap { padding:30px 24px; }
+      .modal-body { padding:24px; }
+      .modal-hero { height:200px; }
+      .modal-img-row { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🐝</div>
+      <div class="logo-text">
+        <strong>Hive House</strong>
+        <span>2P Moment</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#o-nas">O nás</a></li>
+      <li><a href="#ubytovani">Ubytování</a></li>
+      <li><a href="#lokace">Lokace</a></li>
+      <li><a href="#aktivity">Aktivity</a></li>
+      <li><a href="#snidane">Snídaně</a></li>
+      <li><a href="#recenze">Recenze</a></li>
+    </ul>
+    <a href="#rezervace" class="btn btn-orange" style="font-size:.80rem;padding:11px 26px">Rezervovat pobyt</a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <ul>
+    <li><a href="#o-nas"     onclick="toggleMenu()">O nás</a></li>
+    <li><a href="#ubytovani" onclick="toggleMenu()">Ubytování</a></li>
+    <li><a href="#lokace"    onclick="toggleMenu()">Lokace</a></li>
+    <li><a href="#aktivity"  onclick="toggleMenu()">Aktivity</a></li>
+    <li><a href="#snidane"   onclick="toggleMenu()">Snídaně</a></li>
+    <li><a href="#recenze"   onclick="toggleMenu()">Recenze</a></li>
+  </ul>
+  <a href="#rezervace" class="btn btn-orange" style="margin-top:36px;align-self:flex-start" onclick="toggleMenu()">Rezervovat pobyt</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="home">
+  <!-- Slideshow background -->
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=1800&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1800&q=80')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?w=1800&q=80')"></div>
+  </div>
+  <div class="hero-accent"></div>
+
+  <div class="hero-content">
+    <!-- Left -->
+    <div class="hero-text reveal">
+      <div class="hero-badge">
+        <span>🌿</span> Glamping · Vysočina · Rybník
+      </div>
+      <h1>Utečte do<br><em>přírody.</em><br>Zůstaňte<br>v pohodlí.</h1>
+      <p class="hero-sub">Hive House — unikátní glamping u rybníka v srdci Vysočiny. Čistý vzduch, výhledy do krajiny a absolutní klid s moderním komfortem.</p>
+      <div class="hero-actions">
+        <a href="#rezervace" class="btn btn-orange">🗓 Rezervovat termín</a>
+        <a href="#o-nas" class="play-link">
+          <div class="play-icon">▶</div>
+          Zjistit více
+        </a>
+      </div>
+    </div>
+
+    <!-- Right floating panel -->
+    <div class="hero-panel reveal">
+      <h3>Co vás čeká</h3>
+      <div class="hero-chips">
+        <span class="chip">🌊 Rybník</span>
+        <span class="chip">🐝 Apiterapie</span>
+        <span class="chip">🚴 Cyklotrasy</span>
+        <span class="chip">🍯 Domácí med</span>
+        <span class="chip">🏋️ Posilovna</span>
+        <span class="chip">🌟 Hvězdné nebe</span>
+        <span class="chip">🎣 Rybaření</span>
+        <span class="chip">📶 Wi-Fi</span>
+      </div>
+      <hr class="hero-divider">
+      <div class="hero-stat-row">
+        <div class="h-stat">
+          <span class="h-stat-n">27</span>
+          <div class="h-stat-l">m² komfortu</div>
+        </div>
+        <div class="h-stat">
+          <span class="h-stat-n">∞</span>
+          <div class="h-stat-l">Výhled</div>
+        </div>
+        <div class="h-stat">
+          <span class="h-stat-n">4+</span>
+          <div class="h-stat-l">Aktivity</div>
+        </div>
+      </div>
+      <a href="#rezervace" class="btn btn-orange hero-cta-mini">Zkontrolovat dostupnost</a>
+    </div>
+  </div>
+
+  <!-- Slide dots -->
+  <div class="hero-dots">
+    <div class="hero-dot active" onclick="goSlide(0)"></div>
+    <div class="hero-dot" onclick="goSlide(1)"></div>
+    <div class="hero-dot" onclick="goSlide(2)"></div>
+  </div>
+  <div class="hero-scroll">Scrollovat</div>
+</section>
+
+<!-- ===================== STRIP ===================== -->
+<div class="strip">
+  <div class="strip-track">
+    <span class="strip-item">🌿 Příroda Vysočiny</span>
+    <span class="strip-item">🪣 Rybník u domu</span>
+    <span class="strip-item">🐝 Apiterapie</span>
+    <span class="strip-item">🚴 Cyklotrasy</span>
+    <span class="strip-item">🍳 Čerstvá snídaně</span>
+    <span class="strip-item">🏋️ Venkovní posilovna</span>
+    <span class="strip-item">📶 Wi-Fi zdarma</span>
+    <span class="strip-item">🅿️ Parkování</span>
+    <span class="strip-item">🌿 Příroda Vysočiny</span>
+    <span class="strip-item">🪣 Rybník u domu</span>
+    <span class="strip-item">🐝 Apiterapie</span>
+    <span class="strip-item">🚴 Cyklotrasy</span>
+    <span class="strip-item">🍳 Čerstvá snídaně</span>
+    <span class="strip-item">🏋️ Venkovní posilovna</span>
+    <span class="strip-item">📶 Wi-Fi zdarma</span>
+    <span class="strip-item">🅿️ Parkování</span>
+  </div>
+</div>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="about" id="o-nas">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-images reveal">
+        <div class="about-img-main">
+          <img src="https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?w=800&q=80" alt="Hive House exteriér" loading="lazy" />
+        </div>
+        <div class="about-img-secondary">
+          <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80" alt="Výhled Vysočina" loading="lazy" />
+        </div>
+        <div class="about-badge"><strong>№1</strong>Glamping<br>Vysočina</div>
+      </div>
+      <div class="about-text reveal">
+        <span class="label">O Hive House</span>
+        <h2>Místo, kde se příroda stává domovem</h2>
+        <p>Hive House je výjimečné glamping ubytování na Vysočině, zasazené přímo u malebného rybníka s panoramatickým výhledem. Propojuje autentický kontakt s přírodou s moderním komfortem.</p>
+        <p>Probouzejte se k výhledu na rybník, nadechujte se čistého vzduchu a čerpejte energii z klidné přírody Vysočiny.</p>
+        <div class="about-features">
+          <div class="about-feature"><div class="about-feature-icon">🌅</div><div class="about-feature-text"><strong>Výhled na rybník</strong><small>Panorama přímo z okna</small></div></div>
+          <div class="about-feature"><div class="about-feature-icon">🐝</div><div class="about-feature-text"><strong>Apiterapie</strong><small>Léčivá síla včel</small></div></div>
+          <div class="about-feature"><div class="about-feature-icon">🏞️</div><div class="about-feature-text"><strong>Srdce Vysočiny</strong><small>Čistá příroda, ticho</small></div></div>
+          <div class="about-feature"><div class="about-feature-icon">✨</div><div class="about-feature-text"><strong>Luxusní komfort</strong><small>27 m² bez kompromisů</small></div></div>
+        </div>
+        <a href="#rezervace" class="btn btn-orange">Rezervovat pobyt</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section class="experience" id="zivot">
+  <div class="container">
+    <div class="experience-header reveal">
+      <span class="label">Zažijte něco jiného</span>
+      <h2>Co vás u nás čeká</h2>
+      <p>Každý pobyt v Hive House je jedinečný zážitek. Připravili jsme vše, abyste si mohli skutečně odpočinout.</p>
+    </div>
+    <div class="experience-grid">
+      <div class="exp-card reveal">
+        <div class="exp-card-img"><img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80" alt="Ranní mlha" loading="lazy" /></div>
+        <div class="exp-card-body">
+          <div class="exp-card-icon">🌄</div>
+          <h3>Ranní ticho</h3>
+          <p>Probuďte se do absolutního ticha. Jen ptáci a ranní mlha stoupající nad rybníkem.</p>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-card-img"><img src="https://images.unsplash.com/photo-1560184611-ff3e53f00e8f?w=600&q=80" alt="Odpočinek" loading="lazy" /></div>
+        <div class="exp-card-body">
+          <div class="exp-card-icon">🛏️</div>
+          <h3>Hluboký odpočinek</h3>
+          <p>Mikrovibrace včelích úlů pod lůžkem ukolébají vaši mysl. Spánek v Hive House je jiný.</p>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-card-img"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80" alt="Příroda" loading="lazy" /></div>
+        <div class="exp-card-body">
+          <div class="exp-card-icon">🌲</div>
+          <h3>Příroda na dosah</h3>
+          <p>Vyjděte z dveří a jste okamžitě v přírodě. Lesy, louky, rybník — celá Vysočina čeká.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== UBYTOVÁNÍ — popup cards ===================== -->
+<section class="card-section bg-white" id="ubytovani">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Ubytování</span>
+      <h2>Váš vysočinský domov</h2>
+      <p>Klikněte na kartu a zjistěte vše o ubytování, vybavení a ceně.</p>
+    </div>
+    <div class="cards-grid cols-3 reveal">
+      <!-- Card 1 -->
+      <div class="popup-card" onclick="openModal('modal-hive')">
+        <div class="popup-card-img"><img src="https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?w=600&q=80" alt="Hive House" loading="lazy" /></div>
+        <div class="popup-card-body">
+          <h3>Hive House Classic</h3>
+          <p>27 m² komfortu přímo nad včelími úly. Apiterapie, výhled na rybník, terasa pro dva.</p>
+        </div>
+        <div class="popup-card-footer">
+          <div class="popup-card-tags"><span class="tag">Pro 2 osoby</span><span class="tag">27 m²</span></div>
+          <button class="open-popup-btn">Detail</button>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="popup-card" onclick="openModal('modal-standard')">
+        <div class="popup-card-img"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Interiér" loading="lazy" /></div>
+        <div class="popup-card-body">
+          <h3>Vybavení & komfort</h3>
+          <p>Kompletní přehled vybavení — od kuchyně přes koupelnu až po chytrou klimatizaci.</p>
+        </div>
+        <div class="popup-card-footer">
+          <div class="popup-card-tags"><span class="tag">Wi-Fi</span><span class="tag">Parkování</span></div>
+          <button class="open-popup-btn">Detail</button>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="popup-card" onclick="openModal('modal-apiterapie')">
+        <div class="popup-card-img"><img src="https://images.unsplash.com/photo-1558642084-fd07fae5282e?w=600&q=80" alt="Včely" loading="lazy" /></div>
+        <div class="popup-card-body">
+          <h3>Apiterapie & bezpečnost</h3>
+          <p>Unikátní léčebná metoda s vibrací a vůní včel — a vše co potřebujete vědět o bezpečnosti.</p>
+        </div>
+        <div class="popup-card-footer">
+          <div class="popup-card-tags"><span class="tag">Zdraví</span><span class="tag">Léčba</span></div>
+          <button class="open-popup-btn">Detail</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOKACE — popup cards ===================== -->
+<section class="card-section bg-warm" id="lokace">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Kde nás najdete</span>
+      <h2>Srdce Vysočiny</h2>
+      <p>Hojanovice — místo, kde rybník odráží nebe a ticho je luxusem.</p>
+    </div>
+    <div class="cards-grid cols-3 reveal">
+      <div class="popup-card" onclick="openModal('modal-rybnik')">
+        <div class="popup-card-img"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Rybník" loading="lazy" /></div>
+        <div class="popup-card-body">
+          <h3>Rybník u domu</h3>
+          <p>Malebný rybník přímo u Hive House. Ranní mlhy, západ slunce ve vodě, klid.</p>
+        </div>
+        <div class="popup-card-footer">
+          <div class="popup-card-tags"><span class="tag">Voda</span><span class="tag">Výhled</span></div>
+          <button class="open-popup-btn">Více</button>
+        </div>
+      </div>
+      <div class="popup-card" onclick="openModal('modal-krajina')">
+        <div class="popup-card-img"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80" alt="Krajina" loading="lazy" /></div>
+        <div class="popup-card-body">
+          <h3>Vysočinská krajina</h3>
+          <p>Panoramatický výhled na kopce, lesy a louky. Výjimečné místo v samém srdci ČR.</p>
+        </div>
+        <div class="popup-card-footer">
+          <div class="popup-card-tags"><span class="tag">Příroda</span><span class="tag">Ticho</span></div>
+          <button class="open-popup-btn">Více</button>
+        </div>
+      </div>
+      <div class="popup-card" onclick="openModal('modal-doprava')">
+        <div class="popup-card-img"><img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80" alt="Cesta" loading="lazy" /></div>
+        <div class="popup-card-body">
+          <h3>Jak se k nám dostat</h3>
+          <p>Adresa, parkování, tipy na cestu autem i hromadnou dopravou.</p>
+        </div>
+        <div class="popup-card-footer">
+          <div class="popup-card-tags"><span class="tag">Auto</span><span class="tag">GPS</span></div>
+          <button class="open-popup-btn">Více</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AKTIVITY — popup bento ===================== -->
+<section class="card-section bg-white" id="aktivity">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Aktivity</span>
+      <h2>Nuda nepřipadá v úvahu</h2>
+      <p>Klikněte na aktivitu a zjistěte podrobnosti. V okolí vás čeká spousta zábavy.</p>
+    </div>
+    <div class="act-bento reveal">
+      <div class="act-item" onclick="openModal('modal-cyklo')">
+        <img class="act-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="Cyklistika" loading="lazy" />
+        <div class="act-overlay">
+          <h4>🚴 Cyklotrasy</h4>
+          <p>Desítky km tras přímo od Hive House</p>
+          <div class="act-more">Zobrazit detail</div>
+        </div>
+      </div>
+      <div class="act-item" onclick="openModal('modal-posilovna')">
+        <img class="act-img" src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=500&q=80" alt="Posilovna" loading="lazy" />
+        <div class="act-overlay">
+          <h4>🏋️ Posilovna</h4>
+          <p>Outdoor fitness s výhledem</p>
+          <div class="act-more">Zobrazit detail</div>
+        </div>
+      </div>
+      <div class="act-item" onclick="openModal('modal-kajaky')">
+        <img class="act-img" src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=500&q=80" alt="Kajaky" loading="lazy" />
+        <div class="act-overlay">
+          <h4>🚣 Kajaky</h4>
+          <p>Výpůjčka přímo u rybníka</p>
+          <div class="act-more">Zobrazit detail</div>
+        </div>
+      </div>
+      <div class="act-item" onclick="openModal('modal-turistika')">
+        <img class="act-img" src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=900&q=80" alt="Turistika" loading="lazy" />
+        <div class="act-overlay">
+          <h4>🥾 Turistika</h4>
+          <p>Naučné stezky a panoramatické výhledy</p>
+          <div class="act-more">Zobrazit detail</div>
+        </div>
+      </div>
+      <div class="act-item" onclick="openModal('modal-rybareni')">
+        <img class="act-img" src="https://images.unsplash.com/photo-1468581264429-2548ef9eb732?w=500&q=80" alt="Rybaření" loading="lazy" />
+        <div class="act-overlay">
+          <h4>🎣 Rybaření</h4>
+          <p>Klid u vody s prutem v ruce</p>
+          <div class="act-more">Zobrazit detail</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BREAKFAST ===================== -->
+<section class="breakfast" id="snidane">
+  <div class="container">
+    <div class="breakfast-grid">
+      <div class="breakfast-img reveal">
+        <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=800&q=80" alt="Snídaně" loading="lazy" />
+      </div>
+      <div class="breakfast-text reveal">
+        <span class="label">Stravování</span>
+        <h2>Začněte den<br>chutnou snídaní</h2>
+        <p>Čerstvé snídaně z lokálních surovin — nic syntetického, vše s láskou připravené.</p>
+        <div class="menu-items">
+          <div class="menu-item"><span>🥚</span> Čerstvá vajíčka z vlastního chovu</div>
+          <div class="menu-item"><span>🍯</span> Med z našich včelstev</div>
+          <div class="menu-item"><span>🥐</span> Domácí pečivo</div>
+          <div class="menu-item"><span>🧀</span> Sýry a uzeniny z regionu</div>
+          <div class="menu-item"><span>🫙</span> Domácí zavařeniny a džemy</div>
+          <div class="menu-item"><span>☕</span> Čerstvě mletá káva & bylinkové čaje</div>
+        </div>
+        <a href="#rezervace" class="btn btn-orange">Rezervovat se snídaní</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REVIEWS ===================== -->
+<section class="reviews" id="recenze">
+  <div class="container">
+    <div class="reviews-header reveal">
+      <span class="label">Recenze hostů</span>
+      <h2>Co říkají naši hosté</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Naprosto kouzelné místo. Pohled na rybník z postele při probuzení je zkušenost, na kterou nezapomeneme. Klid, příroda, pohoda."</p>
+        <div class="review-author"><div class="review-avatar">M</div><div class="review-author-info"><strong>Markéta V.</strong><small>Praha · Červen 2025</small></div></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Přijeli jsme jako pár na víkend a odjeli nabitý energií. Snídaně s domácím medem jsou fantastické. Určitě se vrátíme!"</p>
+        <div class="review-author"><div class="review-avatar">J</div><div class="review-author-info"><strong>Jakub & Tereza</strong><small>Brno · Září 2025</small></div></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Jako milovník přírody jsem byl nadšený. Cyklotrasy nádherné, večer se hvězdy dají počítat. Dokonalý výlet."</p>
+        <div class="review-author"><div class="review-avatar">P</div><div class="review-author-info"><strong>Petr K.</strong><small>Olomouc · Srpen 2025</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BOOKING — external tool ===================== -->
+<section class="booking" id="rezervace">
+  <div class="container">
+    <div class="booking-wrap reveal">
+      <!-- Header -->
+      <div class="booking-header">
+        <span class="label">Rezervace</span>
+        <h2>Váš termín čeká</h2>
+        <p>Dostupnost je omezená — zarezervujte si pobyt ještě dnes a zajistěte si nejkrásnější dovolenou na Vysočině.</p>
+        <div class="booking-contacts">
+          <div class="booking-contact-item"><span>📍</span><span>Hojanovice, Vysočina</span></div>
+          <div class="booking-contact-item"><span>📞</span><a href="tel:+420774110224">+420 774 110 224</a></div>
+          <div class="booking-contact-item"><span>✉️</span><a href="mailto:hivehouse@2pmoment.cz">hivehouse@2pmoment.cz</a></div>
+        </div>
+      </div>
+      <!-- External tool embed -->
+      <div class="booking-tool-wrap">
+        <!--
+          ╔══════════════════════════════════════════════════════╗
+          ║  VLOŽTE SEM SKRIPT VAŠEHO REZERVAČNÍHO NÁSTROJE     ║
+          ║  Např.:  <script src="https://your-tool.com/...">   ║
+          ║           nebo iframe embed kód                      ║
+          ╚══════════════════════════════════════════════════════╝
+        -->
+        <div class="booking-tool-placeholder">
+          <div class="ph-icon">📅</div>
+          <h3>Rezervační systém</h3>
+          <p>Sem vložte embed kód vašeho rezervačního nástroje (Checkfront, Lodgify, Smoobu, vlastní řešení…)</p>
+          <code>&lt;!-- váš embed kód zde --&gt;</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEWSLETTER ===================== -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <h3>Buďte v obraze</h3>
+        <p>Speciální akce, volné termíny a tipy na Vysočinu — přímo do vaší schránky.</p>
+      </div>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="Váš e-mail..." />
+        <button class="newsletter-btn">Odebírat</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">🐝</div>
+          <div><strong>Hive House</strong><span>2P Moment</span></div>
+        </div>
+        <p>Unikátní glamping ubytování u rybníka na Vysočině. Místo klidu, přírody a nezapomenutelných okamžiků.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">📷</a>
+          <a href="#" class="social-btn">📘</a>
+          <a href="mailto:hivehouse@2pmoment.cz" class="social-btn">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigace</h4>
+        <ul class="footer-links">
+          <li><a href="#o-nas">O nás</a></li>
+          <li><a href="#ubytovani">Ubytování</a></li>
+          <li><a href="#lokace">Lokace</a></li>
+          <li><a href="#aktivity">Aktivity</a></li>
+          <li><a href="#snidane">Snídaně</a></li>
+          <li><a href="#recenze">Recenze</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Služby</h4>
+        <ul class="footer-links">
+          <li><a href="#rezervace">Rezervace pobytu</a></li>
+          <li><a href="#">Dárkové poukazy</a></li>
+          <li><a href="#">Apiterapie</a></li>
+          <li><a href="#aktivity">Aktivity v okolí</a></li>
+          <li><a href="#snidane">Snídaně</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <div class="footer-contact-item"><span>📍</span><span>Hojanovice, Vysočina<br>Česká republika</span></div>
+        <div class="footer-contact-item"><span>📞</span><a href="tel:+420774110224">+420 774 110 224</a></div>
+        <div class="footer-contact-item"><span>✉️</span><a href="mailto:hivehouse@2pmoment.cz">hivehouse@2pmoment.cz</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 2P Moment s.r.o. Všechna práva vyhrazena.</span>
+      <span>Navrženo s ❤️ pro milovníky přírody</span>
+    </div>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     MODALS
+===================================================================== -->
+
+<!-- Modal: Hive House Classic -->
+<div class="modal-backdrop" id="modal-hive" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?w=900&q=80" alt="Hive House" /><div class="modal-hero-overlay"><h2>Hive House Classic</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-hive')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">27 m²</span><span class="modal-chip">Pro 2 osoby</span><span class="modal-chip">Apiterapie</span><span class="modal-chip">Výhled na rybník</span></div>
+      <p>Hive House Classic je naše vlajková loď — 27 m² dokonale vybaveného prostoru přímo nad včelími úly. Mikrovibrace a vůně včel vytvářejí unikátní léčebnou atmosféru, která vám pomůže skutečně vypnout a odpočinout.</p>
+      <p>Z panoramatického okna a terasy se otevírá výhled na rybník a okolní krajinu Vysočiny. Ubytování funguje po celý rok — v létě i v zimě.</p>
+      <h4 class="modal-section-title">Co je zahrnuto</h4>
+      <div class="modal-grid">
+        <div class="modal-feature"><div class="modal-feature-icon">🛏️</div><div class="modal-feature-text"><strong>Luxusní postel</strong><small>Kvalitní matrace, povlečení</small></div></div>
+        <div class="modal-feature"><div class="modal-feature-icon">🌡️</div><div class="modal-feature-text"><strong>Klimatizace / topení</strong><small>Celoroční provoz</small></div></div>
+        <div class="modal-feature"><div class="modal-feature-icon">🚿</div><div class="modal-feature-text"><strong>Vlastní koupelna</strong><small>Sprcha, WC, ručníky</small></div></div>
+        <div class="modal-feature"><div class="modal-feature-icon">🍳</div><div class="modal-feature-text"><strong>Malá kuchyně</strong><small>Rychlovarná konvice, lednice</small></div></div>
+        <div class="modal-feature"><div class="modal-feature-icon">🌅</div><div class="modal-feature-text"><strong>Terasa</strong><small>Venkovní posezení, výhled</small></div></div>
+        <div class="modal-feature"><div class="modal-feature-icon">📶</div><div class="modal-feature-text"><strong>Wi-Fi zdarma</strong><small>Rychlé připojení</small></div></div>
+      </div>
+      <div class="modal-img-row">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80" alt="Postel" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&q=80" alt="Výhled" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="Příroda" loading="lazy" />
+      </div>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-hive')">🗓 Rezervovat tento pokoj</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Vybavení -->
+<div class="modal-backdrop" id="modal-standard" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80" alt="Vybavení" /><div class="modal-hero-overlay"><h2>Vybavení & komfort</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-standard')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Wi-Fi</span><span class="modal-chip">Parkování</span><span class="modal-chip">Celoroční</span></div>
+      <p>Hive House je vybaven tak, aby vám nic nechybělo — od moderní koupelny přes plně funkční kuchyni až po rychlé Wi-Fi připojení.</p>
+      <h4 class="modal-section-title">Kompletní seznam vybavení</h4>
+      <ul class="modal-list">
+        <li>Luxusní postel s kvalitní matrací a čerstvým povlečením</li>
+        <li>Plně vybavená koupelna — sprcha, WC, ručníky, sušič vlasů</li>
+        <li>Malá kuchyně — konvice, lednice, základní nádobí</li>
+        <li>Klimatizace a topení pro celoroční provoz</li>
+        <li>Rychlé Wi-Fi připojení</li>
+        <li>Parkování přímo u objektu zdarma</li>
+        <li>Venkovní terasa s posezením a výhledem</li>
+        <li>Apiterapeutická platforma pod lůžkem</li>
+        <li>Televize / projektor (dle verze)</li>
+        <li>Základní hygienické potřeby</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-standard')">🗓 Zkontrolovat dostupnost</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Apiterapie -->
+<div class="modal-backdrop" id="modal-apiterapie" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1558642084-fd07fae5282e?w=900&q=80" alt="Apiterapie" /><div class="modal-hero-overlay"><h2>Apiterapie & bezpečnost</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-apiterapie')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Zdraví</span><span class="modal-chip">Relaxace</span><span class="modal-chip">Příroda</span></div>
+      <p>Apiterapie využívá přirozené vibrace, zvuky a vůně včelích úlů k léčebným účelům. Včely jsou umístěny ve speciálních úlech přímo pod lůžkem — zcela bezpečně, bez přímého kontaktu.</p>
+      <h4 class="modal-section-title">Přínosy apiterapie</h4>
+      <ul class="modal-list">
+        <li>Hluboká relaxace a výrazně kvalitnější spánek</li>
+        <li>Snížení stresu a zklidnění nervového systému</li>
+        <li>Podpora imunity díky propolisu a mateří kašičce ve vzduchu</li>
+        <li>Zlepšení dýchání — vzduch obohacený o přírodní látky</li>
+        <li>Meditační účinek monotónního bzučení</li>
+      </ul>
+      <h4 class="modal-section-title">Bezpečnost</h4>
+      <p>Včely jsou zcela odděleny od prostoru hostů. Riziko bodnutí je minimální. Pobyt není vhodný pro osoby s těžkou alergií na včelí jed — prosíme, zvažte to před rezervací.</p>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-apiterapie')">🗓 Vyzkoušet apiterapii</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Rybník -->
+<div class="modal-backdrop" id="modal-rybnik" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80" alt="Rybník" /><div class="modal-hero-overlay"><h2>Rybník u domu</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-rybnik')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Voda</span><span class="modal-chip">Příroda</span><span class="modal-chip">Výhled</span></div>
+      <p>Přímo u Hive House leží malebný rybník, který je srdcem celého místa. Ráno se na hladině zrcadlí ranní mlha, večer západ slunce maluje vodu do zlatova. Je to pohled, na který se nezapomíná.</p>
+      <h4 class="modal-section-title">Co u rybníka najdete</h4>
+      <ul class="modal-list">
+        <li>Klidné posezení přímo na břehu</li>
+        <li>Výpůjčka kajaků a paddleboardů</li>
+        <li>Možnost rybaření (s platným rybářským lístkem)</li>
+        <li>Ideální místo pro ranní meditaci a cvičení</li>
+        <li>Pozorování ptáků a divoké přírody</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-rybnik')">🗓 Rezervovat pobyt</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Krajina -->
+<div class="modal-backdrop" id="modal-krajina" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=80" alt="Krajina" /><div class="modal-hero-overlay"><h2>Vysočinská krajina</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-krajina')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Příroda</span><span class="modal-chip">Výhledy</span><span class="modal-chip">Ticho</span></div>
+      <p>Vysočina je kraj kopců, lesů a rybníků — jeden z nejkrásnějších a nejklidnějších regionů České republiky. Hojanovice leží v samém srdci tohoto kraje, daleko od hluku měst.</p>
+      <h4 class="modal-section-title">Proč Vysočina?</h4>
+      <ul class="modal-list">
+        <li>Čistý vzduch bez průmyslového znečištění</li>
+        <li>Panoramatické výhledy na kopce a lesy</li>
+        <li>Hustá síť turistických a cyklo stezek</li>
+        <li>Tmavá obloha ideální pro pozorování hvězd</li>
+        <li>Klidná příroda — ideální pro regeneraci a odpočinek</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-krajina')">🗓 Přijeďte se přesvědčit</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Doprava -->
+<div class="modal-backdrop" id="modal-doprava" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=900&q=80" alt="Cesta" /><div class="modal-hero-overlay"><h2>Jak se k nám dostat</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-doprava')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Auto</span><span class="modal-chip">GPS</span><span class="modal-chip">Parkování zdarma</span></div>
+      <h4 class="modal-section-title">Adresa</h4>
+      <p><strong>Hojanovice, Vysočina, Česká republika</strong><br>GPS: zadejte do navigace „Hive House 2P Moment Hojanovice"</p>
+      <h4 class="modal-section-title" style="margin-top:22px">Autem</h4>
+      <ul class="modal-list">
+        <li>Z Prahy: cca 1,5–2 hodiny po D1 směr Brno, pak odbočit</li>
+        <li>Z Brna: cca 1 hodina</li>
+        <li>Parkování přímo u objektu — zdarma</li>
+      </ul>
+      <h4 class="modal-section-title" style="margin-top:22px">Hromadnou dopravou</h4>
+      <ul class="modal-list">
+        <li>Vlak nebo autobus do nejbližšího města, poté taxi/sdílené auto</li>
+        <li>Na vyžádání zajistíme transfer z vlakového nádraží</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-doprava')">🗓 Rezervovat pobyt</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Cyklo -->
+<div class="modal-backdrop" id="modal-cyklo" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="Cyklistika" /><div class="modal-hero-overlay"><h2>Cyklotrasy</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-cyklo')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Kola k zapůjčení</span><span class="modal-chip">Všechny obtížnosti</span><span class="modal-chip">Trasy z mapy</span></div>
+      <p>Přímo od Hive House se otevírají desítky kilometrů značených cyklotras — od nenáročných rodinných výletů po náročné horské trasy.</p>
+      <ul class="modal-list">
+        <li>Půjčení kol přímo na místě (rezervujte předem)</li>
+        <li>Trasy pro začátečníky i pokročilé</li>
+        <li>Přístup k offline mapám a GPX trasám</li>
+        <li>Tip: okruh kolem rybníků Vysočiny (~35 km)</li>
+        <li>Opravna a pumpa k dispozici</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-cyklo')">🗓 Rezervovat s kolem</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Posilovna -->
+<div class="modal-backdrop" id="modal-posilovna" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=900&q=80" alt="Posilovna" /><div class="modal-hero-overlay"><h2>Venkovní posilovna</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-posilovna')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Outdoor fitness</span><span class="modal-chip">Výhled na přírodu</span><span class="modal-chip">Zdarma</span></div>
+      <p>Naše venkovní posilovna s výhledem na rybník a krajinu Vysočiny je k dispozici hostům zdarma po celou dobu pobytu. Cvičte v čistém vzduchu s nejlepším výhledem, jaký jste kdy zažili.</p>
+      <ul class="modal-list">
+        <li>Základní silové vybavení — kettlebelly, činky, TRX</li>
+        <li>Funkční tréninkové zóny</li>
+        <li>Otevřeno 24/7 pro hosty</li>
+        <li>Ranní skupinový trénink na vyžádání</li>
+        <li>Ideální kombinace s ranním během kolem rybníka</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-posilovna')">🗓 Rezervovat pobyt</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Kajaky -->
+<div class="modal-backdrop" id="modal-kajaky" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=900&q=80" alt="Kajaky" /><div class="modal-hero-overlay"><h2>Kajaky & voda</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-kajaky')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Kajak</span><span class="modal-chip">Paddleboard</span><span class="modal-chip">Rybník</span></div>
+      <p>Prozkoumejte rybník z kajaku nebo paddleboardu — klouzání po klidné hladině s výhledem na okolní přírodu je nezapomenutelný zážitek.</p>
+      <ul class="modal-list">
+        <li>Výpůjčka kajaků pro 1 nebo 2 osoby</li>
+        <li>Paddleboardy pro pokročilejší</li>
+        <li>Záchranné vesty k dispozici</li>
+        <li>Výpůjčka v ceně pobytu nebo za příplatek (upřesníme)</li>
+        <li>Ideální pro ráno nebo večer</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-kajaky')">🗓 Rezervovat s kajakem</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Turistika -->
+<div class="modal-backdrop" id="modal-turistika" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=900&q=80" alt="Turistika" /><div class="modal-hero-overlay"><h2>Pěší turistika</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-turistika')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Značené trasy</span><span class="modal-chip">Rodinné výlety</span><span class="modal-chip">Výhledy</span></div>
+      <p>Okolí Hive House nabízí skvělé podmínky pro pěší turistiku všech obtížností — od krátkých procházek po rybníku po náročnější výstupy na vysočinské vrcholy.</p>
+      <ul class="modal-list">
+        <li>Naučné stezky přímo od Hive House</li>
+        <li>Rodinné trasy vhodné i pro děti</li>
+        <li>Panoramatické rozhledny v okolí</li>
+        <li>Tipy na trasy dostupné na recepci</li>
+        <li>Zapůjčení turistických holí</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-turistika')">🗓 Rezervovat pobyt</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Rybaření -->
+<div class="modal-backdrop" id="modal-rybareni" onclick="closeOnBackdrop(event,this)">
+  <div class="modal">
+    <div class="modal-hero"><img src="https://images.unsplash.com/photo-1468581264429-2548ef9eb732?w=900&q=80" alt="Rybaření" /><div class="modal-hero-overlay"><h2>Rybaření</h2></div></div>
+    <button class="modal-close" onclick="closeModal('modal-rybareni')">✕</button>
+    <div class="modal-body">
+      <div class="modal-chips"><span class="modal-chip">Rybník u domu</span><span class="modal-chip">Klid</span><span class="modal-chip">Příroda</span></div>
+      <p>Rybaření v klidném prostředí rybníka přímo u Hive House je ideální způsob, jak trávit líné odpoledne. Sedíte na molu, sledujete hladinu a svět se zastaví.</p>
+      <ul class="modal-list">
+        <li>Rybaření povoleno s platným rybářským lístkem</li>
+        <li>Molo přímo u rybníka k dispozici</li>
+        <li>Informace o místní rybí obsádce</li>
+        <li>Půjčení základního vybavení (upřesněte při rezervaci)</li>
+      </ul>
+      <div class="modal-cta"><a href="#rezervace" class="btn btn-orange" onclick="closeModal('modal-rybareni')">🗓 Rezervovat pobyt</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     JAVASCRIPT
+===================================================================== -->
+<script>
+  /* ---- Navbar ---- */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 60));
+
+  /* ---- Mobile menu ---- */
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+  /* ---- Scroll reveal ---- */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold:.08, rootMargin:'0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  /* ---- Active nav ---- */
+  const secs = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (scrollY >= s.offsetTop - 130) cur = s.id; });
+    navAs.forEach(a => { a.style.color = a.getAttribute('href') === `#${cur}` ? 'var(--orange)' : ''; });
+  });
+
+  /* ---- Hero slideshow ---- */
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots   = document.querySelectorAll('.hero-dot');
+  let current  = 0, timer;
+
+  function goSlide(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    clearInterval(timer);
+    timer = setInterval(() => goSlide(current + 1), 5000);
+  }
+  timer = setInterval(() => goSlide(current + 1), 5000);
+
+  /* ---- Modal system ---- */
+  function openModal(id) {
+    const m = document.getElementById(id);
+    if (!m) return;
+    m.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    const m = document.getElementById(id);
+    if (!m) return;
+    m.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeOnBackdrop(e, el) {
+    if (e.target === el) {
+      el.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-backdrop.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+</script>
+</body>
 </html>

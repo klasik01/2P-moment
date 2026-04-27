@@ -1,0 +1,229 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/typography" as *;
+@use "../partials/honeycomb" as *;
+
+// =============================================================
+// Dialog s článkem pro nabídkové karty (Glamping / Rybaření / Gastro).
+// Mobile-first: na telefonu full-screen, na desktopu centrovaný panel
+// s větším horním obrázkem a editorial typografií v duchu homepage.
+// =============================================================
+
+// Backdrop je fixní přes celý viewport → vždy vidíš tmavé pozadí,
+// i když scrolluješ uvnitř modalu.
+.article-modal-backdrop {
+  position: fixed; inset: 0;
+  z-index: 1200;
+  background: rgba(20, 12, 2, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0;
+  animation: fadeIn .2s ease;
+
+  @include md {
+    align-items: flex-start;
+    padding: 48px 24px;
+  }
+}
+
+// Modal scrolluje sám uvnitř, backdrop zůstává za ním.
+.article-modal {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  animation: articleSlide .35s cubic-bezier(.2,.8,.3,1);
+  margin: 0 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  // 100dvh reaguje na mobilní URL bar správně (vs 100vh)
+  max-height: 100dvh;
+
+  @include md {
+    border-radius: 24px;
+    box-shadow:
+      0 40px 120px rgba(40, 20, 0, 0.55),
+      0 10px 30px rgba(40, 20, 0, 0.25);
+    max-height: calc(100dvh - 96px);
+  }
+}
+
+// Close button je fixed přímo na backdrop — vždy viditelný nad vším,
+// včetně navbaru, a nescrolluje se s obsahem modalu.
+.article-modal-close {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 1300;           // nad navbar (1000) i backdrop (1200)
+  width: 44px; height: 44px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2B1A05;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background .2s ease, transform .2s ease;
+  flex-shrink: 0;
+
+  @include md { top: 18px; right: 18px; }
+
+  &:hover {
+    background: var(--honey, #D4881A);
+    color: #fff;
+    transform: rotate(90deg);
+  }
+}
+
+// ---- Hero (cover obrázek + dark overlay + title) ------------
+.article-modal-hero {
+  position: relative;
+  min-height: 240px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  color: #fff;
+
+  @include md {
+    min-height: 320px;
+    padding: 36px;
+  }
+}
+
+.article-modal-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(22, 16, 8, 0.2) 0%,
+    rgba(22, 16, 8, 0.55) 65%,
+    rgba(22, 16, 8, 0.85) 100%
+  );
+}
+
+.article-modal-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+}
+
+.article-modal-eyebrow {
+  font-family: $font-body;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--honey-light, #FFD166);
+  margin-bottom: 10px;
+}
+
+.article-modal-title {
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: clamp(26px, 5vw, 42px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+// ---- Body ---------------------------------------------------
+.article-modal-body {
+  position: relative;
+  padding: 28px 22px 36px;
+  @include md { padding: 40px 48px 48px; }
+
+  @include honeycomb-bg("D4881A", 0.05);
+}
+
+.article-modal-lead {
+  font-family: $font-display;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.45;
+  color: #2B1A05;
+  margin: 0 0 20px;
+  letter-spacing: 0.005em;
+
+  @include md { font-size: 22px; margin-bottom: 24px; }
+}
+
+.article-modal-paragraph {
+  font-family: $font-body;
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(40, 20, 0, 0.82);
+  margin: 0 0 16px;
+
+  @include md { font-size: 16px; line-height: 1.8; }
+}
+
+// ---- Highlights (honey chips) -------------------------------
+.article-modal-highlights {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+
+  @include md {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: linear-gradient(180deg, #FFFBF0 0%, #FFF3D6 100%);
+    border: 1px solid rgba(245, 166, 35, 0.25);
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #2B1A05;
+    font-weight: 500;
+  }
+}
+
+.article-modal-highlight-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--honey-light, #FFD166) 0%, var(--honey, #D4881A) 100%);
+  color: #fff;
+}
+
+// ---- CTA ---------------------------------------------------
+.article-modal-actions {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  @include md { margin-top: 36px; }
+}
+
+@keyframes articleSlide {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}

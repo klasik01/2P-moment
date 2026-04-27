@@ -1,0 +1,30 @@
+/* Shared heading block used across sections (.section-label / .section-title / .section-desc). */
+.section-label {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+
+.section-title span { color: var(--red); }
+.section-title.is-light { color: var(--white); }
+
+.section-desc {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  max-width: 600px;
+}
+
+.section-desc.is-light { color: rgba(255, 255, 255, .6); }

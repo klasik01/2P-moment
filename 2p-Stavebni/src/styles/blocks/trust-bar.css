@@ -1,0 +1,13 @@
+/* Trust bar directly below the hero. */
+.trust-bar { background: var(--red); padding: 20px 0; }
+.trust-bar-inner { align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 16px; }
+
+.trust-item { display: flex; align-items: center; gap: 12px; color: var(--white); }
+
+.trust-item span {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}

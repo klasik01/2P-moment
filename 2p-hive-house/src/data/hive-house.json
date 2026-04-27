@@ -1,0 +1,36 @@
+{
+  "name": "Hive House",
+  "tagline": "Glamping ve včelíně uprostřed přírody",
+  "expectedOpenDate": "Srpen 2026",
+  "badge": "Již brzy",
+  "url": "https://hivehouse.2pmoment.cz",
+  "company": {
+    "name": "2P moment s.r.o.",
+    "ico": "22395512"
+  },
+  "contact": {
+    "email": "hivehouse@2pmoment.cz",
+    "phone": "+420 774 110 224",
+    "address": "Hojanovice 17, 396 01 Hojanovice, Česká republika"
+  },
+  "checkInOut": {
+    "checkIn": "14:00",
+    "checkOut": "11:00"
+  },
+  "socials": {
+    "instagram": "https://www.instagram.com/hive.hojanovice?igsh=MTRtY3k1ZWFqMHAwYg=="
+  },
+  "construction": {
+    "popupTitle": "Hive House je ve výstavbě",
+    "popupText": "Momentálně nepřijímáme rezervace. Zanechte nám svůj e-mail a my vám pošleme informace, jakmile bude vše připraveno.",
+    "popupCtaLabel": "Odebírat novinky",
+    "popupSuccessMessage": "Děkujeme! Dáme vám vědět, jakmile otevřeme.",
+    "popupEmailPlaceholder": "váš@email.cz",
+    "heroCtaLabel": "Dejte mi vědět"
+  },
+  "firestore": {
+    "subscriptionsCollection": "subscriptions",
+    "settingsCollection": "settings",
+    "settingsDoc": "app"
+  }
+}

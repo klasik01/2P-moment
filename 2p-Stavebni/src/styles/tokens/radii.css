@@ -1,0 +1,6 @@
+/* Border-radius tokens. */
+:root {
+  --radius: 4px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+}

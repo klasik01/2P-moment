@@ -1,0 +1,55 @@
+// =============================================================
+// Design tokeny — jediný zdroj pravdy pro sdílené hodnoty.
+// Barvy jsou v _colors.scss (CSS vars); tady jsou SCSS-level
+// konstanty pro poloměry, stíny a gradienty, které se používají
+// napříč komponentami.
+// =============================================================
+
+// ---- Radiusy ------------------------------------------------
+$radius-sm: 14px;
+$radius-md: 20px;
+$radius-lg: 22px;
+$radius-xl: 24px;
+
+// ---- Stíny --------------------------------------------------
+$shadow-card-sm: 0 8px 24px rgba(25, 19, 7, 0.05);
+$shadow-card-md: 0 20px 40px rgba(40, 20, 0, 0.08);
+$shadow-card-lg: 0 30px 60px rgba(40, 20, 0, 0.18),
+                 0 4px 12px rgba(40, 20, 0, 0.08);
+$shadow-card-hover: 0 22px 48px rgba(212, 136, 26, 0.18);
+
+// ---- Gradienty (lze použít jako background) -----------------
+/// Pískové pozadí s volitelným medovým glowem nahoře.
+/// `$glow` 0 = bez záře, 0.28–0.35 = jemná záře (typická pro homepage sekce).
+@function cream-bg($glow: 0.28) {
+  @if $glow > 0 {
+    @return (
+      radial-gradient(ellipse at top, rgba(255, 209, 102, $glow) 0%, transparent 55%),
+      linear-gradient(180deg, #FDF4E3 0%, #F7EDD8 100%)
+    );
+  } @else {
+    @return linear-gradient(180deg, #FDF4E3 0%, #F7EDD8 100%);
+  }
+}
+
+// Bílá karta s medovým nádechem dole (používají `.about-card` apod.)
+$card-bg: linear-gradient(180deg, #FFFFFF 0%, #FFFBF0 100%);
+
+// Honey top-stripe — medový proužek nahoře u karet
+$card-top-stripe: linear-gradient(90deg, var(--honey) 0%, var(--amber) 100%);
+
+// Tmavý diagonální overlay přes hero obrázky
+$hero-overlay-mobile: linear-gradient(
+  135deg,
+  rgba(22, 16, 8, 0.72) 0%,
+  rgba(22, 16, 8, 0.5) 38%,
+  rgba(22, 16, 8, 0.3) 68%,
+  rgba(22, 16, 8, 0.18) 100%
+);
+$hero-overlay-desktop: linear-gradient(
+  110deg,
+  rgba(22, 16, 8, 0.74) 0%,
+  rgba(22, 16, 8, 0.52) 34%,
+  rgba(22, 16, 8, 0.28) 64%,
+  rgba(22, 16, 8, 0.12) 100%
+);
