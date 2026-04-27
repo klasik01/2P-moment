@@ -14,3 +14,6 @@
 2p-Stavebn*/.github/
 2p-Stavební/.github/
 2p-hive-house/.github/
+
+# Firebase service account keys (NEVER commit)
+scripts/ope.json

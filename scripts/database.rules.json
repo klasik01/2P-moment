@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "p-stavebni": {
+      "content": {
+        ".read": true,
+        ".write": "auth != null"
+      },
+      "project-display": {
+        ".read": true,
+        ".write": "auth != null"
+      }
+    }
+  }
+}

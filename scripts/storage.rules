@@ -25,4 +25,15 @@ service firebase.storage {
     }
 
   }
+
+  match /b/{bucket}/o {
+      match /2p-stavebni/projects/{allPaths=**} {
+        allow read: if true;
+        allow write, delete: if true;
+      }
+      match /2p-hive-house/{allPaths=**} {
+        allow read: if true;
+        allow write, delete: if true;
+      }
+    }
 }

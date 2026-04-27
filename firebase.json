@@ -2,6 +2,9 @@
   "firestore": {
     "rules": "scripts/firestore.rules"
   },
+  "database": {
+    "rules": "scripts/database.rules.json"
+  },
   "storage": {
     "rules": "scripts/storage.rules"
   }

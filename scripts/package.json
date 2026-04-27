@@ -1,0 +1,25 @@
+{
+  "name": "2p-moment-deploy",
+  "version": "1.0.0",
+  "description": "Deploy orchestrator pro 2P Moment monorepo. Nasazuje Firestore rules, Realtime Database rules a Storage rules.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "deploy:dev": "node deploy.mjs dev",
+    "deploy:ope": "node deploy.mjs ope",
+    "deploy:dev:dry": "node deploy.mjs dev --dry-run",
+    "deploy:ope:dry": "node deploy.mjs ope --dry-run",
+    "rules:deploy:dev": "node firebase-deploy.mjs dev firestore:rules",
+    "rules:deploy:ope": "node firebase-deploy.mjs ope firestore:rules",
+    "database:deploy:dev": "node firebase-deploy.mjs dev database",
+    "database:deploy:ope": "node firebase-deploy.mjs ope database",
+    "storage:deploy:dev": "node firebase-deploy.mjs dev storage",
+    "storage:deploy:ope": "node firebase-deploy.mjs ope storage"
+  },
+  "dependencies": {
+    "firebase-tools": "^14.0.0"
+  }
+}
