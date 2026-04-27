@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "dev": "TVUJ-FIREBASE-PROJECT-DEV",
+    "prod": "TVUJ-FIREBASE-PROJECT-PROD"
+  }
+}
