@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "node:path";
 
 /**
  * Build target detection.
@@ -19,13 +20,15 @@ function resolveBase(): string {
   return "/";
 }
 
+const envDir = resolve(__dirname, "..");
+
 export default defineConfig(({ mode }) => {
-  // Make the resolved target visible to the client via import.meta.env.
-  const env = loadEnv(mode, process.cwd(), "");
+  const env = loadEnv(mode, envDir, "");
   const base = resolveBase();
 
   return {
     base,
+    envDir,
     plugins: [react()],
     define: {
       __DEPLOY_TARGET__: JSON.stringify(
