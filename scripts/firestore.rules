@@ -7,10 +7,18 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // ─── Obsah stránek (veřejné čtení, zápis jen admin) ───────────────────
+    // ═══════════════════════════════════════════════════════════════════════
+    // HiveHouse — obsah stránek (veřejné čtení, zápis jen admin)
+    // ═══════════════════════════════════════════════════════════════════════
 
-    // Sezonní akce
+    // Sezonní akce (spravované z 2p-moment adminu)
     match /hive-house-promotions/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Sezonní akce (čtené z 2p-hive-house frontendu)
+    match /2p-hive-house-promotions/{doc} {
       allow read: if true;
       allow write: if isAdmin();
     }
@@ -75,11 +83,11 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // ─── Formuláře (zápis z veřejného webu, čtení jen admin) ──────────────
+    // ═══════════════════════════════════════════════════════════════════════
+    // HiveHouse — formuláře (zápis z veřejného webu, čtení jen admin)
+    // ═══════════════════════════════════════════════════════════════════════
 
     // Rybářské povolenky
-    // - host může vytvořit novou objednávku (create)
-    // - číst a měnit status smí jen admin
     match /hive-house-permits/{doc} {
       allow read, update, delete: if isAdmin();
       allow create: if true
@@ -97,8 +105,6 @@ service cloud.firestore {
     }
 
     // Dárkové poukázky
-    // - host může vytvořit novou objednávku (create)
-    // - číst a měnit status smí jen admin
     match /hive-house-vouchers/{doc} {
       allow read, update, delete: if isAdmin();
       allow create: if true
@@ -112,6 +118,21 @@ service cloud.firestore {
         && request.resource.data.nights is int
         && request.resource.data.nights >= 1
         && request.resource.data.nights <= 30;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // HiveHouse — frontend služby
+    // ═══════════════════════════════════════════════════════════════════════
+
+    // Newsletter odběry (veřejný zápis, čtení jen admin)
+    match /subscriptions/{doc} {
+      allow read, update, delete: if isAdmin();
+      allow create: if true;
+    }
+
+    // Nastavení aplikace (jen admin)
+    match /settings/{doc} {
+      allow read, write: if isAdmin();
     }
   }
 }
