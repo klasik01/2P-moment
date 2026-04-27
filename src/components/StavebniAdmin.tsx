@@ -201,6 +201,8 @@ export function StavebniAdmin({ userEmail: _userEmail, onBack, initialSection, o
   const [savingProjectIds, setSavingProjectIds] = useState<string[]>([]);
   const [savingPromotionIds, setSavingPromotionIds] = useState<string[]>([]);
   const [savingEmployeeIds, setSavingEmployeeIds] = useState<string[]>([]);
+  const [dragEmployeeId, setDragEmployeeId] = useState<string | null>(null);
+  const [dragOverEmployeeId, setDragOverEmployeeId] = useState<string | null>(null);
   const [uploadingKeys, setUploadingKeys] = useState<string[]>([]);
 
   useEffect(() => {
@@ -393,6 +395,22 @@ export function StavebniAdmin({ userEmail: _userEmail, onBack, initialSection, o
     await saveStavebniContentToFirebase({ ...content, team: nextTeam });
     setEmployeeEditors((cur) => cur.filter((e) => e.editorId !== editor.editorId));
     showNotice("Zaměstnanec byl odstraněn.");
+  };
+
+  const moveEmployeeEditor = (sourceId: string, targetId: string) => {
+    const fromIndex = employeeEditors.findIndex((e) => e.editorId === sourceId);
+    const toIndex = employeeEditors.findIndex((e) => e.editorId === targetId);
+    if (fromIndex < 0 || toIndex < 0 || fromIndex === toIndex) return;
+    const nextEditors = moveItem(employeeEditors, fromIndex, toIndex);
+    setEmployeeEditors(nextEditors);
+    const nextTeam = nextEditors.filter((e) => e.savedEmail).map((e) => {
+      const saved = content.team.find((m) => m.email === e.savedEmail);
+      return saved ?? e.member;
+    });
+    void (async () => {
+      try { await saveStavebniContentToFirebase({ ...content, team: nextTeam }); showNotice("Pořadí zaměstnanců bylo automaticky uloženo."); }
+      catch { showNotice("Automatické uložení pořadí se nepodařilo.", 3500); }
+    })();
   };
 
   if (isLoading) {
@@ -775,8 +793,24 @@ export function StavebniAdmin({ userEmail: _userEmail, onBack, initialSection, o
                 const isDirty = isEmployeeDirty(editor);
                 const isSaving = savingEmployeeIds.includes(editor.editorId);
 
+                const isDragging = dragEmployeeId === editor.editorId;
+                const isDropTarget = dragOverEmployeeId === editor.editorId && !isDragging;
                 return (
-                  <article className="admin-card" key={editor.editorId}>
+                  <article
+                    className={`admin-card ${isDragging ? "is-dragging" : ""} ${isDropTarget ? "is-drop-target" : ""}`}
+                    key={editor.editorId}
+                    draggable
+                    onDragStart={(event) => {
+                      if (isInteractiveDragTarget(event.target)) { event.preventDefault(); return; }
+                      setDragEmployeeId(editor.editorId);
+                      setDragOverEmployeeId(editor.editorId);
+                      event.dataTransfer.effectAllowed = "move";
+                      event.dataTransfer.setData("text/plain", editor.editorId);
+                    }}
+                    onDragOver={(event) => { event.preventDefault(); if (dragEmployeeId && dragEmployeeId !== editor.editorId) setDragOverEmployeeId(editor.editorId); }}
+                    onDrop={(event) => { event.preventDefault(); if (dragEmployeeId) moveEmployeeEditor(dragEmployeeId, editor.editorId); setDragEmployeeId(null); setDragOverEmployeeId(null); }}
+                    onDragEnd={() => { setDragEmployeeId(null); setDragOverEmployeeId(null); }}
+                  >
                     <div className="admin-card-head">
                       <button type="button" className="admin-card-toggle"
                         onClick={() => setOpenEmployeeId((cur) => cur === editor.editorId ? null : editor.editorId)}>
