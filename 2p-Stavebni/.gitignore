@@ -3,5 +3,5 @@ dist
 .DS_Store
 .netlify
 .env
-.env.local
+../.env.local
 .env.production
