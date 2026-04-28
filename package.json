@@ -1,0 +1,12 @@
+{
+  "name": "2p-moment-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepo root – agregační skripty pro všechny sub-projekty 2P Moment.",
+  "scripts": {
+    "install:all": "node scripts/foreach.mjs npm install",
+    "lint:all": "node scripts/foreach.mjs npm run lint",
+    "test:all": "node scripts/foreach.mjs npm run test",
+    "build:all": "node scripts/foreach.mjs npm run build"
+  }
+}
