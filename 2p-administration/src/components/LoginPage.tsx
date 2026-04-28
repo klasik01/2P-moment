@@ -26,7 +26,7 @@ export function LoginPage() {
       <section className="admin-login">
         <div className="admin-login-card">
           <span className="section-label">Neveřejná správa</span>
-          <h1>2P Moment</h1>
+          <h1>2P Administration</h1>
           <p>Administrační systém pro správu obsahu 2P Stavební a 2P Hive House.</p>
 
           <form className="admin-login-form" onSubmit={handleSubmit}>

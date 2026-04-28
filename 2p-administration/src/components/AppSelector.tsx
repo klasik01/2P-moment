@@ -25,7 +25,7 @@ export function AppSelector({ onSelect }: Props) {
       <div className="app-selector-inner">
         <div className="brand">
           <span className="hex">⬡</span>
-          2P Moment
+          2P Administration
         </div>
         <div className="brand-sub">Administrační systém</div>
 

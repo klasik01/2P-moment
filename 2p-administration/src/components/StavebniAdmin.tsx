@@ -427,7 +427,7 @@ export function StavebniAdmin({ userEmail: _userEmail, onBack, initialSection, o
       <section className="admin-panel">
         <header className="admin-header">
           <div>
-            <span className="section-label">2P Moment — Správa obsahu</span>
+            <span className="section-label">2P Administration — Správa obsahu</span>
             <h1>2P Stavební</h1>
             <p>Správa projektů, promo akcí a týmu. Data se ukládají do Firebase Realtime Database.</p>
           </div>

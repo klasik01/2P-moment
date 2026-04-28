@@ -1,10 +1,10 @@
 {
-  "name": "2p-moment",
+  "name": "2p-administration",
   "private": true,
   "version": "1.0.1",
   "type": "module",
   "scripts": {
-    "dev-moment": "vite",
+    "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit",

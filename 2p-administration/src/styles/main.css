@@ -844,7 +844,7 @@ img { display: block; max-width: 100%; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── 2p-moment sidebar (HiveHouseAdmin layout) ───────────────────────────── */
+/* ── 2p-administration sidebar (HiveHouseAdmin layout) ───────────────────────────── */
 /* Hive House uses orange as its brand colour — override --red cascade-wide */
 .moment-shell {
   --red: var(--orange);

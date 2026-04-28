@@ -212,7 +212,7 @@ function Sidebar({
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
           />
           <div className="brand-text">
-            <div className="brand-name">2P Moment</div>
+            <div className="brand-name">2P Administration</div>
             <div className="brand-app">Hive House</div>
           </div>
         </div>
