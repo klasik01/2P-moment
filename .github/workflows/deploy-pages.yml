@@ -56,7 +56,7 @@ jobs:
             build-env: DEPLOY_TARGET=github-pages
           - name: hivehouse
             path: 2p-hive-house
-            node-version: 20
+            node-version: 22
             build-env: VITE_BASE=/2p-hive-house/
           - name: cars
             path: 2p-cars

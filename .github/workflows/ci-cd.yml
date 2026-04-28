@@ -54,7 +54,7 @@ jobs:
             build-env: DEPLOY_TARGET=netlify
           - name: hivehouse
             path: 2p-hive-house
-            node-version: 20
+            node-version: 22
             build-env: VITE_BASE=/
           - name: cars
             path: 2p-cars
