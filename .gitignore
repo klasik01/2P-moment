@@ -11,9 +11,7 @@
 .DS_Store
 .idea/
 .repo-git-backups/
-2p-Stavebn*/.github/
-2p-Stavební/.github/
-2p-hive-house/.github/
 
 # Firebase service account keys (NEVER commit)
 scripts/ope.json
+scripts/dev.json

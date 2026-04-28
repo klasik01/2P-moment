@@ -11,7 +11,7 @@ service cloud.firestore {
     // HiveHouse — obsah stránek (veřejné čtení, zápis jen admin)
     // ═══════════════════════════════════════════════════════════════════════
 
-    // Sezonní akce (spravované z 2p-moment adminu)
+    // Sezonní akce (spravované z 2p-administration adminu)
     match /hive-house-promotions/{doc} {
       allow read: if true;
       allow write: if isAdmin();

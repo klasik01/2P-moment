@@ -1,7 +1,7 @@
 {
-  "name": "2p-moment-deploy",
+  "name": "2p-administration-deploy",
   "version": "1.0.0",
-  "description": "Deploy orchestrator pro 2P Moment monorepo. Nasazuje Firestore rules, Realtime Database rules a Storage rules.",
+  "description": "Deploy orchestrator pro 2P Administration monorepo. Nasazuje Firestore rules, Realtime Database rules a Storage rules.",
   "private": true,
   "type": "module",
   "engines": {

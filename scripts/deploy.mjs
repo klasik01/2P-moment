@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Deploy orchestrator — 2P Moment monorepo
+ * Deploy orchestrator — 2P Administration monorepo
  *
  * Jednou komandou nasadí všechny Firebase rules pro daný environment:
  *   1. Deploy Firestore rules   (firebase deploy --only firestore:rules)
