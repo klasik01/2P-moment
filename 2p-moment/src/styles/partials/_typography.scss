@@ -1,0 +1,124 @@
+// ============================================================
+// TYPOGRAFIE — rodiny písem, velikosti, váhy, nadpisy h1–h6.
+// Mobile-first: hodnoty pro mobile jako default, pak zvětšení přes @include md.
+// ============================================================
+
+@use "breakpoints" as *;
+
+// --- Rodiny písem ---
+$font-display: 'Oswald', system-ui, sans-serif;
+$font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+// --- Font weights ---
+$fw-light:    300;
+$fw-regular:  400;
+$fw-medium:   500;
+$fw-semibold: 600;
+$fw-bold:     700;
+
+// --- Fluidní základ (mobile-first) ---
+$fs-base:     16px;
+$fs-sm:       14px;
+$fs-xs:       12px;
+$fs-lg:       18px;
+
+// --- Velikosti nadpisů (mobile -> desktop) ---
+$fs-h1-mobile: 40px;
+$fs-h1:        72px;
+
+$fs-h2-mobile: 30px;
+$fs-h2:        48px;
+
+$fs-h3-mobile: 22px;
+$fs-h3:        28px;
+
+$fs-h4-mobile: 18px;
+$fs-h4:        22px;
+
+$fs-h5-mobile: 16px;
+$fs-h5:        18px;
+
+$fs-h6-mobile: 14px;
+$fs-h6:        16px;
+
+// --- Line heights ---
+$lh-tight:   1.1;
+$lh-snug:    1.3;
+$lh-normal:  1.55;
+$lh-loose:   1.8;
+
+// --- Letter spacing ---
+$ls-wide:    0.08em;
+$ls-wider:   0.14em;
+
+// --- Globální reset typografie ---
+html {
+  font-size: $fs-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: $font-body;
+  font-weight: $fw-regular;
+  font-size: $fs-base;
+  line-height: $lh-normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  font-weight: $fw-bold;
+  line-height: $lh-tight;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: $fs-h1-mobile; @include md { font-size: $fs-h1; } }
+h2 { font-size: $fs-h2-mobile; @include md { font-size: $fs-h2; } }
+h3 { font-size: $fs-h3-mobile; @include md { font-size: $fs-h3; } }
+h4 { font-size: $fs-h4-mobile; @include md { font-size: $fs-h4; } }
+h5 { font-size: $fs-h5-mobile; @include md { font-size: $fs-h5; } }
+h6 { font-size: $fs-h6-mobile; @include md { font-size: $fs-h6; } }
+
+p { margin: 0 0 1em; line-height: $lh-normal; }
+
+.section-eyebrow {
+  font-family: $font-display;
+  font-weight: $fw-semibold;
+  font-size: $fs-xs;
+  letter-spacing: $ls-wider;
+  text-transform: uppercase;
+  color: var(--honey-dark);
+  margin-bottom: 8px;
+}
+
+.section-title em {
+  font-style: normal;
+  color: var(--honey-dark);
+}
+
+// Velký display nadpis používaný napříč sekcemi (about, how-it-works,
+// fishing-about, contact). Komponenty si ho jen zapnou přes class.
+.big-title {
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin: 4px 0 20px;
+
+  em { font-style: normal; color: var(--honey-dark); }
+}
+
+// Popis pod nadpisem sekce — editorial, prodyšný, lehká váha
+.section-desc {
+  font-family: $font-body;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.7;
+  letter-spacing: 0.005em;
+  color: var(--text-medium);
+  max-width: 640px;
+  @include md { font-size: 19px; line-height: 1.75; }
+}

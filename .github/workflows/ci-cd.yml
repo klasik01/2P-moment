@@ -18,6 +18,7 @@ on:
           - hivehouse
           - cars
           - pekarna
+          - moment
           - all
 
 permissions:
@@ -63,6 +64,10 @@ jobs:
             build-env: ''
           - name: pekarna
             path: 2p-pekarna
+            node-version: 22
+            build-env: VITE_BASE=/
+          - name: moment
+            path: 2p-moment
             node-version: 22
             build-env: VITE_BASE=/
 
@@ -288,6 +293,44 @@ jobs:
         run: |
           VERSION=$(node -p "require('./2p-pekarna/package.json').version")
           TAG="2p-pekarna@$VERSION"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists, skipping"
+          else
+            git tag "$TAG"
+            git push origin "$TAG"
+            echo "Created and pushed tag $TAG"
+          fi
+
+  deploy-moment:
+    name: Deploy Moment to Netlify
+    runs-on: ubuntu-latest
+    needs: quality
+    if: github.event_name == 'workflow_dispatch' && (github.event.inputs.deploy_target == 'moment' || github.event.inputs.deploy_target == 'all')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Moment build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: moment-dist
+          path: dist/moment
+
+      - name: Deploy Moment to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: ./dist/moment
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Manual deploy moment from GitHub Actions - ${{ github.sha }}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_MOMENT_SITE_ID }}
+
+      - name: Create git release tag
+        run: |
+          VERSION=$(node -p "require('./2p-moment/package.json').version")
+          TAG="2p-moment@$VERSION"
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "Tag $TAG already exists, skipping"
           else

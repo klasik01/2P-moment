@@ -1,0 +1,36 @@
+{
+  "name": "2P Moment",
+  "tagline": "Vaše momenty, naše prostory",
+  "expectedOpenDate": "Brzy",
+  "badge": "Nový web",
+  "url": "https://www.2pmoment.cz",
+  "company": {
+    "name": "2P moment s.r.o.",
+    "ico": "22395512"
+  },
+  "contact": {
+    "email": "info@2pmoment.cz",
+    "phone": "+420 774 110 224",
+    "address": "Hojanovice 17, 396 01 Hojanovice"
+  },
+  "checkInOut": {
+    "checkIn": "14:00",
+    "checkOut": "11:00"
+  },
+  "socials": {
+    "instagram": ""
+  },
+  "construction": {
+    "popupTitle": "Web je ve výstavbě",
+    "popupText": "Pracujeme na novém zastřešujícím webu 2P Moment.",
+    "popupCtaLabel": "Chci vědět víc",
+    "popupSuccessMessage": "Díky! Dáme vám vědět.",
+    "popupEmailPlaceholder": "váš@email.cz",
+    "heroCtaLabel": "Zjistit více"
+  },
+  "firestore": {
+    "subscriptionsCollection": "2p-moment-subscriptions",
+    "settingsCollection": "settings",
+    "settingsDoc": "2p-moment-app"
+  }
+}

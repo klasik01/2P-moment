@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a365d" />
+
+    <title>2P Moment | Zastřešující web společnosti</title>
+    <meta name="description" content="2P Moment s.r.o. — zastřešující prezentace společnosti a všech projektů." />
+    <meta name="keywords" content="2P Moment, společnost, projekty, ubytování, pronájem" />
+    <meta name="author" content="2P Moment s.r.o." />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="googlebot" content="index, follow" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="2P Moment" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:title" content="2P Moment | Zastřešující web společnosti" />
+    <meta property="og:description" content="2P Moment s.r.o. — zastřešující prezentace společnosti a všech projektů." />
+    <meta property="og:url" content="https://www.2pmoment.cz/" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="2P Moment | Zastřešující web společnosti" />
+    <meta name="twitter:description" content="2P Moment s.r.o. — zastřešující prezentace." />
+
+    <link rel="canonical" href="https://www.2pmoment.cz/" />
+    <link rel="alternate" hreflang="cs" href="https://www.2pmoment.cz/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.2pmoment.cz/" />
+
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://www.2pmoment.cz/#org",
+        "name": "2P Moment s.r.o.",
+        "url": "https://www.2pmoment.cz/",
+        "description": "Zastřešující společnost pro projekty ubytování a pronájmu."
+      }
+    </script>
+
+    <script>
+      (function () {
+        try {
+          var target = sessionStorage.getItem("spa:redirect");
+          if (target) {
+            sessionStorage.removeItem("spa:redirect");
+            if (target !== location.pathname + location.search + location.hash) {
+              history.replaceState({}, "", target);
+            }
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
