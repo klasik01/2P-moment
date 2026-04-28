@@ -22,7 +22,7 @@ import {
   setCookieConsent,
   type CookieConsentState,
 } from "./utils/cookieConsent";
-import { getHeroProjectImages } from "./utils/projectImages";
+import { getHeroProjectImages, getPrimaryProjectImage } from "./utils/projectImages";
 import { ROUTES } from "./config/routes";
 import { t } from "./i18n";
 
@@ -51,6 +51,18 @@ function App() {
     () => getHeroProjectImages(content.projects.items).map((image) => image.src),
     [content.projects.items],
   );
+
+  const resolvedAbout = useMemo(() => {
+    const visibleProjects = content.projects.items.filter((p) => !p.hidden);
+    const firstPrimary = visibleProjects[0] ? getPrimaryProjectImage(visibleProjects[0]) : null;
+    const secondPrimary = visibleProjects[1] ? getPrimaryProjectImage(visibleProjects[1]) : null;
+
+    return {
+      ...content.about,
+      mainImage: firstPrimary?.src || content.about.mainImage,
+      accentImage: secondPrimary?.src || content.about.accentImage,
+    };
+  }, [content.projects.items, content.about]);
 
   useEffect(() => {
     const onHashChange = () => setRoute(window.location.hash || ROUTES.home);
@@ -150,7 +162,7 @@ function App() {
         <HeroSection content={content.hero} backgroundImages={heroBackgroundImages} />
         <TrustBar items={content.trustBar} />
         <ServicesSection content={content.services} />
-        <AboutSection content={content.about} />
+        <AboutSection content={resolvedAbout} />
         <ProjectsSection
           content={content.projects}
           onProjectOpen={setSelectedProject}

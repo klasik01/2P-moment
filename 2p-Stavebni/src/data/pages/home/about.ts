@@ -9,8 +9,8 @@ export const about: AboutContent = {
     "Jsme firma, která stojí na pevných základech dlouholetých zkušeností v stavebním odvětví, a naší hlavní prioritou je přinášet řešení nejvyšší kvality. Věnujeme se nejen celkové realizaci pozemních staveb, ale také poskytujeme širokou škálu inženýrských služeb.",
     "V naší práci klademe velký důraz na inovace a technologie. S hrdostí využíváme elektronický stavební deník, díky čemuž můžete jako investoři v reálném čase sledovat pokrok vaší stavby přes webové rozhraní.",
   ],
-  mainImage: "https://2pstavebni.cz/assets/images/projects/2/12.jpg",
-  accentImage: "https://2pstavebni.cz/assets/images/projects/6/1.jpg",
+  mainImage: "",
+  accentImage: "",
   badgeValue: "10+",
   badgeText: "Let v oboru",
   features: [
