@@ -17,6 +17,7 @@ on:
           - stavebni
           - hivehouse
           - cars
+          - pekarna
           - all
 
 permissions:
@@ -62,6 +63,10 @@ jobs:
             path: 2p-cars
             node-version: 22
             build-env: ''
+          - name: pekarna
+            path: 2p-pekarna
+            node-version: 22
+            build-env: VITE_BASE=/2p-pekarna/
 
     defaults:
       run:
@@ -197,6 +202,33 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: cars-pages-dist
+          path: dist
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-pekarna:
+    name: Deploy Pekarna to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: quality
+    if: github.event_name == 'workflow_dispatch' && (github.event.inputs.deploy_target == 'pekarna' || github.event.inputs.deploy_target == 'all')
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download Pekarna build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pekarna-pages-dist
           path: dist
 
       - name: Setup Pages

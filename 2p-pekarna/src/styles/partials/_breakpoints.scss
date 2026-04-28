@@ -1,0 +1,13 @@
+// Breakpoints
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+
+@mixin media-up($bp) {
+  @media (min-width: $bp) { @content; }
+}
+
+@mixin media-down($bp) {
+  @media (max-width: ($bp - 1px)) { @content; }
+}

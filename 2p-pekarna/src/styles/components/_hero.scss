@@ -1,0 +1,48 @@
+@use "../partials/breakpoints" as *;
+
+.hero {
+  background: var(--color-bg-alt);
+  padding: var(--spacing-3xl) var(--spacing-md);
+  text-align: center;
+
+  @include media-up($bp-lg) {
+    padding: var(--spacing-section) var(--spacing-xl);
+  }
+
+  &__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  &__subtitle {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-4xl);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-md);
+
+    .accent { color: var(--color-primary); }
+  }
+
+  &__text {
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl);
+  }
+
+  &__cta {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

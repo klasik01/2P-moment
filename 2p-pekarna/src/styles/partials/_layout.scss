@@ -1,0 +1,122 @@
+@use "breakpoints" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+// Mobile-first: app wrapper zajistí, že footer je vždy na spodku
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh; // dynamický viewport pro mobilní prohlížeče
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+
+  @include media-up($bp-lg) {
+    padding: 0 var(--spacing-xl);
+  }
+}
+
+// Reveal animace
+.reveal,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+.reveal-left { transform: translateX(-24px); }
+.reveal-right { transform: translateX(24px); }
+
+.reveal.visible,
+.reveal-left.visible,
+.reveal-right.visible {
+  opacity: 1;
+  transform: translate(0);
+}
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  text-decoration: none;
+
+  &:hover { transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+
+  &--primary {
+    background: var(--color-primary);
+    color: #fff;
+    &:hover { background: var(--color-primary-dark); }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    &:hover { background: var(--color-primary); color: #fff; }
+  }
+}
+
+// Section headings
+.section-eyebrow {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-md);
+
+  .accent { color: var(--color-primary); }
+}
+
+.section-desc {
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin-bottom: var(--spacing-xl);
+}

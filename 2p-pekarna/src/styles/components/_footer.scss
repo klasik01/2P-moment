@@ -1,0 +1,36 @@
+.footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  background: var(--color-text);
+  color: #fff;
+  padding: var(--spacing-2xl) var(--spacing-md);
+
+  &__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  &__contact {
+    margin-bottom: var(--spacing-xl);
+
+    h3 {
+      font-family: var(--font-heading);
+      margin-bottom: var(--spacing-md);
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+
+    p { margin-bottom: var(--spacing-xs); }
+  }
+
+  &__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: var(--spacing-md);
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.6);
+  }
+}

@@ -1,0 +1,37 @@
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  background: var(--color-text);
+  color: #fff;
+  padding: var(--spacing-md);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+
+  &__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  &__title {
+    font-weight: 700;
+    margin-right: var(--spacing-sm);
+  }
+
+  &__text {
+    flex: 1;
+    min-width: 200px;
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "seo": {
+    "title": "2P Pekárna | Pronájem ubytování",
+    "description": "2P Pekárna — pronájem ubytování a apartmánů.",
+    "keywords": "pronájem ubytování, apartmány, 2P Pekárna"
+  },
+  "hero": {
+    "visible": true,
+    "subtitle": "Vítejte",
+    "title": "2P",
+    "titleAccent": "Pekárna",
+    "text": "Pronájem ubytování a apartmánů.",
+    "images": [],
+    "ctaPrimaryLabel": "Rezervovat",
+    "ctaPrimaryHref": "/rezervace"
+  },
+  "contact": {
+    "visible": true,
+    "eyebrow": "Kontakt",
+    "title": "Spojte se",
+    "titleAccent": "s námi",
+    "desc": "Máte dotaz nebo chcete rezervovat? Neváhejte nás kontaktovat.",
+    "phone": "+420 774 110 224",
+    "phoneLabel": "Telefon",
+    "email": "pekarna@2pmoment.cz",
+    "emailLabel": "E-mail",
+    "address": "",
+    "addressLabel": "Adresa"
+  }
+}

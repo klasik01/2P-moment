@@ -1,0 +1,87 @@
+@use "../partials/breakpoints" as *;
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing-sm) var(--spacing-md);
+
+    @include media-up($bp-lg) {
+      padding: var(--spacing-sm) var(--spacing-xl);
+    }
+  }
+
+  &__brand {
+    font-family: var(--font-heading);
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  &__toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-text);
+      transition: transform var(--transition-fast);
+    }
+
+    @include media-up($bp-md) {
+      display: none;
+    }
+  }
+
+  &__links {
+    display: none;
+    list-style: none;
+    gap: var(--spacing-lg);
+
+    &.is-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-bg);
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    @include media-up($bp-md) {
+      display: flex;
+    }
+
+    a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition-fast);
+
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+}

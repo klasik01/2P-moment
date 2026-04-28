@@ -1,0 +1,15 @@
+.page-reservation,
+.page-contact {
+  padding: var(--spacing-3xl) var(--spacing-md);
+
+  &__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-3xl);
+    margin-bottom: var(--spacing-lg);
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "2P Pekárna",
+  "short_name": "Pekárna",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#8B4513",
+  "icons": []
+}
