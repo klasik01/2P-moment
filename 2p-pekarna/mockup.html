@@ -1,0 +1,1235 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#A87B4F" />
+
+  <title>2P Pekárna | Pronájem apartmánů v Pacově</title>
+  <meta name="description" content="2P Pekárna v Pacově — tři apartmány 2+1 se čtyřmi lůžky, kuchyňským koutem a vlastní sociálkou. Krátkodobý i dlouhodobý pronájem na Vysočině." />
+  <meta name="keywords" content="Pacov ubytování, apartmán Pacov, pronájem apartmán Vysočina, 2P Pekárna, krátkodobý pronájem Pacov, dlouhodobý pronájem Pacov" />
+  <meta name="author" content="2P Moment s.r.o." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+
+  <meta name="geo.region" content="CZ-VY" />
+  <meta name="geo.placename" content="Pacov" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="2P Pekárna" />
+  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:title" content="2P Pekárna | Pronájem apartmánů v Pacově" />
+  <meta property="og:description" content="Tři apartmány 2+1 v zrekonstruovaném domě bývalé pekárny v Pacově na Vysočině." />
+  <meta property="og:url" content="https://pekarna.2pmoment.cz/" />
+  <meta property="og:image" content="public/images/RD%2C%20Pacov%20%281%29.jpg" />
+
+  <link rel="canonical" href="https://pekarna.2pmoment.cz/" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "@id": "https://pekarna.2pmoment.cz/#lodging",
+    "name": "2P Pekárna",
+    "url": "https://pekarna.2pmoment.cz/",
+    "description": "Tři apartmány 2+1 se čtyřmi lůžky v zrekonstruovaném domě bývalé pekárny v Pacově na Vysočině. Krátkodobý i dlouhodobý pronájem.",
+    "telephone": "+420774110224",
+    "email": "pekarna@2pmoment.cz",
+    "priceRange": "$$",
+    "currenciesAccepted": "CZK",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Pacov",
+      "addressRegion": "Vysočina",
+      "addressCountry": "CZ"
+    },
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Kuchyňský kout", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Vlastní sociálka", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "WiFi", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Parkování", "value": true }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://pekarna.2pmoment.cz/#org",
+    "name": "2P Moment s.r.o.",
+    "url": "https://2pmoment.cz/",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+420774110224",
+      "contactType": "reservations",
+      "email": "pekarna@2pmoment.cz",
+      "areaServed": "CZ",
+      "availableLanguage": ["cs"]
+    }]
+  }
+  </script>
+
+  <style>
+    /* ============== TOKENS ============== */
+    :root {
+      --bg: #FAF6F0;
+      --bg-warm: #F4ECDC;
+      --surface: #FFFFFF;
+      --text: #2A1F14;
+      --text-muted: #6B5D4F;
+      --text-soft: #8A7B68;
+      --accent: #A87B4F;
+      --accent-dark: #7A5430;
+      --accent-soft: #E8D8C0;
+      --border: rgba(42, 31, 20, 0.12);
+      --border-strong: rgba(42, 31, 20, 0.22);
+      --shadow-sm: 0 1px 2px rgba(42, 31, 20, 0.04);
+      --shadow-md: 0 8px 24px rgba(42, 31, 20, 0.08);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --container: 1200px;
+      --gutter: clamp(20px, 5vw, 48px);
+      --space-section: clamp(64px, 10vw, 120px);
+    }
+
+    /* ============== RESET ============== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    a { color: var(--accent-dark); text-decoration: none; transition: color .2s ease; }
+    a:hover, a:focus-visible { color: var(--text); }
+
+    h1, h2, h3, h4 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      line-height: 1.15;
+      margin: 0 0 .4em;
+    }
+    h1 { font-size: clamp(2.4rem, 8vw, 4.8rem); font-weight: 400; letter-spacing: -0.01em; }
+    h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 400; }
+    h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 500; }
+    p  { margin: 0 0 1em; color: var(--text-muted); }
+
+    .eyebrow {
+      font-family: 'Oswald', sans-serif;
+      font-size: .85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      font-weight: 500;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    /* ============== LAYOUT ============== */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding-left: var(--gutter);
+      padding-right: var(--gutter);
+    }
+    section { padding: var(--space-section) 0; scroll-margin-top: 80px; }
+    .section-head { max-width: 720px; margin-bottom: clamp(40px, 6vw, 64px); }
+    .section-head p { font-size: 1.05rem; }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--text); color: var(--bg);
+      padding: 12px 16px; z-index: 100;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
+
+    /* ============== HEADER ============== */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(250, 246, 240, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .brand {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .brand-logo {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--bg);
+      display: grid; place-items: center;
+      font-weight: 600; font-size: .9rem;
+      letter-spacing: 0;
+    }
+    .nav-links { display: none; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-size: .95rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 400;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg) !important;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 500;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .nav-cta:hover { background: var(--accent-dark); color: var(--bg) !important; }
+    .nav-toggle {
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      border-radius: var(--radius-sm);
+    }
+    .nav-toggle:hover { background: var(--bg-warm); }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); position: relative; transition: transform .2s ease; }
+    .nav-toggle span::before, .nav-toggle span::after {
+      content: ''; position: absolute; left: 0; width: 22px; height: 2px; background: var(--text);
+      transition: transform .2s ease, top .2s ease;
+    }
+    .nav-toggle span::before { top: -7px; }
+    .nav-toggle span::after  { top:  7px; }
+    .nav-toggle[aria-expanded="true"] span { transform: rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span::before { transform: rotate(-90deg); top: 0; }
+    .nav-toggle[aria-expanded="true"] span::after  { opacity: 0; }
+
+    .mobile-menu {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      padding: 16px var(--gutter) 24px;
+    }
+    .mobile-menu.is-open { display: block; }
+    .mobile-menu a {
+      display: block; padding: 14px 0;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .04em;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .nav-cta { margin-top: 16px; display: inline-block; }
+
+    /* ============== HERO ============== */
+    .hero {
+      position: relative;
+      padding: clamp(80px, 14vw, 140px) 0 clamp(80px, 12vw, 120px);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 20%, var(--accent-soft) 0%, transparent 60%),
+        var(--bg);
+      z-index: -1;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(32px, 6vw, 56px);
+      align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Oswald', sans-serif;
+      font-size: .85rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      padding: 6px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    }
+    .hero h1 { margin-bottom: 20px; }
+    .hero h1 .accent { color: var(--accent-dark); font-weight: 500; }
+    .hero p.lede {
+      font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 32px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background .2s ease, transform .15s ease, color .2s ease;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg) !important;
+    }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text) !important;
+      border: 1px solid var(--border-strong);
+    }
+    .btn-ghost:hover { background: var(--surface); }
+
+    .hero-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      box-shadow: var(--shadow-md);
+    }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-meta {
+      position: absolute; bottom: 16px; left: 16px; right: 16px;
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .meta-pill {
+      background: rgba(250, 246, 240, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ============== STATS ============== */
+    .stats {
+      padding: 0;
+      margin-top: clamp(32px, 6vw, 48px);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .stat {
+      background: var(--surface);
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      font-weight: 400;
+      color: var(--accent-dark);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: .82rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* ============== ABOUT ============== */
+    .about { background: var(--bg-warm); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(32px, 6vw, 56px);
+      align-items: start;
+    }
+    .about-image {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 5 / 4;
+      box-shadow: var(--shadow-md);
+    }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; }
+    .feature-list {
+      list-style: none; padding: 0; margin: 24px 0 0;
+      display: grid; gap: 14px;
+    }
+    .feature-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .feature-list svg {
+      flex-shrink: 0; width: 22px; height: 22px;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    /* ============== APARTMENTS ============== */
+    .apartments-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .apt-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .apt-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+    }
+    .apt-photo {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--bg-warm);
+    }
+    .apt-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .apt-card:hover .apt-photo img { transform: scale(1.04); }
+    .apt-body { padding: 24px; }
+    .apt-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0 0 4px;
+    }
+    .apt-sub {
+      font-size: .9rem;
+      color: var(--accent-dark);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .apt-specs {
+      display: flex; gap: 18px; flex-wrap: wrap;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: .9rem;
+      color: var(--text-muted);
+    }
+    .apt-specs span {
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .apt-specs svg { width: 16px; height: 16px; color: var(--accent); }
+
+    .commercial-card {
+      grid-column: 1 / -1;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 32px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .commercial-card h3 { color: var(--bg); margin: 0; }
+    .commercial-card p { color: rgba(250, 246, 240, 0.85); margin: 0; }
+    .commercial-card a {
+      align-self: flex-start;
+      background: var(--bg);
+      color: var(--accent-dark) !important;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: .95rem;
+      transition: background .2s ease;
+    }
+    .commercial-card a:hover { background: var(--surface); }
+
+    /* ============== GALLERY ============== */
+    .gallery { background: var(--bg-warm); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .gallery-item {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      background: var(--surface);
+      border: none; padding: 0;
+    }
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(8) {
+      grid-column: span 2;
+      aspect-ratio: 16 / 9;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s ease, opacity .2s ease;
+    }
+    .gallery-item:hover img,
+    .gallery-item:focus-visible img { transform: scale(1.04); opacity: .92; }
+
+    /* ============== NEARBY ============== */
+    .nearby-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .nearby-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      display: flex; gap: 16px;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .nearby-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .nearby-icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      display: grid; place-items: center;
+    }
+    .nearby-icon svg { width: 22px; height: 22px; }
+    .nearby-card h3 {
+      font-size: 1.05rem;
+      margin: 0 0 4px;
+    }
+    .nearby-card p { font-size: .92rem; margin: 0; line-height: 1.55; }
+    .nearby-distance {
+      font-family: 'Oswald', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      color: var(--accent-dark);
+      text-transform: uppercase;
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    /* ============== FORM ============== */
+    .form-section {
+      background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 100%);
+    }
+    .form-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 5vw, 48px);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .field label .req { color: var(--accent-dark); }
+    .field input,
+    .field textarea,
+    .field select {
+      font: inherit;
+      font-size: 1rem;
+      padding: 12px 14px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      transition: border-color .2s ease, background .2s ease;
+      width: 100%;
+      font-family: inherit;
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+    .field textarea { min-height: 120px; resize: vertical; }
+    .field-radio {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .field-radio label {
+      flex: 1; min-width: 140px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      background: var(--bg);
+      transition: border-color .2s ease, background .2s ease;
+      font-weight: 400;
+    }
+    .field-radio label:has(input:checked) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      font-weight: 500;
+    }
+    .field-radio input { width: auto; margin: 0; accent-color: var(--accent); }
+    .form-actions { margin-top: 8px; display: flex; flex-direction: column; gap: 10px; }
+    .form-note {
+      font-size: .85rem;
+      color: var(--text-soft);
+    }
+
+    /* ============== FOOTER ============== */
+    .site-footer {
+      background: var(--text);
+      color: var(--bg-warm);
+      padding: 56px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+      margin-bottom: 36px;
+    }
+    .site-footer h4 {
+      font-family: 'Oswald', sans-serif;
+      font-size: .9rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--bg);
+      margin: 0 0 16px;
+      font-weight: 500;
+    }
+    .site-footer p, .site-footer a, .site-footer li {
+      color: rgba(250, 246, 240, 0.7);
+      font-size: .95rem;
+    }
+    .site-footer a:hover { color: var(--bg); }
+    .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .footer-brand p { max-width: 320px; line-height: 1.6; }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(250, 246, 240, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: .85rem;
+      color: rgba(250, 246, 240, 0.5);
+    }
+
+    /* ============== LIGHTBOX ============== */
+    .lightbox {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(42, 31, 20, 0.92);
+      z-index: 100;
+      align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: calc(100vh - 80px);
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+    }
+    .lightbox-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--bg);
+      color: var(--text);
+      display: grid; place-items: center;
+      font-size: 1.4rem;
+      box-shadow: var(--shadow-md);
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--bg);
+      color: var(--text);
+      display: grid; place-items: center;
+      box-shadow: var(--shadow-md);
+    }
+    .lightbox-prev { left: 16px; }
+    .lightbox-next { right: 16px; }
+
+    /* ============== TABLET ============== */
+    @media (min-width: 720px) {
+      .hero-grid { grid-template-columns: 1.1fr 1fr; }
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+      .about-grid { grid-template-columns: 1fr 1.05fr; align-items: center; }
+      .apartments-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: 1 / 1; }
+      .gallery-item:nth-child(8) { grid-column: span 1; aspect-ratio: 1 / 1; }
+      .nearby-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .field-full { grid-column: 1 / -1; }
+      .form-actions { flex-direction: row; align-items: center; justify-content: space-between; }
+      .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+      .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+
+    /* ============== DESKTOP ============== */
+    @media (min-width: 960px) {
+      .nav-links { display: flex; }
+      .nav-toggle { display: none; }
+      .mobile-menu { display: none !important; }
+      .apartments-grid { grid-template-columns: repeat(3, 1fr); }
+      .nearby-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ============== A11Y ============== */
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Přeskočit na obsah</a>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Hlavní navigace">
+        <a href="#" class="brand" aria-label="2P Pekárna — domů">
+          <span class="brand-logo" aria-hidden="true">2P</span>
+          <span>Pekárna</span>
+        </a>
+        <div class="nav-links">
+          <a href="#o-pekarne">O Pekárně</a>
+          <a href="#apartmany">Apartmány</a>
+          <a href="#galerie">Galerie</a>
+          <a href="#okoli">Okolí</a>
+          <a href="#poptavka" class="nav-cta">Mám zájem</a>
+        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Otevřít menu">
+          <span aria-hidden="true"></span>
+        </button>
+      </nav>
+    </div>
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <a href="#o-pekarne">O Pekárně</a>
+      <a href="#apartmany">Apartmány</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#okoli">Okolí</a>
+      <a href="#poptavka" class="nav-cta">Mám zájem</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-text">
+            <span class="hero-eyebrow">Pacov, Vysočina</span>
+            <h1>Bydlení v <span class="accent">Pekárně</span><br>se starou duší a novým komfortem.</h1>
+            <p class="lede">Tři apartmány 2+1 v zrekonstruovaném domě bývalé pekárny v Pacově. Krátkodobý pobyt na víkend, dovolenou s rodinou nebo dlouhodobé bydlení — přijďte se podívat.</p>
+            <div class="hero-actions">
+              <a href="#poptavka" class="btn btn-primary">Mám zájem</a>
+              <a href="#apartmany" class="btn btn-ghost">Prohlédnout apartmány</a>
+            </div>
+            <div class="stats stats-grid" role="list">
+              <div class="stat" role="listitem">
+                <div class="stat-num">3</div>
+                <div class="stat-label">Apartmány</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="stat-num">4</div>
+                <div class="stat-label">Lůžka v každém</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="stat-num">2+1</div>
+                <div class="stat-label">Dispozice</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Vlastní sociálka</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-image">
+            <img src="public/images/RD%2C%20Pacov%20%281%29.jpg" alt="2P Pekárna — exteriér zrekonstruovaného domu v Pacově" loading="eager">
+            <div class="hero-meta">
+              <span class="meta-pill">Krátkodobý pronájem</span>
+              <span class="meta-pill">Dlouhodobý pronájem</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="about" id="o-pekarne" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image">
+            <img src="public/images/RD%2C%20Pacov%20%282%29.jpg" alt="Interiér Pekárny — světlý obytný prostor" loading="lazy">
+          </div>
+          <div>
+            <span class="eyebrow">O Pekárně</span>
+            <h2 id="about-heading">Z chleba kvasil dům, který dnes hostí lidi.</h2>
+            <p>Pekárna v Pacově byla po desítky let centrem vůně čerstvého pečiva. Po citlivé rekonstrukci v ní dnes nabízíme tři samostatné apartmány — světlé, čisté, s respektem k původním zdem. K tomu zvlášť oddělené nebytové prostory, vhodné pro firemní nájem.</p>
+            <ul class="feature-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Tři apartmány 2+1, každý se 4 lůžky a kuchyňským koutem</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Vlastní sociálka v každém apartmánu — žádné sdílení</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Krátkodobý i dlouhodobý pronájem podle potřeby</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Klidná lokalita Pacova, výchozí bod pro Vysočinu</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== APARTMENTS ========== -->
+    <section id="apartmany" aria-labelledby="apartments-heading">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Apartmány</span>
+          <h2 id="apartments-heading">Tři apartmány, každý zrcadlí ten druhý.</h2>
+          <p>Prostorově shodné apartmány 2+1 — čtyři lůžka, kuchyňský kout s jídelnou, vlastní koupelna s WC. Liší se jen výhledem a detaily. Vyberte si na základě fotek nebo se rovnou ozvěte.</p>
+        </div>
+        <div class="apartments-grid">
+
+          <article class="apt-card">
+            <div class="apt-photo">
+              <img src="public/images/RD%2C%20Pacov%20%283%29.jpg" alt="Apartmán 1 — obytný prostor s kuchyňským koutem" loading="lazy">
+            </div>
+            <div class="apt-body">
+              <p class="apt-sub">Apartmán 01</p>
+              <h3 class="apt-name">První patro vlevo</h3>
+              <p>Světlý apartmán 2+1 s kuchyňským koutem. Vhodný pro páry i menší rodiny.</p>
+              <div class="apt-specs">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a4 4 0 014-4h10a4 4 0 014 4v6M3 18h18M7 10V6m10 4V6"/></svg>4 lůžka</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a2 2 0 012-2h6a2 2 0 012 2v4"/></svg>2+1</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>KK + WC</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="apt-card">
+            <div class="apt-photo">
+              <img src="public/images/RD%2C%20Pacov%20%287%29.jpg" alt="Apartmán 2 — ložnicová část" loading="lazy">
+            </div>
+            <div class="apt-body">
+              <p class="apt-sub">Apartmán 02</p>
+              <h3 class="apt-name">První patro vpravo</h3>
+              <p>Identická dispozice 2+1, jen s jiným výhledem. Pohodlí pro čtyři osoby.</p>
+              <div class="apt-specs">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a4 4 0 014-4h10a4 4 0 014 4v6M3 18h18M7 10V6m10 4V6"/></svg>4 lůžka</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a2 2 0 012-2h6a2 2 0 012 2v4"/></svg>2+1</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>KK + WC</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="apt-card">
+            <div class="apt-photo">
+              <img src="public/images/RD%2C%20Pacov%20%2811%29.jpg" alt="Apartmán 3 — světlá ložnice s velkým oknem" loading="lazy">
+            </div>
+            <div class="apt-body">
+              <p class="apt-sub">Apartmán 03</p>
+              <h3 class="apt-name">Druhé patro</h3>
+              <p>Apartmán s nejhezčím výhledem nad střechami. Klid a soukromí pro čtyři.</p>
+              <div class="apt-specs">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a4 4 0 014-4h10a4 4 0 014 4v6M3 18h18M7 10V6m10 4V6"/></svg>4 lůžka</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a2 2 0 012-2h6a2 2 0 012 2v4"/></svg>2+1</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>KK + WC</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="commercial-card">
+            <h3>Nebytové prostory k pronájmu</h3>
+            <p>Hledáte prostor pro provozovnu, kavárnu nebo kanceláře v centru Pacova? Máme oddělené nebytové prostory s vlastním vstupem. Podrobnosti rád upřesním osobně.</p>
+            <a href="#poptavka">Zeptat se na nebytové prostory →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== GALLERY ========== -->
+    <section class="gallery" id="galerie" aria-labelledby="gallery-heading">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Galerie</span>
+          <h2 id="gallery-heading">Podívejte se dovnitř.</h2>
+          <p>Klikněte na fotku pro zobrazení v plné velikosti.</p>
+        </div>
+        <div class="gallery-grid">
+          <button class="gallery-item" type="button" data-index="0">
+            <img src="public/images/RD%2C%20Pacov%20%284%29.jpg" alt="Pekárna — interiér 1" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="1">
+            <img src="public/images/RD%2C%20Pacov%20%285%29.jpg" alt="Pekárna — interiér 2" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="2">
+            <img src="public/images/RD%2C%20Pacov%20%286%29.jpg" alt="Pekárna — interiér 3" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="3">
+            <img src="public/images/RD%2C%20Pacov%20%288%29.jpg" alt="Pekárna — interiér 4" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="4">
+            <img src="public/images/RD%2C%20Pacov%20%289%29.jpg" alt="Pekárna — interiér 5" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="5">
+            <img src="public/images/RD%2C%20Pacov%20%2810%29.jpg" alt="Pekárna — interiér 6" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="6">
+            <img src="public/images/RD%2C%20Pacov%20%2812%29.jpg" alt="Pekárna — interiér 7" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="7">
+            <img src="public/images/RD%2C%20Pacov%20%2813%29.jpg" alt="Pekárna — interiér 8" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="8">
+            <img src="public/images/RD%2C%20Pacov%20%2814%29.jpg" alt="Pekárna — interiér 9" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="9">
+            <img src="public/images/RD%2C%20Pacov%20%2815%29.jpg" alt="Pekárna — interiér 10" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="10">
+            <img src="public/images/RD%2C%20Pacov%20%2816%29.jpg" alt="Pekárna — interiér 11" loading="lazy">
+          </button>
+          <button class="gallery-item" type="button" data-index="11">
+            <img src="public/images/RD%2C%20Pacov%20%2817%29.jpg" alt="Pekárna — interiér 12" loading="lazy">
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== NEARBY ========== -->
+    <section id="okoli" aria-labelledby="nearby-heading">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Okolí Pacova</span>
+          <h2 id="nearby-heading">Vysočina za oknem.</h2>
+          <p>Pacov je výchozí bod pro výlety po Vysočině. Pár tipů, ze kterých se nedá v okolí prošvihnout.</p>
+        </div>
+        <div class="nearby-grid">
+
+          <div class="nearby-card">
+            <div class="nearby-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>
+            </div>
+            <div>
+              <h3>Hrad Kámen</h3>
+              <p>Romantická skalní pevnost se sbírkou historických motocyklů.</p>
+              <span class="nearby-distance">10 km · 12 minut autem</span>
+            </div>
+          </div>
+
+          <div class="nearby-card">
+            <div class="nearby-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20l5-9 4 6 3-5 8 8H2z"/><circle cx="17" cy="6" r="2"/></svg>
+            </div>
+            <div>
+              <h3>Stražiště</h3>
+              <p>Nejvyšší vrchol okolí (744 m) s rozhlednou. Sovova naučná stezka.</p>
+              <span class="nearby-distance">5 km · pěšky 1,5 hod</span>
+            </div>
+          </div>
+
+          <div class="nearby-card">
+            <div class="nearby-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7M3 22h18"/></svg>
+            </div>
+            <div>
+              <h3>Centrum Pacova</h3>
+              <p>Zámek, dva kostely, památník Antonína Sovy a turistické infocentrum.</p>
+              <span class="nearby-distance">5 minut pěšky</span>
+            </div>
+          </div>
+
+          <div class="nearby-card">
+            <div class="nearby-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9-9 9z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div>
+              <h3>Chýnovská jeskyně</h3>
+              <p>Nejstarší veřejně přístupná jeskyně v ČR. Krasová příroda.</p>
+              <span class="nearby-distance">25 km · 30 minut autem</span>
+            </div>
+          </div>
+
+          <div class="nearby-card">
+            <div class="nearby-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 6c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>
+            </div>
+            <div>
+              <h3>Aquapark Jihlava</h3>
+              <p>Krytý 108m tobogán, divoká řeka, venkovní vyhřívaný bazén.</p>
+              <span class="nearby-distance">42 km · 40 minut autem</span>
+            </div>
+          </div>
+
+          <div class="nearby-card">
+            <div class="nearby-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M3 7l9-5 9 5M9 20v-6h6v6"/></svg>
+            </div>
+            <div>
+              <h3>UNESCO Telč</h3>
+              <p>Renesanční náměstí, zámek, rybník — jedno z nejhezčích měst kraje.</p>
+              <span class="nearby-distance">60 km · 60 minut autem</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FORM ========== -->
+    <section class="form-section" id="poptavka" aria-labelledby="form-heading">
+      <div class="container">
+        <div class="section-head" style="text-align:center; margin-left:auto; margin-right:auto;">
+          <span class="eyebrow">Mám zájem</span>
+          <h2 id="form-heading">Pošlete nám poptávku.</h2>
+          <p>Odpovídáme do 24 hodin. Žádný rezervační systém — domluvíme se osobně.</p>
+        </div>
+        <form class="form-wrap" id="inquiry-form" novalidate>
+          <div class="form-grid">
+
+            <div class="field">
+              <label for="f-name">Jméno a příjmení <span class="req">*</span></label>
+              <input type="text" id="f-name" name="name" required autocomplete="name">
+            </div>
+
+            <div class="field">
+              <label for="f-email">E-mail <span class="req">*</span></label>
+              <input type="email" id="f-email" name="email" required autocomplete="email">
+            </div>
+
+            <div class="field">
+              <label for="f-phone">Telefon</label>
+              <input type="tel" id="f-phone" name="phone" autocomplete="tel" placeholder="+420">
+            </div>
+
+            <div class="field">
+              <label for="f-people">Počet osob</label>
+              <input type="number" id="f-people" name="people" min="1" max="12" placeholder="Např. 4">
+            </div>
+
+            <div class="field">
+              <label for="f-from">Termín od</label>
+              <input type="date" id="f-from" name="dateFrom">
+            </div>
+
+            <div class="field">
+              <label for="f-to">Termín do</label>
+              <input type="date" id="f-to" name="dateTo">
+            </div>
+
+            <div class="field field-full">
+              <label>Typ pronájmu</label>
+              <div class="field-radio">
+                <label>
+                  <input type="radio" name="rentalType" value="short" checked>
+                  <span>Krátkodobý (dny / týdny)</span>
+                </label>
+                <label>
+                  <input type="radio" name="rentalType" value="long">
+                  <span>Dlouhodobý (měsíce+)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field field-full">
+              <label for="f-message">Zpráva / poznámka</label>
+              <textarea id="f-message" name="message" placeholder="Co potřebujete vědět? Máte zvláštní přání?"></textarea>
+            </div>
+
+            <div class="form-actions field-full">
+              <p class="form-note">Odesláním souhlasíte se zpracováním kontaktních údajů pro vyřízení poptávky.</p>
+              <button type="submit" class="btn btn-primary">Odeslat poptávku</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>2P Pekárna</h4>
+          <p>Pronájem apartmánů 2+1 v zrekonstruovaném domě bývalé pekárny v Pacově. Provozuje 2P Moment s.r.o.</p>
+        </div>
+        <div>
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:+420774110224">+420 774 110 224</a></li>
+            <li><a href="mailto:pekarna@2pmoment.cz">pekarna@2pmoment.cz</a></li>
+            <li>Pacov, Vysočina</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Navigace</h4>
+          <ul>
+            <li><a href="#o-pekarne">O Pekárně</a></li>
+            <li><a href="#apartmany">Apartmány</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#poptavka">Poptávka</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 2P Moment s.r.o. — Všechna práva vyhrazena</span>
+        <span>Mockup verze · připraveno pro 2p-pekarna</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== LIGHTBOX ========== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galerie fotek">
+    <button class="lightbox-close" type="button" aria-label="Zavřít">×</button>
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Předchozí">‹</button>
+    <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-nav lightbox-next" type="button" aria-label="Další">›</button>
+  </div>
+
+  <script>
+    // ===== Mobile nav =====
+    (function () {
+      var btn = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('mobile-menu');
+      btn.addEventListener('click', function () {
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        if (open) {
+          menu.classList.remove('is-open');
+          menu.setAttribute('hidden', '');
+        } else {
+          menu.classList.add('is-open');
+          menu.removeAttribute('hidden');
+        }
+      });
+      menu.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') {
+          btn.setAttribute('aria-expanded', 'false');
+          menu.classList.remove('is-open');
+          menu.setAttribute('hidden', '');
+        }
+      });
+    })();
+
+    // ===== Lightbox =====
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll('.gallery-item'));
+      var lb = document.getElementById('lightbox');
+      var img = document.getElementById('lightbox-img');
+      var close = lb.querySelector('.lightbox-close');
+      var prev = lb.querySelector('.lightbox-prev');
+      var next = lb.querySelector('.lightbox-next');
+      var current = 0;
+
+      function show(i) {
+        if (i < 0) i = items.length - 1;
+        if (i >= items.length) i = 0;
+        current = i;
+        var src = items[i].querySelector('img').src;
+        var alt = items[i].querySelector('img').alt;
+        img.src = src;
+        img.alt = alt;
+        lb.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+      function hide() {
+        lb.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+      items.forEach(function (el, idx) {
+        el.addEventListener('click', function () { show(idx); });
+      });
+      close.addEventListener('click', hide);
+      prev.addEventListener('click', function () { show(current - 1); });
+      next.addEventListener('click', function () { show(current + 1); });
+      lb.addEventListener('click', function (e) {
+        if (e.target === lb) hide();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('is-open')) return;
+        if (e.key === 'Escape') hide();
+        if (e.key === 'ArrowLeft') show(current - 1);
+        if (e.key === 'ArrowRight') show(current + 1);
+      });
+    })();
+
+    // ===== Form (mockup behavior) =====
+    (function () {
+      var f = document.getElementById('inquiry-form');
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!f.reportValidity()) return;
+        var btn = f.querySelector('button[type="submit"]');
+        var originalText = btn.textContent;
+        btn.textContent = 'Děkujeme — ozveme se!';
+        btn.disabled = true;
+        setTimeout(function () {
+          btn.textContent = originalText;
+          btn.disabled = false;
+          f.reset();
+        }, 4000);
+      });
+    })();
+  </script>
+</body>
+</html>
