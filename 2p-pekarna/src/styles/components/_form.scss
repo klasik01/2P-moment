@@ -1,0 +1,126 @@
+@use "../partials/breakpoints" as *;
+
+.form-section {
+  background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+}
+
+.form-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 5vw, 48px);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+
+  @include media-up($bp-md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+
+  &--full {
+    @include media-up($bp-md) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  label,
+  .form-label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .form-req { color: var(--color-primary-dark); }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      background: var(--color-surface);
+      box-shadow: 0 0 0 3px var(--color-accent-soft);
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+}
+
+.form-radio {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  label {
+    flex: 1;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: var(--color-bg);
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    font-weight: 400;
+
+    &:has(input:checked) {
+      border-color: var(--color-primary);
+      background: var(--color-accent-soft);
+      font-weight: 500;
+    }
+  }
+
+  input {
+    width: auto;
+    margin: 0;
+    accent-color: var(--color-primary);
+  }
+}
+
+.form-actions {
+  margin-top: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include media-up($bp-md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.form-note {
+  font-size: 0.85rem;
+  color: var(--color-text-soft);
+  margin: 0;
+}

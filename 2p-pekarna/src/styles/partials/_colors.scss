@@ -1,14 +1,39 @@
-// Barvy — placeholder, budou nahrazeny při implementaci grafiky
+// ============================================================
+// 2P Pekárna — barevná paleta (teplá krémová).
+// Inspirace mockupem: světlý béžový background, hřejivý hnědý
+// akcent. Verze udržuje vždy stejné --color-* názvy, aby ostatní
+// komponenty (navbar, hero, footer, ...) nevyžadovaly úpravy.
+// ============================================================
+
 :root {
-  --color-primary: #8B4513;
-  --color-primary-light: #A0522D;
-  --color-primary-dark: #6B3410;
-  --color-accent: #D2691E;
-  --color-bg: #FFFFFF;
-  --color-bg-alt: #FDF8F0;
-  --color-text: #1A1A1A;
-  --color-text-muted: #666666;
-  --color-border: #E0D5C8;
-  --color-success: #28A745;
-  --color-error: #DC3545;
+  // Primární barva = hřejivá hnědá (akcent z pekárenské tradice)
+  --color-primary: #A87B4F;
+  --color-primary-light: #C49874;
+  --color-primary-dark: #7A5430;
+  --color-primary-soft: #E8D8C0;
+
+  // Sekundární akcent (alias, slouží footeru a starším komponentám)
+  --color-accent: #A87B4F;
+  --color-accent-soft: #E8D8C0;
+
+  // Pozadí
+  --color-bg: #FAF6F0;        // krémová stránka
+  --color-bg-alt: #F4ECDC;    // teplejší sekční odlišení
+  --color-surface: #FFFFFF;   // karta / formulář
+
+  // Text
+  --color-text: #2A1F14;        // tmavá hnědá (skoro černá)
+  --color-text-muted: #6B5D4F;  // střední hnědá (popisky)
+  --color-text-soft: #8A7B68;   // tlumená pro form note ap.
+
+  // Borders
+  --color-border: rgba(42, 31, 20, 0.12);
+  --color-border-strong: rgba(42, 31, 20, 0.22);
+
+  // Stavy
+  --color-success: #2D7D46;
+  --color-error: #B33A3A;
+
+  // Overlay (lightbox)
+  --color-overlay: rgba(42, 31, 20, 0.92);
 }

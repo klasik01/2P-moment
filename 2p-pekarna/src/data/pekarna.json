@@ -1,8 +1,6 @@
 {
   "name": "2P Pekárna",
-  "tagline": "Pronájem ubytování",
-  "expectedOpenDate": "2026",
-  "badge": "Již brzy",
+  "tagline": "Pronájem ubytování v Pacově",
   "url": "https://pekarna.2pmoment.cz",
   "company": {
     "name": "2P moment s.r.o.",
@@ -11,7 +9,7 @@
   "contact": {
     "email": "pekarna@2pmoment.cz",
     "phone": "+420 774 110 224",
-    "address": ""
+    "address": "Pacov, Vysočina"
   },
   "checkInOut": {
     "checkIn": "14:00",
@@ -20,17 +18,7 @@
   "socials": {
     "instagram": ""
   },
-  "construction": {
-    "popupTitle": "2P Pekárna je ve výstavbě",
-    "popupText": "Momentálně nepřijímáme rezervace. Zanechte nám svůj e-mail a my vám pošleme informace, jakmile bude vše připraveno.",
-    "popupCtaLabel": "Odebírat novinky",
-    "popupSuccessMessage": "Děkujeme! Dáme vám vědět, jakmile otevřeme.",
-    "popupEmailPlaceholder": "váš@email.cz",
-    "heroCtaLabel": "Dejte mi vědět"
-  },
   "firestore": {
-    "subscriptionsCollection": "2p-pekarna-subscriptions",
-    "settingsCollection": "2p-pekarna-settings",
-    "settingsDoc": "app"
+    "promotionsCollection": "2p-pekarna-promotions"
   }
 }

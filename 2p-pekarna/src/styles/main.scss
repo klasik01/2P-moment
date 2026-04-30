@@ -2,15 +2,17 @@
 // 2P PEKÁRNA — hlavní SCSS vstup.
 // Styly jsou rozdělené do funkčních celků:
 //   partials/   — tokeny (barvy, typografie, breakpointy, layout)
-//   components/ — jednotlivé vizuální komponenty
+//   components/ — jednotlivé vizuální komponenty / sekce
 // ============================================================
 
+// ---- Partials (musí být první) ----
 @use "partials/breakpoints";
 @use "partials/colors";
 @use "partials/typography";
 @use "partials/tokens";
 @use "partials/layout";
 
+// ---- Layout / globální komponenty ----
 @use "components/navbar";
 @use "components/hero";
 @use "components/footer";
@@ -18,3 +20,11 @@
 @use "components/loader";
 @use "components/cookie";
 @use "components/page";
+
+// ---- Sekce homepage ----
+@use "components/about";
+@use "components/apartments";
+@use "components/gallery";
+@use "components/nearby";
+@use "components/form";
+@use "components/lightbox";

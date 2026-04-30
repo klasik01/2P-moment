@@ -1,18 +1,28 @@
 import type { T } from "../i18n";
 import type { HomepageData } from "../types";
 import { HeroSection } from "../components/layout/HeroSection";
+import {
+  AboutSection,
+  ApartmentsSection,
+  GallerySection,
+  NearbySection,
+  InquiryFormSection,
+} from "../components/sections";
 
 type Props = {
   t: T;
   data: HomepageData;
-  onConstructionClick: () => void;
 };
 
-export function HomePage({ data, onConstructionClick: _onConstructionClick }: Props) {
+export function HomePage({ t, data }: Props) {
   return (
     <>
       <HeroSection data={data.hero} />
-      {/* Další sekce budou přidány postupně */}
+      <AboutSection data={data.about} />
+      <ApartmentsSection data={data.apartments} />
+      <GallerySection data={data.gallery} />
+      <NearbySection data={data.nearby} />
+      <InquiryFormSection data={data.inquiry} t={t} />
     </>
   );
 }

@@ -3,7 +3,7 @@
 //
 // Komponenty importují POUZE z tohoto souboru:
 //   import { backend } from "../services/backend";
-//   backend.fetchAppSettings();
+//   backend.subscribePromotions(...);
 //
 // Provider se nastavuje jednou (v main.tsx nebo App.tsx).
 // Výchozí implementace je Firebase (viz firebaseBackend.ts).
@@ -32,7 +32,4 @@ export const backend: BackendService = {
   subscribePromotions: (...args) => _backend.subscribePromotions(...args),
   savePromotion: (...args) => _backend.savePromotion(...args),
   deletePromotion: (...args) => _backend.deletePromotion(...args),
-  fetchAppSettings: (...args) => _backend.fetchAppSettings(...args),
-  saveAppSettings: (...args) => _backend.saveAppSettings(...args),
-  createSubscription: (...args) => _backend.createSubscription(...args),
 };

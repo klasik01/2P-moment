@@ -5,11 +5,20 @@
 export const cs = {
   nav: {
     brandAlt: "2P Pekárna",
-    uvod: "Úvod",
-    ubytovani: "Ubytování",
+    home: "Úvod",
+    about: "O Pekárně",
+    apartments: "Apartmány",
+    gallery: "Galerie",
+    nearby: "Okolí",
+    inquiry: "Mám zájem",
     rezervace: "Rezervace",
     kontakt: "Kontakt",
     menu: "Menu",
+    closeMenu: "Zavřít menu",
+    skipToContent: "Přeskočit na obsah",
+    // legacy klíče (zachované, aby nebroke staré kódy)
+    uvod: "Úvod",
+    ubytovani: "Ubytování",
   },
   hero: {
     scrollHint: "Scroll",
@@ -27,6 +36,7 @@ export const cs = {
     sending: "Odesílám…",
     genericError: "Něco se pokazilo, zkuste to prosím znovu.",
     saving: "Ukládám…",
+    required: "Povinné",
   },
   cookies: {
     title: "Používáme cookies",
@@ -46,14 +56,10 @@ export const cs = {
     icoLabel: "IČO",
     rights: "Všechna práva vyhrazena.",
     madeBy: "Vyrobeno s ♥ pro 2P Pekárna.",
+    mockupNote: "Mockup verze · připraveno pro 2p-pekarna",
   },
   map: {
     iframeTitle: "Mapa lokality 2P Pekárna",
-  },
-  profiles: {
-    label: "Profil:",
-    veVystavbe: "Ve výstavbě",
-    bezReklamy: "Bez reklamy",
   },
   reservation: {
     seoTitle: "Rezervace | 2P Pekárna — zarezervujte si svůj termín",
@@ -71,6 +77,13 @@ export const cs = {
     addressLabel: "Sídlo",
     bankLabel: "Bankovní spojení",
     dataBoxLabel: "Datová schránka",
+  },
+  lightbox: {
+    open: "Otevřít fotku",
+    close: "Zavřít",
+    prev: "Předchozí",
+    next: "Další",
+    counter: (n: number, total: number) => `${n} z ${total}`,
   },
 } as const;
 
