@@ -1,0 +1,25 @@
+{
+  "name": "2p-api",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Sdílené API pro frontendy 2P Moment (běží na vm-twopmoment).",
+  "scripts": {
+    "dev": "node --watch --experimental-strip-types src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "tsc --noEmit",
+    "test": "echo \"No unit tests configured yet\""
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@fastify/rate-limit": "^10.2.2",
+    "fastify": "^5.2.1",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "@types/pg": "^8.11.11",
+    "typescript": "^5.8.3"
+  }
+}

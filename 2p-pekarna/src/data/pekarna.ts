@@ -13,9 +13,6 @@ export type PekarnaConfig = {
   contact: { email: string; phone: string; address: string };
   checkInOut: { checkIn: string; checkOut: string };
   socials: { instagram: string };
-  firestore: {
-    promotionsCollection: string;
-  };
 };
 
 export const pekarnaConfig = raw as PekarnaConfig;

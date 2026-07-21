@@ -1,0 +1,20 @@
+# ============================================================
+# Override POUZE pro lokální vývoj.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d postgres api
+#
+# Vystrčí API na host, aby na něj dosáhl vite dev server pekárny.
+# Vázané na 127.0.0.1, takže není vidět ze sítě.
+#
+# Postgres tu schválně port nemá — sedí na síti `internal: true`,
+# kde Docker publikovat porty neumí. Do databáze se dostaneš přes:
+#   docker compose exec postgres psql -U twopmoment -d twopmoment -p 5430
+#
+# Na vm-twopmoment tenhle soubor NEPOUŽÍVEJ — tam se pouští
+# `docker compose up -d` a ven kouká jen Caddy.
+# ============================================================
+
+services:
+  api:
+    ports:
+      - "127.0.0.1:5310:5310"

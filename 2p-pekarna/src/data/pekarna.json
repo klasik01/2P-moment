@@ -17,8 +17,5 @@
   },
   "socials": {
     "instagram": ""
-  },
-  "firestore": {
-    "promotionsCollection": "2p-pekarna-promotions"
   }
 }

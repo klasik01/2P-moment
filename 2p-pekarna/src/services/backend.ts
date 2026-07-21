@@ -2,34 +2,44 @@
 // Backend fasáda — jediný vstupní bod pro všechny backend operace.
 //
 // Komponenty importují POUZE z tohoto souboru:
-//   import { backend } from "../services/backend";
-//   backend.subscribePromotions(...);
+//   import { backend } from "../services";
+//   await backend.createInquiry(payload);
 //
-// Provider se nastavuje jednou (v main.tsx nebo App.tsx).
-// Výchozí implementace je Firebase (viz firebaseBackend.ts).
-// Pro výměnu za jinou implementaci stačí zavolat setBackend().
+// Implementace se vybírá podle VITE_API_URL:
+//   nastavené  → httpBackend  (2p-api na vm-twopmoment)
+//   prázdné    → mockBackend  (lokální vývoj, ukázka pro klienta)
+//
+// Díky tomu se aplikace nasadí na Netlify a funguje i bez backendu.
 // ============================================================
 
 import type { BackendService } from "./contracts";
-import { createFirebaseBackend } from "./firebaseBackend";
+import { createHttpBackend } from "./httpBackend";
+import { createMockBackend } from "./mockBackend";
 
-// Výchozí implementace = Firebase
-let _backend: BackendService = createFirebaseBackend();
+const apiUrl = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 
-/**
- * Přepne backend implementaci.
- * Volat jednou při startu aplikace, pokud nechceme Firebase.
- */
+/** True, když běžíme bez backendu — poptávka se nikam neodešle. */
+export const isMockBackend = !apiUrl;
+
+let _backend: BackendService = apiUrl
+  ? createHttpBackend(apiUrl)
+  : createMockBackend();
+
+if (isMockBackend) {
+  console.info(
+    "[backend] Mock režim — VITE_API_URL není nastavené, poptávky se neodesílají.",
+  );
+}
+
+/** Přepne implementaci — hlavně pro testy. */
 export function setBackend(impl: BackendService) {
   _backend = impl;
 }
 
 /**
- * Vrátí aktuální backend — proxy objekt, aby reference zůstala stabilní
+ * Aktuální backend — proxy objekt, aby reference zůstala stabilní
  * i po případném přepnutí implementace.
  */
 export const backend: BackendService = {
-  subscribePromotions: (...args) => _backend.subscribePromotions(...args),
-  savePromotion: (...args) => _backend.savePromotion(...args),
-  deletePromotion: (...args) => _backend.deletePromotion(...args),
+  createInquiry: (...args) => _backend.createInquiry(...args),
 };

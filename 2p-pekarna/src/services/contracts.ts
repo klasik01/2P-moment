@@ -3,17 +3,9 @@
 // Komponenty volají POUZE fasádu, nikdy přímo implementaci.
 // ============================================================
 
-import type { Promotion } from "../types";
-
-// ---- Backend Service Contract ----
+import type { InquiryInput } from "../types";
 
 export interface BackendService {
-  // -- Promotions --
-  subscribePromotions(
-    onData: (promos: Promotion[]) => void,
-    onError?: () => void,
-  ): () => void;
-
-  savePromotion(promo: Promotion): Promise<void>;
-  deletePromotion(id: string): Promise<void>;
+  /** Odešle poptávku z formuláře. Chybu vyhodí, ať ji formulář zobrazí. */
+  createInquiry(input: InquiryInput): Promise<void>;
 }

@@ -1,0 +1,22 @@
+{
+	email {$ACME_EMAIL}
+}
+
+{$API_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		-Server
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+
+	# CORS a rate limiting řeší API (viz src/server.ts) — Caddy dělá
+	# jen TLS a proxy, aby nebylo potřeba stavět vlastní image s pluginy.
+	reverse_proxy api:5310
+
+	log {
+		output stdout
+		format console
+	}
+}

@@ -2,16 +2,18 @@
 
 export type CookieConsentState = "unset" | "accepted" | "rejected";
 
-export type Promotion = {
-  id: string;
-  enabled: boolean;
-  badge: string;
-  title: string;
-  text: string;
-  ctaLabel: string;
-  ctaHref: string;
-  startsAt?: string; // ISO date YYYY-MM-DD
-  endsAt?: string;
+/** Payload poptávky odesílaný na 2p-api (POST /pekarna/inquiry). */
+export type InquiryInput = {
+  name: string;
+  email: string;
+  phone: string;
+  people: string;
+  dateFrom: string;
+  dateTo: string;
+  rentalType: "short" | "long";
+  message: string;
+  /** Honeypot — skryté pole, které vyplní jen bot. Vždy prázdné. */
+  website: string;
 };
 
 export type SeoMeta = {

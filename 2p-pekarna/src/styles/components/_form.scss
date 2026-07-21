@@ -124,3 +124,19 @@
   color: var(--color-text-soft);
   margin: 0;
 }
+
+.form-error {
+  font-size: 0.9rem;
+  color: var(--color-error, #b3261e);
+  margin: 0;
+}
+
+// Honeypot — pole viditelné jen pro boty. Schované mimo viewport,
+// ne `display: none`, protože to část botů umí detekovat.
+.form-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

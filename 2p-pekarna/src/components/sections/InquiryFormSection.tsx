@@ -1,31 +1,22 @@
 import { useRef, useState } from "react";
-import type { InquiryFormData } from "../../types";
+import type { InquiryFormData, InquiryInput } from "../../types";
 import type { T } from "../../i18n";
+import { backend } from "../../services";
 
 type Props = {
   data: InquiryFormData;
   t: T;
-  onSubmit?: (payload: InquiryFormPayload) => Promise<void> | void;
-};
-
-export type InquiryFormPayload = {
-  name: string;
-  email: string;
-  phone: string;
-  people: string;
-  dateFrom: string;
-  dateTo: string;
-  rentalType: "short" | "long";
-  message: string;
+  /** Override odesílání — jinak se volá backend fasáda. */
+  onSubmit?: (payload: InquiryInput) => Promise<void> | void;
 };
 
 type Status = "idle" | "sending" | "success" | "error";
 
 export function InquiryFormSection({ data, t, onSubmit }: Props) {
-  if (data.visible === false) return null;
-
   const formRef = useRef<HTMLFormElement | null>(null);
   const [status, setStatus] = useState<Status>("idle");
+
+  if (data.visible === false) return null;
 
   const isSending = status === "sending";
   const isSuccess = status === "success";
@@ -37,7 +28,7 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
     if (!form.reportValidity()) return;
 
     const fd = new FormData(form);
-    const payload: InquiryFormPayload = {
+    const payload: InquiryInput = {
       name: String(fd.get("name") ?? ""),
       email: String(fd.get("email") ?? ""),
       phone: String(fd.get("phone") ?? ""),
@@ -46,18 +37,21 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
       dateTo: String(fd.get("dateTo") ?? ""),
       rentalType: (String(fd.get("rentalType") ?? "short") as "short" | "long"),
       message: String(fd.get("message") ?? ""),
+      website: String(fd.get("website") ?? ""),
     };
 
     setStatus("sending");
     try {
       if (onSubmit) await onSubmit(payload);
+      else await backend.createInquiry(payload);
       setStatus("success");
       // Po 4 sekundách se vrátí do idle a formulář se vyprázdní.
       setTimeout(() => {
         form.reset();
         setStatus("idle");
       }, 4000);
-    } catch {
+    } catch (err) {
+      console.error("[InquiryForm] odeslání selhalo:", err);
       setStatus("error");
     }
   };
@@ -172,6 +166,19 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
               />
             </div>
 
+            {/* Honeypot — pro člověka neviditelné, bota to láká vyplnit.
+                Server takové odeslání tiše zahodí. */}
+            <div className="form-hp" aria-hidden="true">
+              <label htmlFor="f-website">Nevyplňujte toto pole</label>
+              <input
+                id="f-website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
             <div className="form-actions form-field--full">
               <p className="form-note">{data.note}</p>
               <button
@@ -182,6 +189,12 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
                 {submitText}
               </button>
             </div>
+
+            {status === "error" && (
+              <p className="form-error form-field--full" role="alert">
+                {t.common.genericError}
+              </p>
+            )}
           </div>
         </form>
       </div>

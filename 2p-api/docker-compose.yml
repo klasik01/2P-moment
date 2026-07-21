@@ -1,0 +1,92 @@
+name: twopmoment
+
+# ============================================================
+# 2P Moment — backend stack (vm-twopmoment)
+#
+#   caddy     :80 :443   TLS + reverse proxy, jediná věc vidět z internetu
+#   api       :5310      Node/Fastify, dostupné pouze přes caddy
+#   postgres  :5430      pouze na interní síti, ven nepublikované
+#
+# Frontendy běží na Netlify a volají https://<API_DOMAIN>.
+# ============================================================
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      API_DOMAIN: ${API_DOMAIN:?nastav API_DOMAIN v .env}
+      ACME_EMAIL: ${ACME_EMAIL:?nastav ACME_EMAIL v .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - api
+    networks:
+      - edge
+    logging: &logging
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  api:
+    build: .
+    restart: unless-stopped
+    # Záměrně BEZ `ports:` — z internetu se sem dá jen přes caddy.
+    environment:
+      NODE_ENV: production
+      PORT: "5310"
+      DATABASE_URL: postgres://${POSTGRES_USER:?}:${POSTGRES_PASSWORD:?}@postgres:5430/${POSTGRES_DB:?}
+      CORS_ORIGINS: ${CORS_ORIGINS:?nastav CORS_ORIGINS v .env}
+      INQUIRY_RATE_MAX: ${INQUIRY_RATE_MAX:-5}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - edge
+      - internal
+    mem_limit: 512m
+    logging: *logging
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    # Postgres poslouchá na 5430 místo výchozích 5432.
+    command: ["postgres", "-p", "5430"]
+    # Záměrně BEZ `ports:` — databáze není z internetu vidět vůbec.
+    # Lokální přístup: docker compose exec postgres psql -U $POSTGRES_USER -d $POSTGRES_DB -p 5430
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: ${POSTGRES_DB:?}
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      # Skripty se pouští POUZE při prvním startu (prázdný volume).
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB -p 5430"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - internal
+    mem_limit: 1g
+    logging: *logging
+
+networks:
+  # caddy <-> api
+  edge:
+  # api <-> postgres, bez přístupu ven
+  internal:
+    internal: true
+
+volumes:
+  pg-data:
+  caddy-data:
+  caddy-config:
