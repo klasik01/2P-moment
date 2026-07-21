@@ -4,21 +4,16 @@
 
 export const cs = {
   nav: {
-    brandAlt: "2P Pekárna",
+    brandAlt: "Pekárna Pacov",
     home: "Úvod",
+    accommodation: "Ubytování",
+    commercial: "Komerční prostory",
     about: "O Pekárně",
-    apartments: "Apartmány",
-    gallery: "Galerie",
-    nearby: "Okolí",
-    inquiry: "Mám zájem",
-    rezervace: "Rezervace",
-    kontakt: "Kontakt",
+    contact: "Kontakt",
+    reserve: "Rezervovat",
     menu: "Menu",
     closeMenu: "Zavřít menu",
     skipToContent: "Přeskočit na obsah",
-    // legacy klíče (zachované, aby nebroke staré kódy)
-    uvod: "Úvod",
-    ubytovani: "Ubytování",
   },
   hero: {
     scrollHint: "Scroll",
@@ -34,6 +29,8 @@ export const cs = {
     showMore: "Zobrazit více",
     showLess: "Sbalit",
     sending: "Odesílám…",
+    submit: "Odeslat zprávu",
+    galleryHint: "Klikněte na fotku pro zobrazení v plné velikosti.",
     genericError: "Něco se pokazilo, zkuste to prosím znovu.",
     saving: "Ukládám…",
     required: "Povinné",

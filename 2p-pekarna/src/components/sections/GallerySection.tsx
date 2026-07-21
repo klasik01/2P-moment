@@ -1,4 +1,5 @@
 import type { GalleryData } from "../../types";
+import { cs } from "../../i18n";
 import { Icon } from "../ui/Icon";
 import { asset } from "../../utils/asset";
 import { useLightbox } from "../../hooks/useLightbox";
@@ -19,7 +20,7 @@ export function GallerySection({ data }: Props) {
         <header className="section-head">
           <span className="section-eyebrow">{data.eyebrow}</span>
           <h2 id="gallery-title" className="section-title">{data.title}</h2>
-          <p className="section-desc">{data.desc}</p>
+          <p className="section-desc">{cs.common.galleryHint}</p>
         </header>
 
         <ul className="gallery__grid" role="list">

@@ -1,217 +1,176 @@
 {
+  "_zdroj": "Všechny texty pocházejí z .design/pekarna/ZADANI-KLIENT.md. Nic si nedopisuj — co v zadání není, vyžádej od klienta.",
   "seo": {
-    "title": "2P Pekárna | Pronájem apartmánů v Pacově",
-    "description": "2P Pekárna v Pacově — tři apartmány 2+1 se čtyřmi lůžky, kuchyňským koutem a vlastní sociálkou. Krátkodobý i dlouhodobý pronájem na Vysočině.",
-    "keywords": "Pacov ubytování, apartmán Pacov, pronájem apartmán Vysočina, 2P Pekárna, krátkodobý pronájem Pacov, dlouhodobý pronájem Pacov",
-    "ogImage": "/images/RD,%20Pacov%20(1).jpg"
+    "title": "Pekárna Pacov – krátkodobé ubytování, skladovací a výrobní prostory",
+    "description": "Pekárna Pacov nabízí krátkodobé ubytování ve třech bytech s kapacitou cca 15 osob. Vhodné pro firmy, pracovníky a skupiny. K dispozici také skladovací, výrobní a kancelářské prostory k pronájmu.",
+    "keywords": "ubytování Pacov, krátkodobé ubytování Pacov, ubytování pro dělníky Pacov, ubytování pro pracovníky Pacov, levné ubytování Pacov, firemní ubytování Pacov, skladovací prostory Pacov, výrobní prostory Pacov, pronájem prostor Pacov, Pekárna Pacov",
+    "ogImage": "/images/RD,%20Pacov%20(1).jpg",
+    "canonical": "https://pekarna.2pmoment.cz/"
   },
-
   "hero": {
     "visible": true,
-    "eyebrow": "Pacov, Vysočina",
-    "subtitle": "Vítejte",
-    "title": "Bydlení v",
-    "titleAccent": "Pekárně",
-    "titleSuffix": "se starou duší a novým komfortem.",
-    "text": "Tři apartmány 2+1 v zrekonstruovaném domě bývalé pekárny v Pacově. Krátkodobý pobyt na víkend, dovolenou s rodinou nebo dlouhodobé bydlení — přijďte se podívat.",
+    "eyebrow": "Pacov",
+    "title": "Pekárna Pacov —",
+    "titleAccent": "krátkodobé ubytování",
+    "titleSuffix": "a prostory k pronájmu",
+    "text": "Praktické ubytování v Pacově. Jednoduché, dostupné, bez zbytečností.",
     "image": "/images/RD,%20Pacov%20(1).jpg",
-    "imageAlt": "2P Pekárna — exteriér zrekonstruovaného domu v Pacově",
-    "pills": ["Krátkodobý pronájem", "Dlouhodobý pronájem"],
+    "imageAlt": "Pekárna Pacov — pohled na budovu z ulice",
     "stats": [
-      { "value": "3",    "label": "Apartmány" },
-      { "value": "4",    "label": "Lůžka v každém" },
-      { "value": "2+1",  "label": "Dispozice" },
-      { "value": "100%", "label": "Vlastní sociálka" }
+      {
+        "value": "3",
+        "label": "byty"
+      },
+      {
+        "value": "cca 15",
+        "label": "osob"
+      }
     ],
-    "ctaPrimaryLabel": "Mám zájem",
-    "ctaPrimaryHref": "#poptavka",
-    "ctaSecondaryLabel": "Prohlédnout apartmány",
-    "ctaSecondaryHref": "#apartmany"
+    "ctaPrimaryLabel": "Rezervovat ubytování",
+    "ctaPrimaryHref": "/rezervace",
+    "ctaSecondaryLabel": "Zjistit více o ubytování",
+    "ctaSecondaryHref": "/ubytovani"
   },
-
-  "about": {
+  "intro": {
     "visible": true,
-    "eyebrow": "O Pekárně",
-    "title": "Z chleba kvasil dům, který dnes hostí lidi.",
-    "text": "Pekárna v Pacově byla po desítky let centrem vůně čerstvého pečiva. Po citlivé rekonstrukci v ní dnes nabízíme tři samostatné apartmány — světlé, čisté, s respektem k původním zdem. K tomu zvlášť oddělené nebytové prostory, vhodné pro firemní nájem.",
+    "anchor": "o-objektu",
+    "title": "Bývalá pekárna. Nové zázemí pro práci, ubytování i podnikání.",
+    "paragraphs": [
+      "Vítejte v Pekárně v Pacově. Objekt, který místní znají po generace jako bývalou pekárnu, dostává nové využití. Na místě, kde se dříve pekly rohlíky a pečivo, dnes vzniká praktické zázemí pro ubytování, práci i podnikání.",
+      "Nabízíme krátkodobé ubytování ve třech bytech s celkovou kapacitou přibližně 15 osob. Ubytování je vhodné především pro firmy, pracovníky, montážní a stavební party nebo skupiny osob, které hledají jednoduché a dostupné zázemí v Pacově a okolí.",
+      "Součástí objektu jsou také kancelářské, skladovací a výrobní prostory, které je možné individuálně poptat."
+    ],
     "image": "/images/RD,%20Pacov%20(2).jpg",
-    "imageAlt": "Interiér Pekárny — světlý obytný prostor",
-    "features": [
-      "Tři apartmány 2+1, každý se 4 lůžky a kuchyňským koutem",
-      "Vlastní sociálka v každém apartmánu — žádné sdílení",
-      "Krátkodobý i dlouhodobý pronájem podle potřeby",
-      "Klidná lokalita Pacova, výchozí bod pro Vysočinu"
-    ]
+    "imageAlt": "Pekárna Pacov — detail objektu",
+    "imageSide": "right"
   },
-
-  "apartments": {
+  "accommodation": {
     "visible": true,
-    "eyebrow": "Apartmány",
-    "title": "Tři apartmány, každý zrcadlí ten druhý.",
-    "desc": "Prostorově shodné apartmány 2+1 — čtyři lůžka, kuchyňský kout s jídelnou, vlastní koupelna s WC. Liší se jen výhledem a detaily. Vyberte si na základě fotek nebo se rovnou ozvěte.",
-    "items": [
-      {
-        "id": "apt-01",
-        "badge": "Apartmán 01",
-        "name": "První patro vlevo",
-        "description": "Světlý apartmán 2+1 s kuchyňským koutem. Vhodný pro páry i menší rodiny.",
-        "image": "/images/RD,%20Pacov%20(3).jpg",
-        "imageAlt": "Apartmán 1 — obytný prostor s kuchyňským koutem",
-        "specs": [
-          { "icon": "bed",     "label": "4 lůžka" },
-          { "icon": "layout",  "label": "2+1" },
-          { "icon": "bath",    "label": "KK + WC" }
-        ]
-      },
-      {
-        "id": "apt-02",
-        "badge": "Apartmán 02",
-        "name": "První patro vpravo",
-        "description": "Identická dispozice 2+1, jen s jiným výhledem. Pohodlí pro čtyři osoby.",
-        "image": "/images/RD,%20Pacov%20(7).jpg",
-        "imageAlt": "Apartmán 2 — ložnicová část",
-        "specs": [
-          { "icon": "bed",     "label": "4 lůžka" },
-          { "icon": "layout",  "label": "2+1" },
-          { "icon": "bath",    "label": "KK + WC" }
-        ]
-      },
-      {
-        "id": "apt-03",
-        "badge": "Apartmán 03",
-        "name": "Druhé patro",
-        "description": "Apartmán s nejhezčím výhledem nad střechami. Klid a soukromí pro čtyři.",
-        "image": "/images/RD,%20Pacov%20(11).jpg",
-        "imageAlt": "Apartmán 3 — světlá ložnice s velkým oknem",
-        "specs": [
-          { "icon": "bed",     "label": "4 lůžka" },
-          { "icon": "layout",  "label": "2+1" },
-          { "icon": "bath",    "label": "KK + WC" }
-        ]
-      }
+    "anchor": "ubytovani",
+    "eyebrow": "Ubytování",
+    "title": "Krátkodobé ubytování v Pacově",
+    "paragraphs": [
+      "V Pekárně nabízíme krátkodobé ubytování ve třech samostatných bytech. Celková kapacita je přibližně 15 osob, díky čemuž je objekt vhodný i pro větší pracovní skupiny, montážní party nebo firmy, které potřebují ubytovat zaměstnance v Pacově a okolí.",
+      "Ubytování je určeno pro ty, kteří hledají praktické, čisté a cenově rozumné řešení bez nutnosti využívat klasický hotel. Hodí se pro několikadenní i delší pracovní pobyty.",
+      "Rezervaci ubytování je možné provést jednoduše přes online rezervační systém."
     ],
-    "commercial": {
-      "visible": true,
-      "title": "Nebytové prostory k pronájmu",
-      "text": "Hledáte prostor pro provozovnu, kavárnu nebo kanceláře v centru Pacova? Máme oddělené nebytové prostory s vlastním vstupem. Podrobnosti rád upřesním osobně.",
-      "ctaLabel": "Zeptat se na nebytové prostory →",
-      "ctaHref": "#poptavka"
+    "bullets": [
+      "3 samostatné byty",
+      "celková kapacita cca 15 osob",
+      "vhodné pro pracovníky a firmy",
+      "krátkodobé i delší pobyty dle dostupnosti",
+      "praktické zázemí v Pacově",
+      "online rezervace ubytování"
+    ],
+    "image": "/images/RD,%20Pacov%20(3).jpg",
+    "imageAlt": "Byt v Pekárně — obytný prostor",
+    "imageSide": "left",
+    "cta": {
+      "label": "Rezervovat ubytování",
+      "href": "/rezervace"
+    },
+    "ctaSecondary": {
+      "label": "Zjistit více o ubytování",
+      "href": "/ubytovani"
     }
   },
-
-  "gallery": {
+  "audience": {
     "visible": true,
-    "eyebrow": "Galerie",
-    "title": "Podívejte se dovnitř.",
-    "desc": "Klikněte na fotku pro zobrazení v plné velikosti.",
-    "images": [
-      { "src": "/images/RD,%20Pacov%20(4).jpg",  "alt": "Pekárna — interiér 1" },
-      { "src": "/images/RD,%20Pacov%20(5).jpg",  "alt": "Pekárna — interiér 2" },
-      { "src": "/images/RD,%20Pacov%20(6).jpg",  "alt": "Pekárna — interiér 3" },
-      { "src": "/images/RD,%20Pacov%20(8).jpg",  "alt": "Pekárna — interiér 4" },
-      { "src": "/images/RD,%20Pacov%20(9).jpg",  "alt": "Pekárna — interiér 5" },
-      { "src": "/images/RD,%20Pacov%20(10).jpg", "alt": "Pekárna — interiér 6" },
-      { "src": "/images/RD,%20Pacov%20(12).jpg", "alt": "Pekárna — interiér 7" },
-      { "src": "/images/RD,%20Pacov%20(13).jpg", "alt": "Pekárna — interiér 8" },
-      { "src": "/images/RD,%20Pacov%20(14).jpg", "alt": "Pekárna — interiér 9" },
-      { "src": "/images/RD,%20Pacov%20(15).jpg", "alt": "Pekárna — interiér 10" },
-      { "src": "/images/RD,%20Pacov%20(16).jpg", "alt": "Pekárna — interiér 11" },
-      { "src": "/images/RD,%20Pacov%20(17).jpg", "alt": "Pekárna — interiér 12" }
+    "anchor": "pro-koho",
+    "eyebrow": "Pro koho je ubytování vhodné",
+    "title": "Pro firmy, pracovníky i skupiny",
+    "paragraphs": [
+      "Ubytování v Pekárně je ideální pro firmy, které potřebují zajistit zázemí pro své zaměstnance během zakázek v Pacově a okolí. Využijí jej stavební, montážní a servisní party, ale také jednotlivci nebo skupiny, které hledají jednoduché ubytování za rozumnou cenu.",
+      "Nejde o hotelové ubytování s luxusními službami. Cílem je nabídnout praktické a dostupné místo k přespání, odpočinku a běžnému fungování během pracovního pobytu."
     ]
   },
-
-  "nearby": {
+  "commercial": {
     "visible": true,
-    "eyebrow": "Okolí Pacova",
-    "title": "Vysočina za oknem.",
-    "desc": "Pacov je výchozí bod pro výlety po Vysočině. Pár tipů, ze kterých se nedá v okolí prošvihnout.",
-    "items": [
-      {
-        "icon": "castle",
-        "title": "Hrad Kámen",
-        "text": "Romantická skalní pevnost se sbírkou historických motocyklů.",
-        "distance": "10 km · 12 minut autem"
-      },
-      {
-        "icon": "mountain",
-        "title": "Stražiště",
-        "text": "Nejvyšší vrchol okolí (744 m) s rozhlednou. Sovova naučná stezka.",
-        "distance": "5 km · pěšky 1,5 hod"
-      },
-      {
-        "icon": "town",
-        "title": "Centrum Pacova",
-        "text": "Zámek, dva kostely, památník Antonína Sovy a turistické infocentrum.",
-        "distance": "5 minut pěšky"
-      },
-      {
-        "icon": "diamond",
-        "title": "Chýnovská jeskyně",
-        "text": "Nejstarší veřejně přístupná jeskyně v ČR. Krasová příroda.",
-        "distance": "25 km · 30 minut autem"
-      },
-      {
-        "icon": "wave",
-        "title": "Aquapark Jihlava",
-        "text": "Krytý 108m tobogán, divoká řeka, venkovní vyhřívaný bazén.",
-        "distance": "42 km · 40 minut autem"
-      },
-      {
-        "icon": "monument",
-        "title": "UNESCO Telč",
-        "text": "Renesanční náměstí, zámek, rybník — jedno z nejhezčích měst kraje.",
-        "distance": "60 km · 60 minut autem"
-      }
-    ]
-  },
-
-  "inquiry": {
-    "visible": true,
-    "eyebrow": "Mám zájem",
-    "title": "Pošlete nám poptávku.",
-    "desc": "Odpovídáme do 24 hodin. Žádný rezervační systém — domluvíme se osobně.",
-    "note": "Odesláním souhlasíte se zpracováním kontaktních údajů pro vyřízení poptávky.",
-    "submitLabel": "Odeslat poptávku",
-    "successLabel": "Děkujeme — ozveme se!",
-    "fields": {
-      "name": "Jméno a příjmení",
-      "email": "E-mail",
-      "phone": "Telefon",
-      "people": "Počet osob",
-      "dateFrom": "Termín od",
-      "dateTo": "Termín do",
-      "rentalType": "Typ pronájmu",
-      "rentalShort": "Krátkodobý (dny / týdny)",
-      "rentalLong": "Dlouhodobý (měsíce+)",
-      "message": "Zpráva / poznámka",
-      "messagePlaceholder": "Co potřebujete vědět? Máte zvláštní přání?"
+    "anchor": "komercni-prostory",
+    "eyebrow": "Komerční prostory",
+    "title": "Skladovací a výrobní prostory k pronájmu",
+    "paragraphs": [
+      "Součástí objektu Pekárna jsou také prostory vhodné pro skladování, drobnou výrobu, provozní zázemí nebo kanceláře. Tyto prostory nabízíme individuálně podle aktuální dostupnosti a konkrétních potřeb zájemce.",
+      "Pokud hledáte sklad, menší výrobní prostor, provozní zázemí nebo kancelář v Pacově, kontaktujte nás. Rádi s vámi projdeme možnosti využití objektu a připravíme konkrétní nabídku."
+    ],
+    "bullets": [
+      "skladovací prostory",
+      "výrobní a provozní prostory",
+      "kancelářské zázemí",
+      "individuální dohoda podle potřeb",
+      "vhodné pro firmy, živnostníky i menší provozy"
+    ],
+    "image": "/images/RD,%20Pacov%20(18).jpg",
+    "imageAlt": "Pekárna Pacov — provozní část objektu",
+    "imageSide": "right",
+    "cta": {
+      "label": "Poptat komerční prostor",
+      "href": "/kontakt?typ=sklad"
+    },
+    "ctaSecondary": {
+      "label": "Komerční prostory",
+      "href": "/komercni-prostory"
     }
   },
-
+  "history": {
+    "visible": true,
+    "anchor": "historie",
+    "eyebrow": "O Pekárně",
+    "title": "Místo, které v Pacově znají po generace",
+    "paragraphs": [
+      "Pekárna je bývalý pekárenský objekt v Pacově, který dnes získává nové využití. Nabízíme zde krátkodobé ubytování ve třech bytech pro přibližně 15 osob a zároveň prostory vhodné pro skladování, výrobu nebo kanceláře."
+    ],
+    "image": "/images/RD,%20Pacov%20(19).jpg",
+    "imageAlt": "Pekárna Pacov — historický detail objektu",
+    "imageSide": "left",
+    "cta": {
+      "label": "O Pekárně",
+      "href": "/o-pekarne"
+    }
+  },
+  "contactCta": {
+    "visible": true,
+    "anchor": "kontakt",
+    "eyebrow": "Kontakt a rezervace",
+    "title": "Kontaktujte nás",
+    "paragraphs": [
+      "Máte zájem o ubytování, skladovací prostory, výrobní prostor nebo kancelářské zázemí v Pacově? Ozvěte se nám. Ubytování je možné rezervovat online, ostatní prostory řešíme individuálně podle vašich potřeb."
+    ],
+    "cta": {
+      "label": "Rezervovat ubytování",
+      "href": "/rezervace"
+    },
+    "ctaSecondary": {
+      "label": "Kontaktovat provozovatele",
+      "href": "/kontakt"
+    }
+  },
   "footer": {
-    "brandHeading": "2P Pekárna",
-    "brandText": "Pronájem apartmánů 2+1 v zrekonstruovaném domě bývalé pekárny v Pacově. Provozuje 2P Moment s.r.o.",
+    "brandHeading": "Pekárna Pacov",
+    "brandText": "Pekárna Pacov je praktické místo pro ubytování pracovníků, firemní pobyty a pronájem komerčních prostor. Navazuje na historii původní pekárny, kterou v Pacově znají celé generace.",
     "contactHeading": "Kontakt",
     "navHeading": "Navigace",
     "navLinks": [
-      { "href": "#o-pekarne", "label": "O Pekárně" },
-      { "href": "#apartmany", "label": "Apartmány" },
-      { "href": "#galerie",   "label": "Galerie" },
-      { "href": "#poptavka",  "label": "Poptávka" }
+      {
+        "href": "/ubytovani",
+        "label": "Ubytování"
+      },
+      {
+        "href": "/komercni-prostory",
+        "label": "Komerční prostory"
+      },
+      {
+        "href": "/o-pekarne",
+        "label": "O Pekárně"
+      },
+      {
+        "href": "/rezervace",
+        "label": "Rezervace"
+      },
+      {
+        "href": "/kontakt",
+        "label": "Kontakt"
+      }
     ]
-  },
-
-  "contact": {
-    "visible": true,
-    "eyebrow": "Kontakt",
-    "title": "Spojte se",
-    "titleAccent": "s námi",
-    "desc": "Máte dotaz nebo chcete rezervovat? Neváhejte nás kontaktovat.",
-    "phone": "+420 774 110 224",
-    "phoneLabel": "Telefon",
-    "email": "pekarna@2pmoment.cz",
-    "emailLabel": "E-mail",
-    "address": "Pacov, Vysočina",
-    "addressLabel": "Adresa"
   }
 }

@@ -1,0 +1,58 @@
+{
+  "_zdroj": "Nadpis, text, pole formuláře, typy dotazu i potvrzovací hláška jsou ze .design/pekarna/ZADANI-KLIENT.md, sekce „Kontakt“. Hodnoty kontaktů (telefon, e-mail, adresa, provozovatel) jsou v pekarna.json a zadání u nich uvádí „doplnit“.",
+  "seo": {
+    "title": "Kontakt | Pekárna Pacov",
+    "description": "Kontaktujte nás ohledně krátkodobého ubytování, skladovacích, výrobních nebo kancelářských prostor v objektu Pekárna v Pacově.",
+    "keywords": "kontakt Pekárna Pacov, ubytování Pacov kontakt, pronájem prostor Pacov kontakt",
+    "canonical": "https://pekarna.2pmoment.cz/kontakt"
+  },
+  "contact": {
+    "visible": true,
+    "eyebrow": "Kontakt",
+    "title": "Kontaktujte nás",
+    "desc": "Máte zájem o ubytování, skladovací prostory, výrobní prostor nebo kancelářské zázemí v Pacově? Ozvěte se nám. Ubytování je možné rezervovat online, ostatní prostory řešíme individuálně podle vašich potřeb.",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-mail",
+    "addressLabel": "Adresa",
+    "operatorLabel": "Provozovatel",
+    "mapEmbedUrl": ""
+  },
+  "inquiry": {
+    "visible": true,
+    "eyebrow": "Napište nám",
+    "title": "Kontaktní formulář",
+    "desc": "",
+    "note": "Odesláním souhlasíte se zpracováním kontaktních údajů pro vyřízení poptávky.",
+    "successLabel": "Děkujeme za zprávu. Ozveme se vám co nejdříve.",
+    "fields": {
+      "name": "Jméno a příjmení",
+      "phone": "Telefon",
+      "email": "E-mail",
+      "message": "Zpráva",
+      "messagePlaceholder": "",
+      "inquiryType": "Typ dotazu"
+    },
+    "inquiryTypes": [
+      {
+        "value": "ubytovani",
+        "label": "Ubytování"
+      },
+      {
+        "value": "sklad",
+        "label": "Skladovací prostor"
+      },
+      {
+        "value": "vyroba",
+        "label": "Výrobní prostor"
+      },
+      {
+        "value": "kancelar",
+        "label": "Kancelář"
+      },
+      {
+        "value": "ostatni",
+        "label": "Ostatní"
+      }
+    ]
+  }
+}

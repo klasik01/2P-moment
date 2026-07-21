@@ -1,7 +1,9 @@
 @use "../partials/breakpoints" as *;
 
-.about {
-  background: var(--color-bg-alt);
+.content {
+  &--muted {
+    background: var(--color-bg-alt);
+  }
 
   &__grid {
     display: grid;
@@ -13,6 +15,18 @@
       grid-template-columns: 1fr 1.05fr;
       align-items: center;
     }
+  }
+
+  // Obrázek vlevo na desktopu — na mobilu zůstává nad textem.
+  &__grid--image-left {
+    @include media-up($bp-md) {
+      .content__image { order: 1; }
+      .content__body  { order: 2; }
+    }
+  }
+
+  &__narrow {
+    max-width: 760px;
   }
 
   &__image {
@@ -28,7 +42,13 @@
     }
   }
 
-  &__features {
+  &__body {
+    .section-desc + .section-desc {
+      margin-top: var(--spacing-md);
+    }
+  }
+
+  &__bullets {
     list-style: none;
     padding: 0;
     margin: var(--spacing-lg) 0 0;
@@ -36,7 +56,7 @@
     gap: 14px;
   }
 
-  &__feature {
+  &__bullet {
     display: flex;
     gap: 14px;
     align-items: flex-start;
@@ -48,5 +68,12 @@
       color: var(--color-primary);
       margin-top: 2px;
     }
+  }
+
+  &__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
   }
 }

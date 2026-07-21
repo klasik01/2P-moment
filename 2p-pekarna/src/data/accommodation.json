@@ -1,0 +1,133 @@
+{
+  "_zdroj": "Texty ze .design/pekarna/ZADANI-KLIENT.md. Zadání popisy jednotlivých bytů NEUVÁDÍ — karty proto nesou jen označení a fotku. Doplnit, až klient dodá rozpis lůžek a dispozic.",
+  "seo": {
+    "title": "Krátkodobé ubytování Pacov | Pekárna",
+    "description": "Krátkodobé a firemní ubytování v Pacově. Tři byty s celkovou kapacitou cca 15 osob. Vhodné pro pracovníky, montážní party, stavební firmy i skupiny.",
+    "keywords": "ubytování Pacov, krátkodobé ubytování Pacov, ubytování pro dělníky Pacov, ubytování pro pracovníky Pacov, firemní ubytování Pacov, levné ubytování Pacov",
+    "ogImage": "/images/RD,%20Pacov%20(3).jpg",
+    "canonical": "https://pekarna.2pmoment.cz/ubytovani"
+  },
+  "intro": {
+    "visible": true,
+    "eyebrow": "Ubytování",
+    "title": "Krátkodobé ubytování v Pacově",
+    "paragraphs": [
+      "V Pekárně nabízíme krátkodobé ubytování ve třech samostatných bytech. Celková kapacita je přibližně 15 osob, díky čemuž je objekt vhodný i pro větší pracovní skupiny, montážní party nebo firmy, které potřebují ubytovat zaměstnance v Pacově a okolí.",
+      "Ubytování je určeno pro ty, kteří hledají praktické, čisté a cenově rozumné řešení bez nutnosti využívat klasický hotel. Hodí se pro několikadenní i delší pracovní pobyty.",
+      "Rezervaci ubytování je možné provést jednoduše přes online rezervační systém."
+    ],
+    "bullets": [
+      "3 samostatné byty",
+      "celková kapacita cca 15 osob",
+      "vhodné pro pracovníky a firmy",
+      "krátkodobé i delší pobyty dle dostupnosti",
+      "praktické zázemí v Pacově",
+      "online rezervace ubytování"
+    ],
+    "image": "/images/RD,%20Pacov%20(3).jpg",
+    "imageAlt": "Byt v Pekárně — obytný prostor",
+    "imageSide": "right",
+    "cta": {
+      "label": "Rezervovat ubytování",
+      "href": "/rezervace"
+    }
+  },
+  "units": {
+    "visible": true,
+    "eyebrow": "Byty",
+    "title": "3 samostatné byty",
+    "desc": "celková kapacita cca 15 osob",
+    "items": [
+      {
+        "id": "byt-01",
+        "badge": "Byt 1",
+        "image": "/images/RD,%20Pacov%20(3).jpg",
+        "imageAlt": "Byt 1 — obytný prostor"
+      },
+      {
+        "id": "byt-02",
+        "badge": "Byt 2",
+        "image": "/images/RD,%20Pacov%20(7).jpg",
+        "imageAlt": "Byt 2 — obytný prostor"
+      },
+      {
+        "id": "byt-03",
+        "badge": "Byt 3",
+        "image": "/images/RD,%20Pacov%20(11).jpg",
+        "imageAlt": "Byt 3 — obytný prostor"
+      }
+    ]
+  },
+  "gallery": {
+    "visible": true,
+    "eyebrow": "Galerie",
+    "title": "Fotografie objektu",
+    "images": [
+      {
+        "src": "/images/RD,%20Pacov%20(4).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(5).jpg",
+        "alt": "Pekárna Pacov — obytný prostor"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(6).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(8).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(9).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(10).jpg",
+        "alt": "Pekárna Pacov — obytný prostor"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(12).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(13).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(14).jpg",
+        "alt": "Pekárna Pacov — obytný prostor"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(15).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(16).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(17).jpg",
+        "alt": "Pekárna Pacov — interiér bytu"
+      }
+    ]
+  },
+  "reservationCta": {
+    "visible": true,
+    "eyebrow": "Rezervace",
+    "title": "Rezervace ubytování",
+    "paragraphs": [
+      "Ubytování v Pekárně si můžete rezervovat jednoduše online. Vyberte termín, počet osob a odešlete rezervaci přes rezervační systém.",
+      "V případě dlouhodobějšího pobytu nebo ubytování větší skupiny nás můžete kontaktovat také telefonicky nebo e-mailem."
+    ],
+    "cta": {
+      "label": "Přejít na rezervaci",
+      "href": "/rezervace"
+    },
+    "ctaSecondary": {
+      "label": "Kontaktovat provozovatele",
+      "href": "/kontakt"
+    }
+  }
+}

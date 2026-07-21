@@ -1,6 +1,6 @@
 @use "../partials/breakpoints" as *;
 
-.apartments {
+.units {
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -16,7 +16,7 @@
   }
 }
 
-.apt-card {
+.unit-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -31,7 +31,7 @@
     box-shadow: var(--shadow-md);
     border-color: var(--color-border-strong);
 
-    .apt-card__photo img {
+    .unit-card__photo img {
       transform: scale(1.04);
     }
   }
@@ -92,43 +92,5 @@
     }
 
     .icon { color: var(--color-primary); }
-  }
-}
-
-.commercial-card {
-  grid-column: 1 / -1;
-  background: var(--color-primary);
-  color: var(--color-bg);
-  padding: var(--spacing-xl);
-  border-radius: var(--radius-md);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-
-  h3 {
-    color: var(--color-bg);
-    margin: 0;
-  }
-
-  p {
-    color: rgba(250, 246, 240, 0.85);
-    margin: 0;
-  }
-
-  &__cta {
-    align-self: flex-start;
-    background: var(--color-bg);
-    color: var(--color-primary-dark) !important;
-    padding: 12px 22px;
-    border-radius: var(--radius-pill);
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: background var(--transition-fast);
-    text-decoration: none;
-
-    &:hover {
-      background: var(--color-surface);
-      color: var(--color-primary-dark) !important;
-    }
   }
 }

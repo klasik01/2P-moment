@@ -1,0 +1,27 @@
+{
+  "_zdroj": "Texty ze .design/pekarna/ZADANI-KLIENT.md, sekce „O Pekárně“ — všechny tři odstavce doslova.",
+
+  "seo": {
+    "title": "O Pekárně – historie objektu v Pacově | Pekárna",
+    "description": "Objekt Pekárna v Pacově byl historicky vybudován jako pekárna a po generace sloužil právě tomuto účelu. Dnes nabízí ubytování a prostory k pronájmu.",
+    "keywords": "Pekárna Pacov, historie pekárna Pacov, bývalá pekárna Pacov, objekt Pacov",
+    "ogImage": "/images/RD,%20Pacov%20(19).jpg",
+    "canonical": "https://pekarna.2pmoment.cz/o-pekarne"
+  },
+
+  "intro": {
+    "visible": true,
+    "eyebrow": "O Pekárně",
+    "title": "Místo, které v Pacově znají po generace",
+    "paragraphs": [
+      "Název Pekárna nevznikl náhodou. Celý objekt byl historicky vybudován jako pekárna a po dlouhé generace sloužil právě tomuto účelu. Pekly se zde rohlíky, pečivo a další výrobky, které patřily k běžnému životu v Pacově.",
+      "I když dnes objekt získává nové využití, původní název zůstává. Je jednoduchý, zapamatovatelný a pro místní přirozený. Každý v Pacově ví, kde „pekárna“ je.",
+      "Naším cílem je zachovat charakter místa a dát mu nový smysl – jako zázemí pro ubytování, práci a podnikání."
+    ],
+    "image": "/images/RD,%20Pacov%20(19).jpg",
+    "imageAlt": "Pekárna Pacov — historický detail objektu",
+    "imageSide": "right",
+    "cta": { "label": "Zjistit více o ubytování", "href": "/ubytovani" },
+    "ctaSecondary": { "label": "Poptat komerční prostor", "href": "/komercni-prostory" }
+  }
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pekarna.2pmoment.cz/sitemap.xml

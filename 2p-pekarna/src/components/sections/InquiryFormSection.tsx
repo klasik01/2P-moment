@@ -1,18 +1,20 @@
 import { useRef, useState } from "react";
-import type { InquiryFormData, InquiryInput } from "../../types";
+import type { InquiryFormData, InquiryInput, InquiryType } from "../../types";
 import type { T } from "../../i18n";
 import { backend } from "../../services";
 
 type Props = {
   data: InquiryFormData;
   t: T;
+  /** Předvybraný typ dotazu — např. po prokliku z komerčních prostor. */
+  defaultType?: InquiryType;
   /** Override odesílání — jinak se volá backend fasáda. */
   onSubmit?: (payload: InquiryInput) => Promise<void> | void;
 };
 
 type Status = "idle" | "sending" | "success" | "error";
 
-export function InquiryFormSection({ data, t, onSubmit }: Props) {
+export function InquiryFormSection({ data, t, defaultType, onSubmit }: Props) {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [status, setStatus] = useState<Status>("idle");
 
@@ -20,6 +22,11 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
 
   const isSending = status === "sending";
   const isSuccess = status === "success";
+
+  const initialType =
+    defaultType && data.inquiryTypes.some((o) => o.value === defaultType)
+      ? defaultType
+      : data.inquiryTypes[0]?.value;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,10 +39,7 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
       name: String(fd.get("name") ?? ""),
       email: String(fd.get("email") ?? ""),
       phone: String(fd.get("phone") ?? ""),
-      people: String(fd.get("people") ?? ""),
-      dateFrom: String(fd.get("dateFrom") ?? ""),
-      dateTo: String(fd.get("dateTo") ?? ""),
-      rentalType: (String(fd.get("rentalType") ?? "short") as "short" | "long"),
+      inquiryType: String(fd.get("inquiryType") ?? "ostatni") as InquiryType,
       message: String(fd.get("message") ?? ""),
       website: String(fd.get("website") ?? ""),
     };
@@ -45,11 +49,11 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
       if (onSubmit) await onSubmit(payload);
       else await backend.createInquiry(payload);
       setStatus("success");
-      // Po 4 sekundách se vrátí do idle a formulář se vyprázdní.
+      // Po 5 sekundách se vrátí do idle a formulář se vyprázdní.
       setTimeout(() => {
         form.reset();
         setStatus("idle");
-      }, 4000);
+      }, 5000);
     } catch (err) {
       console.error("[InquiryForm] odeslání selhalo:", err);
       setStatus("error");
@@ -59,7 +63,7 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
   const submitText =
     isSuccess ? data.successLabel :
     isSending ? t.common.sending :
-    data.submitLabel;
+    t.common.submit;
 
   return (
     <section className="form-section section" id="poptavka" aria-labelledby="form-title">
@@ -67,7 +71,7 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
         <header className="section-head section-head--center">
           <span className="section-eyebrow">{data.eyebrow}</span>
           <h2 id="form-title" className="section-title">{data.title}</h2>
-          <p className="section-desc">{data.desc}</p>
+          {data.desc ? <p className="section-desc">{data.desc}</p> : null}
         </header>
 
         <form
@@ -82,26 +86,7 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
               <label htmlFor="f-name">
                 {data.fields.name} <span className="form-req">*</span>
               </label>
-              <input
-                id="f-name"
-                name="name"
-                type="text"
-                required
-                autoComplete="name"
-              />
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="f-email">
-                {data.fields.email} <span className="form-req">*</span>
-              </label>
-              <input
-                id="f-email"
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-              />
+              <input id="f-name" name="name" type="text" required autoComplete="name" />
             </div>
 
             <div className="form-field">
@@ -116,44 +101,19 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
             </div>
 
             <div className="form-field">
-              <label htmlFor="f-people">{data.fields.people}</label>
-              <input
-                id="f-people"
-                name="people"
-                type="number"
-                min={1}
-                max={12}
-                placeholder="Např. 4"
-              />
+              <label htmlFor="f-email">
+                {data.fields.email} <span className="form-req">*</span>
+              </label>
+              <input id="f-email" name="email" type="email" required autoComplete="email" />
             </div>
 
             <div className="form-field">
-              <label htmlFor="f-from">{data.fields.dateFrom}</label>
-              <input id="f-from" name="dateFrom" type="date" />
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="f-to">{data.fields.dateTo}</label>
-              <input id="f-to" name="dateTo" type="date" />
-            </div>
-
-            <div className="form-field form-field--full">
-              <span className="form-label">{data.fields.rentalType}</span>
-              <div className="form-radio">
-                <label>
-                  <input
-                    type="radio"
-                    name="rentalType"
-                    value="short"
-                    defaultChecked
-                  />
-                  <span>{data.fields.rentalShort}</span>
-                </label>
-                <label>
-                  <input type="radio" name="rentalType" value="long" />
-                  <span>{data.fields.rentalLong}</span>
-                </label>
-              </div>
+              <label htmlFor="f-type">{data.fields.inquiryType}</label>
+              <select id="f-type" name="inquiryType" defaultValue={initialType}>
+                {data.inquiryTypes.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
             </div>
 
             <div className="form-field form-field--full">
@@ -161,8 +121,8 @@ export function InquiryFormSection({ data, t, onSubmit }: Props) {
               <textarea
                 id="f-message"
                 name="message"
-                rows={4}
-                placeholder={data.fields.messagePlaceholder}
+                rows={5}
+                placeholder={data.fields.messagePlaceholder || undefined}
               />
             </div>
 

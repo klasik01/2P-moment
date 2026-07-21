@@ -1,5 +1,5 @@
-export { AboutSection } from "./AboutSection";
-export { ApartmentsSection } from "./ApartmentsSection";
+export { ContentSection } from "./ContentSection";
+export { UnitsSection } from "./UnitsSection";
 export { GallerySection } from "./GallerySection";
-export { NearbySection } from "./NearbySection";
+export { ContactInfoSection } from "./ContactInfoSection";
 export { InquiryFormSection } from "./InquiryFormSection";

@@ -21,10 +21,11 @@
 @use "components/cookie";
 @use "components/page";
 
-// ---- Sekce homepage ----
-@use "components/about";
-@use "components/apartments";
+// ---- Sekce ----
+@use "components/content";
+@use "components/units";
 @use "components/gallery";
-@use "components/nearby";
+@use "components/contact";
+@use "components/reservation";
 @use "components/form";
 @use "components/lightbox";

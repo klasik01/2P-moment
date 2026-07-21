@@ -1,5 +1,11 @@
 # DISCOVERY — 2P Pekárna
 
+> ⚠️ **PŘEKONÁNO ZADÁNÍM KLIENTA** (`ZADANI-KLIENT.md`, 2026-07-21).
+> Tenhle dokument vznikl 2026-04-30 **před** dodáním zadání a vychází
+> z domněnek, které se nepotvrdily — turistická cílovka, apartmány 2+1,
+> kapacita 12 osob, one-page struktura, rezervace mimo scope.
+> **Pro obsah webu platí zadání.** Tady si čti jen kontext a historii.
+
 > One-page web pro pronájem ubytování v Pacově (Vysočina), provozováno
 > 2P Moment s.r.o. Diskuse a otázky vedeny formou grill-me 2026-04-30.
 

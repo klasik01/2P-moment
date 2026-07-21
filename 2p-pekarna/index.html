@@ -6,14 +6,14 @@
     <meta name="theme-color" content="#8B4513" />
 
     <!-- Základní SEO (přepisováno v runtime komponentou SEOHead) -->
-    <title>2P Pekárna | Pronájem ubytování</title>
+    <title>Pekárna Pacov – krátkodobé ubytování, skladovací a výrobní prostory</title>
     <meta
       name="description"
-      content="2P Pekárna — pronájem ubytování a apartmánů. Pohodlné ubytování pro vaši dovolenou nebo pracovní cestu."
+      content="Pekárna Pacov nabízí krátkodobé ubytování ve třech bytech s kapacitou cca 15 osob. Vhodné pro firmy, pracovníky a skupiny. K dispozici také skladovací, výrobní a kancelářské prostory k pronájmu."
     />
     <meta
       name="keywords"
-      content="pronájem ubytování, apartmány, dovolená, 2P Pekárna, ubytování Česko"
+      content="ubytování Pacov, krátkodobé ubytování Pacov, ubytování pro dělníky Pacov, ubytování pro pracovníky Pacov, levné ubytování Pacov, firemní ubytování Pacov, skladovací prostory Pacov, výrobní prostory Pacov, pronájem prostor Pacov, Pekárna Pacov"
     />
     <meta name="author" content="2P Moment s.r.o." />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -21,19 +21,19 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="2P Pekárna" />
+    <meta property="og:site_name" content="Pekárna Pacov" />
     <meta property="og:locale" content="cs_CZ" />
-    <meta property="og:title" content="2P Pekárna | Pronájem ubytování" />
+    <meta property="og:title" content="Pekárna Pacov – krátkodobé ubytování a prostory k pronájmu" />
     <meta
       property="og:description"
-      content="2P Pekárna — pronájem ubytování a apartmánů."
+      content="Krátkodobé ubytování ve třech bytech pro cca 15 osob. Vhodné pro firmy, pracovníky a montážní party. Také skladovací, výrobní a kancelářské prostory."
     />
     <meta property="og:url" content="https://pekarna.2pmoment.cz/" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="2P Pekárna | Pronájem ubytování" />
-    <meta name="twitter:description" content="2P Pekárna — pronájem ubytování a apartmánů." />
+    <meta name="twitter:title" content="Pekárna Pacov – krátkodobé ubytování a prostory k pronájmu" />
+    <meta name="twitter:description" content="Krátkodobé ubytování ve třech bytech pro cca 15 osob v Pacově. Také skladovací a výrobní prostory." />
 
     <link rel="canonical" href="https://pekarna.2pmoment.cz/" />
     <link rel="alternate" hreflang="cs" href="https://pekarna.2pmoment.cz/" />
@@ -50,17 +50,23 @@
       rel="stylesheet"
     />
 
-    <!-- Structured data: LodgingBusiness -->
+    <!-- Structured data: LodgingBusiness
+         TODO: doplnit streetAddress a postalCode, až je klient dodá —
+         bez nich nemá lokální SEO šanci fungovat. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "LodgingBusiness",
         "@id": "https://pekarna.2pmoment.cz/#lodging",
-        "name": "2P Pekárna",
+        "name": "Pekárna Pacov",
         "url": "https://pekarna.2pmoment.cz/",
-        "description": "Pronájem ubytování a apartmánů.",
+        "description": "Krátkodobé ubytování ve třech bytech s celkovou kapacitou cca 15 osob. Vhodné pro firmy, pracovníky, montážní a stavební party.",
+        "telephone": "+420774110224",
+        "email": "pekarna@2pmoment.cz",
         "address": {
           "@type": "PostalAddress",
+          "addressLocality": "Pacov",
+          "addressRegion": "Kraj Vysočina",
           "addressCountry": "CZ"
         }
       }

@@ -1,0 +1,44 @@
+{
+  "_zdroj": "Texty ze .design/pekarna/ZADANI-KLIENT.md. Zadání typy prostor uvádí jen jako odrážky (viz intro.bullets) a neuvádí výměry ani parametry — karty s popisy proto nejsou.",
+  "seo": {
+    "title": "Skladovací a výrobní prostory Pacov | Pekárna",
+    "description": "Pronájem skladovacích, výrobních, provozních a kancelářských prostor v objektu Pekárna v Pacově. Individuální nabídka podle potřeb zájemce.",
+    "keywords": "skladovací prostory Pacov, výrobní prostory Pacov, pronájem prostor Pacov, kanceláře Pacov, provozní prostory Pacov, Pekárna Pacov",
+    "ogImage": "/images/RD,%20Pacov%20(18).jpg",
+    "canonical": "https://pekarna.2pmoment.cz/komercni-prostory"
+  },
+  "intro": {
+    "visible": true,
+    "eyebrow": "Komerční prostory",
+    "title": "Skladovací a výrobní prostory k pronájmu",
+    "paragraphs": [
+      "Součástí objektu Pekárna jsou také prostory vhodné pro skladování, drobnou výrobu, provozní zázemí nebo kanceláře. Tyto prostory nabízíme individuálně podle aktuální dostupnosti a konkrétních potřeb zájemce."
+    ],
+    "bullets": [
+      "skladovací prostory",
+      "výrobní a provozní prostory",
+      "kancelářské zázemí",
+      "individuální dohoda podle potřeb",
+      "vhodné pro firmy, živnostníky i menší provozy"
+    ],
+    "image": "/images/RD,%20Pacov%20(18).jpg",
+    "imageAlt": "Pekárna Pacov — provozní část objektu",
+    "imageSide": "right",
+    "cta": {
+      "label": "Poptat komerční prostor",
+      "href": "/kontakt?typ=sklad"
+    }
+  },
+  "contactCta": {
+    "visible": true,
+    "eyebrow": "Individuální nabídka",
+    "title": "Kontaktujte nás",
+    "paragraphs": [
+      "Pokud hledáte sklad, menší výrobní prostor, provozní zázemí nebo kancelář v Pacově, kontaktujte nás. Rádi s vámi projdeme možnosti využití objektu a připravíme konkrétní nabídku."
+    ],
+    "cta": {
+      "label": "Poptat komerční prostor",
+      "href": "/kontakt?typ=sklad"
+    }
+  }
+}

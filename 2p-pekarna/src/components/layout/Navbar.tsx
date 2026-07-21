@@ -15,24 +15,17 @@ type NavLink = {
 export function Navbar({ t }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const route = useRoute();
-  const isHome = route === "/";
 
-  // Na úvodní stránce ukazujeme in-page kotvy, jinde routy.
-  const links: NavLink[] = isHome
-    ? [
-        { href: "#o-pekarne", label: t.nav.about },
-        { href: "#apartmany", label: t.nav.apartments },
-        { href: "#galerie",   label: t.nav.gallery },
-        { href: "#okoli",     label: t.nav.nearby },
-        { href: "#poptavka",  label: t.nav.inquiry, isCta: true },
-      ]
-    : [
-        { href: "/",          label: t.nav.home },
-        { href: "/rezervace", label: t.nav.rezervace },
-        { href: "/kontakt",   label: t.nav.kontakt },
-      ];
+  const links: NavLink[] = [
+    { href: "/",                  label: t.nav.home },
+    { href: "/ubytovani",         label: t.nav.accommodation },
+    { href: "/komercni-prostory", label: t.nav.commercial },
+    { href: "/o-pekarne",         label: t.nav.about },
+    { href: "/kontakt",           label: t.nav.contact },
+    { href: "/rezervace",         label: t.nav.reserve, isCta: true },
+  ];
 
-  // Zavři mobilní menu při změně cesty / kotvy.
+  // Zavři mobilní menu při změně cesty.
   useEffect(() => { setMenuOpen(false); }, [route]);
 
   // Zavři mobilní menu při ESC.
@@ -50,6 +43,20 @@ export function Navbar({ t }: Props) {
     setMenuOpen(false);
   };
 
+  const renderLinks = () =>
+    links.map((l) => (
+      <li key={l.href}>
+        <a
+          href={l.href}
+          className={l.isCta ? "navbar__cta" : ""}
+          aria-current={route === l.href ? "page" : undefined}
+          onClick={onLinkClick}
+        >
+          {l.label}
+        </a>
+      </li>
+    ));
+
   return (
     <header className="navbar" role="banner">
       <div className="container navbar__inner">
@@ -65,17 +72,7 @@ export function Navbar({ t }: Props) {
 
         <nav className="navbar__nav" aria-label={t.nav.menu}>
           <ul className={`navbar__links ${menuOpen ? "is-open" : ""}`}>
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  className={l.isCta ? "navbar__cta" : ""}
-                  onClick={onLinkClick}
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
+            {renderLinks()}
           </ul>
         </nav>
 
@@ -97,19 +94,7 @@ export function Navbar({ t }: Props) {
         className={`navbar__mobile ${menuOpen ? "is-open" : ""}`}
         hidden={!menuOpen}
       >
-        <ul>
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className={l.isCta ? "navbar__cta" : ""}
-                onClick={onLinkClick}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <ul>{renderLinks()}</ul>
       </div>
     </header>
   );

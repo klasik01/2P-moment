@@ -1,0 +1,24 @@
+{
+  "_zdroj": "Nadpis a odstavce ze .design/pekarna/ZADANI-KLIENT.md, sekce „Rezervace“. Texty u fallbacku jsou provozní (ne obsahové) — zobrazí se jen dokud není napojené Previo.",
+
+  "seo": {
+    "title": "Rezervace ubytování Pacov | Pekárna",
+    "description": "Rezervujte si krátkodobé ubytování v Pekárně v Pacově online. Vyberte termín a počet osob. Pro větší skupiny nás kontaktujte telefonicky.",
+    "keywords": "rezervace ubytování Pacov, ubytování Pacov rezervace, Pekárna Pacov rezervace",
+    "canonical": "https://pekarna.2pmoment.cz/rezervace"
+  },
+
+  "eyebrow": "Rezervace",
+  "title": "Rezervace ubytování",
+  "paragraphs": [
+    "Ubytování v Pekárně si můžete rezervovat jednoduše online. Vyberte termín, počet osob a odešlete rezervaci přes rezervační systém.",
+    "V případě dlouhodobějšího pobytu nebo ubytování větší skupiny nás můžete kontaktovat také telefonicky nebo e-mailem."
+  ],
+
+  "previoUrl": "",
+
+  "fallbackTitle": "Rezervační systém se připravuje",
+  "fallbackText": "Online rezervace bude spuštěna v nejbližší době. Do té doby nám prosím napište nebo zavolejte — termín pro vás rádi ověříme a rezervaci potvrdíme osobně.",
+  "ctaPhoneLabel": "Zavolat",
+  "ctaEmailLabel": "Napsat e-mail"
+}
