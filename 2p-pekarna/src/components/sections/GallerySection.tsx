@@ -17,7 +17,7 @@ export function GallerySection({ data }: Props) {
   return (
     <section className="gallery section" id="galerie" aria-labelledby="gallery-title">
       <div className="container">
-        <header className="section-head">
+        <header className="section-head reveal">
           <span className="section-eyebrow">{data.eyebrow}</span>
           <h2 id="gallery-title" className="section-title">{data.title}</h2>
           <p className="section-desc">{cs.common.galleryHint}</p>
@@ -25,7 +25,12 @@ export function GallerySection({ data }: Props) {
 
         <ul className="gallery__grid" role="list">
           {data.images.map((img, i) => (
-            <li key={img.src}>
+            <li
+              key={img.src}
+              className="reveal"
+              // Stagger jen v rámci řádku, ať poslední fotky nečekají věčnost.
+              style={{ "--reveal-i": i % 4 } as React.CSSProperties}
+            >
               <button
                 type="button"
                 className="gallery__item"

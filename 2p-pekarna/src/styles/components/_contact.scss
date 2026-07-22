@@ -20,12 +20,18 @@
 
   &__card {
     background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
     gap: 6px;
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+
+    &:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
   }
 
   &__icon {

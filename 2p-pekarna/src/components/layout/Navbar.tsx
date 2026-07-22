@@ -14,7 +14,21 @@ type NavLink = {
 
 export function Navbar({ t }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const route = useRoute();
+  const isHome = route === "/";
+
+  // Na úvodní stránce hlavička leží průhledně na hero fotce a zpevní
+  // se až po odscrollování. Na podstránkách je pevná hned.
+  useEffect(() => {
+    if (!isHome) return;
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
+
+  const isOver = isHome && !scrolled && !menuOpen;
 
   const links: NavLink[] = [
     { href: "/",                  label: t.nav.home },
@@ -58,7 +72,7 @@ export function Navbar({ t }: Props) {
     ));
 
   return (
-    <header className="navbar" role="banner">
+    <header className={`navbar ${isOver ? "navbar--over" : ""}`} role="banner">
       <div className="container navbar__inner">
         <a
           href="/"

@@ -4,7 +4,7 @@
     "title": "Krátkodobé ubytování Pacov | Pekárna",
     "description": "Krátkodobé a firemní ubytování v Pacově. Tři byty s celkovou kapacitou cca 15 osob. Vhodné pro pracovníky, montážní party, stavební firmy i skupiny.",
     "keywords": "ubytování Pacov, krátkodobé ubytování Pacov, ubytování pro dělníky Pacov, ubytování pro pracovníky Pacov, firemní ubytování Pacov, levné ubytování Pacov",
-    "ogImage": "/images/RD,%20Pacov%20(3).jpg",
+    "ogImage": "/images/RD,%20Pacov%20(11).jpg",
     "canonical": "https://pekarna.2pmoment.cz/ubytovani"
   },
   "intro": {
@@ -24,8 +24,8 @@
       "praktické zázemí v Pacově",
       "online rezervace ubytování"
     ],
-    "image": "/images/RD,%20Pacov%20(3).jpg",
-    "imageAlt": "Byt v Pekárně — obytný prostor",
+    "image": "/images/RD,%20Pacov%20(11).jpg",
+    "imageAlt": "Obytný pokoj s arkýřovým oknem",
     "imageSide": "right",
     "cta": {
       "label": "Rezervovat ubytování",
@@ -41,20 +41,20 @@
       {
         "id": "byt-01",
         "badge": "Byt 1",
-        "image": "/images/RD,%20Pacov%20(3).jpg",
-        "imageAlt": "Byt 1 — obytný prostor"
+        "image": "/images/RD,%20Pacov%20(11).jpg",
+        "imageAlt": "Byt 1 — Obytný pokoj s arkýřovým oknem"
       },
       {
         "id": "byt-02",
         "badge": "Byt 2",
-        "image": "/images/RD,%20Pacov%20(7).jpg",
-        "imageAlt": "Byt 2 — obytný prostor"
+        "image": "/images/RD,%20Pacov%20(10).jpg",
+        "imageAlt": "Byt 2 — Obytný pokoj"
       },
       {
         "id": "byt-03",
         "badge": "Byt 3",
-        "image": "/images/RD,%20Pacov%20(11).jpg",
-        "imageAlt": "Byt 3 — obytný prostor"
+        "image": "/images/RD,%20Pacov%20(15).jpg",
+        "imageAlt": "Byt 3 — Ložnice"
       }
     ]
   },
@@ -64,52 +64,52 @@
     "title": "Fotografie objektu",
     "images": [
       {
-        "src": "/images/RD,%20Pacov%20(4).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
-      },
-      {
-        "src": "/images/RD,%20Pacov%20(5).jpg",
-        "alt": "Pekárna Pacov — obytný prostor"
-      },
-      {
-        "src": "/images/RD,%20Pacov%20(6).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
-      },
-      {
-        "src": "/images/RD,%20Pacov%20(8).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
-      },
-      {
-        "src": "/images/RD,%20Pacov%20(9).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
+        "src": "/images/RD,%20Pacov%20(11).jpg",
+        "alt": "Obytný pokoj s arkýřovým oknem"
       },
       {
         "src": "/images/RD,%20Pacov%20(10).jpg",
-        "alt": "Pekárna Pacov — obytný prostor"
+        "alt": "Obytný pokoj"
       },
       {
-        "src": "/images/RD,%20Pacov%20(12).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
+        "src": "/images/RD,%20Pacov%20(7).jpg",
+        "alt": "Obytný pokoj"
       },
       {
-        "src": "/images/RD,%20Pacov%20(13).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
-      },
-      {
-        "src": "/images/RD,%20Pacov%20(14).jpg",
-        "alt": "Pekárna Pacov — obytný prostor"
-      },
-      {
-        "src": "/images/RD,%20Pacov%20(15).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
-      },
-      {
-        "src": "/images/RD,%20Pacov%20(16).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
+        "src": "/images/RD,%20Pacov%20(8).jpg",
+        "alt": "Kuchyně s jídelním koutem"
       },
       {
         "src": "/images/RD,%20Pacov%20(17).jpg",
-        "alt": "Pekárna Pacov — interiér bytu"
+        "alt": "Kuchyňská linka"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(15).jpg",
+        "alt": "Ložnice"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(9).jpg",
+        "alt": "Prosklená veranda"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(6).jpg",
+        "alt": "Chodba"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(4).jpg",
+        "alt": "Schodiště v objektu"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(16).jpg",
+        "alt": "Koupelna"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(5).jpg",
+        "alt": "Skladovací prostor"
+      },
+      {
+        "src": "/images/RD,%20Pacov%20(12).jpg",
+        "alt": "Výhled z objektu"
       }
     ]
   },

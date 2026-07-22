@@ -19,15 +19,19 @@ export function UnitsSection({ data, id = "byty" }: Props) {
   return (
     <section className="units section" id={id} aria-labelledby={titleId}>
       <div className="container">
-        <header className="section-head">
+        <header className="section-head reveal">
           <span className="section-eyebrow">{data.eyebrow}</span>
           <h2 id={titleId} className="section-title">{data.title}</h2>
           <p className="section-desc">{data.desc}</p>
         </header>
 
         <div className="units__grid">
-          {data.items.map((unit) => (
-            <article key={unit.id} className="unit-card">
+          {data.items.map((unit, i) => (
+            <article
+              key={unit.id}
+              className="unit-card reveal"
+              style={{ "--reveal-i": i } as React.CSSProperties}
+            >
               <div className="unit-card__photo">
                 <img src={asset(unit.image)} alt={unit.imageAlt} loading="lazy" />
               </div>

@@ -11,24 +11,30 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
   --spacing-3xl: 64px;
-  --spacing-section: clamp(64px, 10vw, 120px);
+  --spacing-section: clamp(56px, 7vw, 96px);
   --spacing-gutter: clamp(20px, 5vw, 48px);
 
   // Radii
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
   --radius-pill: 999px;
 
-  // Shadows (decentní, na světlé pozadí)
+  // Stíny — velký rozptyl, nízká sytost. Na krémovém podkladu má
+  // tvrdý stín okamžitě „levný“ dojem, proto jdou spíš do hloubky.
   --shadow-sm: 0 1px 2px rgba(42, 31, 20, 0.04);
-  --shadow-md: 0 8px 24px rgba(42, 31, 20, 0.08);
-  --shadow-lg: 0 16px 40px rgba(42, 31, 20, 0.12);
+  --shadow-md: 0 10px 30px -12px rgba(42, 31, 20, 0.18);
+  --shadow-lg: 0 24px 60px -20px rgba(42, 31, 20, 0.28);
 
   // Motion
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 400ms ease;
+
+  // Reveal při scrollu — pomalejší a měkčí než běžné přechody.
+  --reveal-duration: 700ms;
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-stagger: 90ms;
 
   // Layout
   --max-width: 1200px;

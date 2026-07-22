@@ -18,21 +18,19 @@
 
 .unit-card {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
   transition:
     transform var(--transition-base),
-    box-shadow var(--transition-base),
-    border-color var(--transition-base);
+    box-shadow var(--transition-base);
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--color-border-strong);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
 
     .unit-card__photo img {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
   }
 
@@ -54,11 +52,13 @@
   }
 
   &__badge {
-    font-size: 0.9rem;
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
     color: var(--color-primary-dark);
-    letter-spacing: 0.04em;
+    letter-spacing: var(--ls-eyebrow);
     text-transform: uppercase;
-    margin-bottom: var(--spacing-md);
+    margin: 0;
   }
 
   &__name {

@@ -12,8 +12,11 @@
     align-items: start;
 
     @include media-up($bp-md) {
-      grid-template-columns: 1fr 1.05fr;
-      align-items: center;
+      // Text bývá výrazně vyšší než obrázek. Centrování by kolem
+      // obrázku vyrobilo díru, proto oba sloupce srovnáváme nahoru.
+      grid-template-columns: 0.95fr 1fr;
+      align-items: start;
+      gap: clamp(40px, 5vw, 72px);
     }
   }
 

@@ -68,7 +68,7 @@ export function InquiryFormSection({ data, t, defaultType, onSubmit }: Props) {
   return (
     <section className="form-section section" id="poptavka" aria-labelledby="form-title">
       <div className="container">
-        <header className="section-head section-head--center">
+        <header className="section-head section-head--center reveal">
           <span className="section-eyebrow">{data.eyebrow}</span>
           <h2 id="form-title" className="section-title">{data.title}</h2>
           {data.desc ? <p className="section-desc">{data.desc}</p> : null}
@@ -76,7 +76,7 @@ export function InquiryFormSection({ data, t, defaultType, onSubmit }: Props) {
 
         <form
           ref={formRef}
-          className="form-card"
+          className="form-card reveal"
           noValidate
           onSubmit={handleSubmit}
           aria-busy={isSending}

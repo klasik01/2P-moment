@@ -41,11 +41,12 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     cursor: pointer;
     background: var(--color-surface);
     border: none;
     padding: 0;
+    display: block;
     transition: transform var(--transition-fast);
 
     img {

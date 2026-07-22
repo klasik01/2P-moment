@@ -34,6 +34,12 @@ main {
   flex: 1 0 auto;
 }
 
+// Odsazení pod fixed hlavičku. Úvodní stránka ho nemá — tam hero
+// leží pod hlavičkou schválně.
+.main--offset {
+  padding-top: var(--header-height);
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -59,22 +65,9 @@ button {
   color: inherit;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  line-height: var(--lh-tight);
-  color: var(--color-text);
-  letter-spacing: 0.01em;
-  margin: 0 0 0.4em;
-}
-
-h1 {
-  font-size: var(--fs-4xl);
-  font-weight: 400;
-  letter-spacing: var(--ls-tight);
-}
-h2 { font-size: var(--fs-3xl); font-weight: 400; }
-h3 { font-size: var(--fs-xl); font-weight: 500; }
+// Nadpisy a typografické primitivy (.section-eyebrow/-title/-desc)
+// jsou v partials/_typography.scss — tady je nedubluj, layout se
+// importuje později a přebil by je.
 
 p {
   margin: 0 0 1em;
@@ -107,22 +100,45 @@ p {
   }
 }
 
-// Reveal-on-scroll
+// ---- Reveal při scrollu ----
+// Třídu `visible` přidává useRevealOnScroll (IntersectionObserver).
+// Prvky v mřížce si můžou nastavit --reveal-i pro postupné naskakování.
 .reveal,
 .reveal-left,
 .reveal-right {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  transform: translateY(28px);
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease),
+    transform var(--reveal-duration) var(--reveal-ease);
+  transition-delay: calc(var(--reveal-i, 0) * var(--reveal-stagger));
+  will-change: opacity, transform;
 }
-.reveal-left  { transform: translateX(-24px); }
-.reveal-right { transform: translateX(24px); }
+
+// Posun do stran jen na desktopu — na mobilu by to tlačilo do
+// vodorovného přetečení a působí to tam zbytečně neklidně.
+@include media-up($bp-md) {
+  .reveal-left  { transform: translateX(-32px); }
+  .reveal-right { transform: translateX(32px); }
+}
 
 .reveal.visible,
 .reveal-left.visible,
 .reveal-right.visible {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: none;
+  will-change: auto;
+}
+
+// Kdo si vypnul animace, dostane obsah rovnou — ne skrytý.
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 // Buttons
@@ -131,15 +147,19 @@ p {
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
+  // 48px výška = pohodlný dotykový cíl na mobilu.
+  min-height: 48px;
   padding: 14px 28px;
   border: 1px solid transparent;
   border-radius: var(--radius-pill);
-  font-family: var(--font-body);
+  font-family: var(--font-heading);
   font-size: var(--fs-base);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wide);
   line-height: 1.2;
   cursor: pointer;
   text-decoration: none;
+  text-align: center;
   transition:
     background var(--transition-fast),
     color var(--transition-fast),
@@ -174,37 +194,6 @@ p {
   }
 }
 
-// Section heading helpers
-.section-eyebrow {
-  display: inline-block;
-  font-family: var(--font-heading);
-  font-size: var(--fs-sm);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: var(--ls-eyebrow);
-  color: var(--color-primary-dark);
-  margin-bottom: 12px;
-}
-
-.section-title {
-  font-family: var(--font-heading);
-  font-size: var(--fs-3xl);
-  font-weight: 400;
-  line-height: var(--lh-tight);
-  margin-bottom: var(--spacing-md);
-
-  .accent {
-    color: var(--color-primary-dark);
-    font-weight: 500;
-  }
-}
-
-.section-desc {
-  color: var(--color-text-muted);
-  max-width: 720px;
-  font-size: var(--fs-md);
-}
-
 .section-head {
   max-width: 720px;
   margin-bottom: clamp(40px, 6vw, 64px);
@@ -216,11 +205,29 @@ p {
   }
 }
 
-// Section base
+// ---- Sekce ----
+// Rytmus je prodyšnější než dřív; oddělení dělá vlasová linka,
+// ne rámeček ani stín. Dvě sousední sekce se stejným podkladem
+// dostanou linku, sekce s odlišným podkladem ji nepotřebuje.
 .section {
   padding: var(--spacing-section) 0;
   scroll-margin-top: var(--header-height);
+  position: relative;
 }
+
+.section + .section:not(.content--muted):not(.section--flush) {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: var(--spacing-gutter);
+    right: var(--spacing-gutter);
+    height: 1px;
+    background: var(--color-border);
+  }
+}
+
+.content--muted + .section:not(.content--muted)::before { display: none; }
 
 // Focus baseline
 *:focus-visible {

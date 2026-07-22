@@ -19,14 +19,14 @@ export function ContactInfoSection({ data }: Props) {
   return (
     <section className="contact section" id="kontakt" aria-labelledby="contact-title">
       <div className="container">
-        <header className="section-head">
+        <header className="section-head reveal">
           <span className="section-eyebrow">{data.eyebrow}</span>
           <h2 id="contact-title" className="section-title">{data.title}</h2>
           <p className="section-desc">{data.desc}</p>
         </header>
 
         <ul className="contact__grid" role="list">
-          <li className="contact__card">
+          <li className="contact__card reveal" style={{ "--reveal-i": 0 } as React.CSSProperties}>
             <span className="contact__icon" aria-hidden="true">
               <Icon name="phone" size={22} />
             </span>
@@ -34,7 +34,7 @@ export function ContactInfoSection({ data }: Props) {
             <a className="contact__value" href={telHref}>{cfg.contact.phone}</a>
           </li>
 
-          <li className="contact__card">
+          <li className="contact__card reveal" style={{ "--reveal-i": 1 } as React.CSSProperties}>
             <span className="contact__icon" aria-hidden="true">
               <Icon name="mail" size={22} />
             </span>
@@ -44,7 +44,7 @@ export function ContactInfoSection({ data }: Props) {
             </a>
           </li>
 
-          <li className="contact__card">
+          <li className="contact__card reveal" style={{ "--reveal-i": 2 } as React.CSSProperties}>
             <span className="contact__icon" aria-hidden="true">
               <Icon name="map" size={22} />
             </span>
@@ -52,7 +52,7 @@ export function ContactInfoSection({ data }: Props) {
             <span className="contact__value">{cfg.contact.address}</span>
           </li>
 
-          <li className="contact__card">
+          <li className="contact__card reveal" style={{ "--reveal-i": 3 } as React.CSSProperties}>
             <span className="contact__icon" aria-hidden="true">
               <Icon name="office" size={22} />
             </span>

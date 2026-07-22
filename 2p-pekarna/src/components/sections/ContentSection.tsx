@@ -19,8 +19,12 @@ export function ContentSection({ data, muted = false }: Props) {
   const titleId = data.anchor ? `${data.anchor}-title` : undefined;
   const hasImage = Boolean(data.image);
 
+  // Text přijíždí zdola, obrázek z té strany, kde stojí — aby se
+  // obě půlky sešly ke středu místo aby jely stejným směrem.
+  const imageReveal = data.imageSide === "left" ? "reveal-left" : "reveal-right";
+
   const body = (
-    <div className="content__body">
+    <div className="content__body reveal">
       {data.eyebrow ? <span className="section-eyebrow">{data.eyebrow}</span> : null}
       <h2 id={titleId} className="section-title">{data.title}</h2>
 
@@ -77,7 +81,7 @@ export function ContentSection({ data, muted = false }: Props) {
               data.imageSide === "left" ? " content__grid--image-left" : ""
             }`}
           >
-            <div className="content__image">
+            <div className={`content__image ${imageReveal}`}>
               <img src={asset(data.image!)} alt={data.imageAlt ?? ""} loading="lazy" />
             </div>
             {body}

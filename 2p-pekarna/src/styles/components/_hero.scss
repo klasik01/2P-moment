@@ -1,158 +1,232 @@
 @use "../partials/breakpoints" as *;
 
+// ============================================================
+// HERO — fotka přes celou plochu, text zarovnaný vlevo dole.
+//
+// Mobile-first: na mobilu obsah sedí u spodní hrany (palec ho má
+// blízko), na desktopu se zvedne do optického středu.
+// ============================================================
+
 .hero {
   position: relative;
-  padding: clamp(80px, 14vw, 140px) 0 clamp(80px, 12vw, 120px);
+  display: flex;
+  align-items: flex-end;
+  // svh, ne vh — jinak na mobilu adresní řádek uřízne spodek.
+  min-height: 100svh;
+  padding-top: calc(var(--header-height) + var(--spacing-2xl));
+  padding-bottom: var(--spacing-2xl);
   overflow: hidden;
-  scroll-margin-top: var(--header-height);
+  background: var(--color-text);
+  isolation: isolate;
+
+  @include media-up($bp-md) {
+    align-items: center;
+    min-height: 92svh;
+  }
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    // Pomalé přiblížení po načtení — dává statické fotce život,
+    // aniž by to při scrollu cokoliv stálo.
+    animation: heroZoom 18s var(--reveal-ease) forwards;
+  }
+}
+
+// Přechod čte z palety (tmavá hnědá), ne z černé — jinak fotka
+// zšedne a rozejde se to se zbytkem webu.
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(30, 21, 13, 0.88) 0%,
+    rgba(30, 21, 13, 0.62) 42%,
+    rgba(30, 21, 13, 0.30) 72%,
+    rgba(30, 21, 13, 0.22) 100%
+  );
+
+  @include media-up($bp-md) {
+    background: linear-gradient(
+      100deg,
+      rgba(30, 21, 13, 0.86) 0%,
+      rgba(30, 21, 13, 0.62) 42%,
+      rgba(30, 21, 13, 0.22) 78%,
+      rgba(30, 21, 13, 0.10) 100%
+    );
+  }
+}
+
+.hero__inner {
+  position: relative;
+  width: 100%;
+}
+
+.hero__content {
+  max-width: 34rem;
+  color: #fff;
+
+  @include media-up($bp-lg) {
+    max-width: 44rem;
+  }
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-eyebrow);
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: var(--spacing-lg);
 
   &::before {
     content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 80% 20%, var(--color-accent-soft) 0%, transparent 60%),
-      var(--color-bg);
-    z-index: -1;
+    width: 32px;
+    height: 1px;
+    background: var(--color-primary-light);
+    flex-shrink: 0;
   }
+}
 
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(32px, 6vw, 56px);
-    align-items: center;
+.hero__title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: #fff;
+  text-wrap: balance;
+  margin: 0 0 var(--spacing-lg);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
 
-    @include media-up($bp-md) {
-      grid-template-columns: 1.1fr 1fr;
-    }
+  .accent {
+    color: var(--color-primary-light);
+    display: block;
   }
+}
 
-  &__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    letter-spacing: var(--ls-eyebrow);
-    text-transform: uppercase;
-    color: var(--color-primary-dark);
-    padding: 6px 14px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-pill);
-    margin-bottom: var(--spacing-lg);
+.hero__lede {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-loose);
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 46ch;
+  margin: 0 0 var(--spacing-xl);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+}
 
-    &::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--color-primary);
-    }
-  }
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 
-  &__title {
-    font-size: var(--fs-4xl);
-    font-weight: 400;
-    line-height: var(--lh-tight);
-    letter-spacing: var(--ls-tight);
-    margin-bottom: var(--spacing-lg);
-
-    .accent {
-      color: var(--color-primary-dark);
-      font-weight: 500;
-    }
-  }
-
-  &__lede {
-    font-size: clamp(1.05rem, 2.4vw, 1.25rem);
-    color: var(--color-text-muted);
-    max-width: 540px;
-    margin-bottom: var(--spacing-xl);
-  }
-
-  &__cta {
-    display: flex;
-    gap: var(--spacing-md);
+  @include media-up($bp-sm) {
+    flex-direction: row;
     flex-wrap: wrap;
-    margin-bottom: clamp(32px, 6vw, 48px);
   }
 
-  // Stats — 2-up na mobilu, 4-up na tabletu+
-  &__stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    list-style: none;
-    background: var(--color-border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-    max-width: 540px;
+  // Ghost varianta musí na fotce zesvětlit, jinak zmizí.
+  .btn--ghost {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(6px);
 
-    @include media-up($bp-md) {
-      grid-template-columns: repeat(4, 1fr);
+    &:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.7);
+      color: #fff;
     }
   }
+}
 
-  &__stat {
-    background: var(--color-surface);
-    padding: var(--spacing-lg) var(--spacing-md);
-    text-align: center;
+// Statistiky — dělené vlasovými linkami, ne kartou. Drží to
+// věcný tón, který zadání chce.
+.hero__stats {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg) var(--spacing-xl);
+  margin: var(--spacing-2xl) 0 0;
+  padding: var(--spacing-lg) 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.hero__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero__stat-num {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  color: #fff;
+
+  @include media-up($bp-md) { font-size: 2.25rem; }
+}
+
+.hero__stat-label {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+// Náznak, že se dá scrollovat. Na mobilu by kradl místo, proto až od md.
+.hero__scroll {
+  display: none;
+
+  @include media-up($bp-md) {
     display: flex;
+    position: absolute;
+    bottom: var(--spacing-xl);
+    left: 50%;
+    transform: translateX(-50%);
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-  }
-
-  &__stat-num {
-    font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 5vw, 2.4rem);
-    font-weight: 400;
-    color: var(--color-primary-dark);
-    line-height: 1;
-  }
-
-  &__stat-label {
-    font-size: 0.82rem;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  // Hero image (right column)
-  &__image {
-    position: relative;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    box-shadow: var(--shadow-md);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__pills {
-    position: absolute;
-    bottom: var(--spacing-md);
-    left: var(--spacing-md);
-    right: var(--spacing-md);
-    display: flex;
     gap: 8px;
-    flex-wrap: wrap;
-  }
+    font-size: var(--fs-xs);
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
 
-  &__pill {
-    background: rgba(250, 246, 240, 0.95);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 8px 14px;
-    border-radius: var(--radius-pill);
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--color-text);
+    &::after {
+      content: "";
+      width: 1px;
+      height: 42px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), transparent);
+      animation: heroScrollHint 2.4s ease-in-out infinite;
+    }
+
+    &:hover { color: #fff; }
   }
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+
+@keyframes heroScrollHint {
+  0%, 100% { opacity: 0.25; transform: scaleY(0.6); transform-origin: top; }
+  50%      { opacity: 1;    transform: scaleY(1);   transform-origin: top; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__media img { animation: none; }
+  .hero__scroll::after { animation: none; }
 }

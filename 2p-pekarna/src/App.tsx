@@ -72,7 +72,7 @@ function App() {
       case "/kontakt":
         return <ContactPage t={t} data={contact} />;
       default:
-        return <HomePage data={homepage} />;
+        return <HomePage t={t} data={homepage} />;
     }
   };
 
@@ -82,7 +82,11 @@ function App() {
 
       <Navbar t={t} />
 
-      <main id="main">{renderPage()}</main>
+      {/* Hlavička je fixed — na úvodní stránce leží na hero fotce,
+          jinde musí obsah dostat odsazení, aby pod ni nezajel. */}
+      <main id="main" className={route === "/" ? undefined : "main--offset"}>
+        {renderPage()}
+      </main>
 
       <Footer t={t} data={homepage.footer} />
 
