@@ -1,75 +1,142 @@
-@use "../partials/breakpoints" as *;
+// ============================================================
+// GALERIE — jedna komponenta ve třech podobách:
+//   .gallery            plná mřížka
+//   .gallery--compact   minigalerie (menší dlaždice)
+//   .gallery--strip     vodorovný pás, roluje se na mobilu
+// Lightbox je sdílený pro všechny.
+// ============================================================
+
+@use "../abstracts" as *;
 
 .gallery {
-  background: var(--color-bg-alt);
-
   &__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    list-style: none;
-    padding: 0;
+    gap: var(--space-xs);
     margin: 0;
 
-    @include media-up($bp-md) {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+    @include up($bp-md) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-sm);
     }
+  }
 
-    // Velké tilety na první a 8. pozici (na desktopu)
-    > li:nth-child(1),
-    > li:nth-child(8) {
-      grid-column: span 2;
-    }
+  // Menší dlaždice, když je galerie jen doplněk sekce.
+  &--compact &__grid {
+    grid-template-columns: repeat(2, 1fr);
+    @include up($bp-sm) { grid-template-columns: repeat(3, 1fr); }
+    @include up($bp-lg) { grid-template-columns: repeat(4, 1fr); }
+  }
 
-    @include media-up($bp-md) {
-      > li:nth-child(1) {
-        grid-column: span 2;
-        grid-row: span 2;
+  // Pás — na mobilu se roluje do strany místo tříbodové mřížky.
+  &--strip &__grid {
+    @include down($bp-sm) {
+      @include scroll-row(var(--space-xs));
+      grid-template-columns: none;
 
-        .gallery__item { aspect-ratio: 1 / 1; }
-      }
-      > li:nth-child(8) {
-        grid-column: span 1;
-
-        .gallery__item { aspect-ratio: 1 / 1; }
-      }
+      > li { width: 68vw; }
     }
   }
 
   &__item {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: var(--radius-md);
-    cursor: pointer;
-    background: var(--color-surface);
-    border: none;
-    padding: 0;
+    background: var(--color-bg-alt);
     display: block;
-    transition: transform var(--transition-fast);
+    padding: 0;
+    cursor: pointer;
 
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform var(--transition-slow), opacity var(--transition-base);
+      @include cover-image;
+      transition:
+        transform var(--transition-slow),
+        opacity var(--transition-base);
     }
 
     &:hover img,
     &:focus-visible img {
-      transform: scale(1.04);
+      transform: scale(1.05);
       opacity: 0.92;
     }
+
+    &:focus-visible { @include focus-ring; }
   }
+}
 
-  // Velké tilety na 1. a 8. pozici v mobilním pohledu jsou 16:9
-  &__grid > li:nth-child(1) .gallery__item,
-  &__grid > li:nth-child(8) .gallery__item {
-    aspect-ratio: 16 / 9;
+// ---- Lightbox ----
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: var(--color-overlay);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  animation: modalFade var(--transition-base) both;
 
-    @include media-up($bp-md) {
-      aspect-ratio: 1 / 1;
+  @include up($bp-md) { padding: var(--space-xl); gap: var(--space-lg); }
+
+  &__figure {
+    grid-column: 2;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    min-width: 0;
+
+    img {
+      max-width: 100%;
+      max-height: 76svh;
+      width: auto;
+      object-fit: contain;
+      border-radius: var(--radius-md);
     }
   }
+
+  &__caption {
+    color: var(--color-text-inverse-muted);
+    font-size: var(--fs-sm);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  &__counter {
+    color: var(--color-text-inverse-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__nav,
+  &__close {
+    width: var(--tap-target);
+    height: var(--tap-target);
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--color-text-inverse);
+    transition: background var(--transition-fast);
+
+    &:hover { background: rgba(255, 255, 255, 0.24); }
+    &:focus-visible { @include focus-ring; }
+  }
+
+  &__nav--prev { grid-column: 1; }
+  &__nav--next { grid-column: 3; }
+
+  &__close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+  }
+}
+
+@include reduced-motion {
+  .lightbox { animation: none; }
 }

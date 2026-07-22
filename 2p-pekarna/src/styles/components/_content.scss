@@ -1,70 +1,90 @@
-@use "../partials/breakpoints" as *;
+// ============================================================
+// Obsahová sekce — text obtéká obrázek.
+//
+// Mobile-first: na mobilu je obrázek plný blok nad textem,
+// od tabletu se odsazuje do strany a text ho obtéká.
+// ============================================================
+
+@use "../abstracts" as *;
 
 .content {
-  &--muted {
-    background: var(--color-bg-alt);
+  &__layout {
+    // flow-root udrží plovoucí obrázek uvnitř sekce a zároveň
+    // zamezí prolnutí okrajů. Bez toho by obrázek vyčuhoval ven.
+    display: flow-root;
+    max-width: $content-flow-width;
+
+    &--narrow { max-width: $content-narrow-width; }
   }
 
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(32px, 6vw, 56px);
-    align-items: start;
-
-    @include media-up($bp-md) {
-      // Text bývá výrazně vyšší než obrázek. Centrování by kolem
-      // obrázku vyrobilo díru, proto oba sloupce srovnáváme nahoru.
-      grid-template-columns: 0.95fr 1fr;
-      align-items: start;
-      gap: clamp(40px, 5vw, 72px);
-    }
-  }
-
-  // Obrázek vlevo na desktopu — na mobilu zůstává nad textem.
-  &__grid--image-left {
-    @include media-up($bp-md) {
-      .content__image { order: 1; }
-      .content__body  { order: 2; }
-    }
-  }
-
-  &__narrow {
-    max-width: 760px;
+  // Nadpis jde přes celou šířku — zalomený do proužku vedle
+  // obrázku by se špatně četl.
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    max-width: $content-narrow-width;
   }
 
   &__image {
+    margin: 0 0 var(--space-lg);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    aspect-ratio: 5 / 4;
     box-shadow: var(--shadow-md);
+    aspect-ratio: 4 / 3;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    img { @include cover-image; }
+
+    @include up($bp-sm) {
+      float: right;
+      width: $content-image-width;
+      // Vlevo mezera od textu, dole a vpravo nic — obrázek lícuje
+      // s okrajem sloupce.
+      margin: var(--space-2xs) 0 var(--space-lg) var(--space-xl);
+      aspect-ratio: 5 / 4;
+    }
+
+    &--left {
+      @include up($bp-sm) {
+        float: left;
+        margin: var(--space-2xs) var(--space-xl) var(--space-lg) 0;
+      }
     }
   }
 
-  &__body {
-    .section-desc + .section-desc {
-      margin-top: var(--spacing-md);
-    }
+  // Odstavce v obtékání: kompaktnější řádkování a menší mezery,
+  // aby se text vedle obrázku netáhl.
+  .prose {
+    line-height: var(--lh-base);
+    max-width: none;
+
+    & + .prose { margin-top: var(--space-sm); }
   }
 
   &__bullets {
-    list-style: none;
-    padding: 0;
-    margin: var(--spacing-lg) 0 0;
     display: grid;
-    gap: 14px;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+
+    // Odrážky ani tlačítka se do obtékání netlačí — pod obrázkem
+    // začnou na plné šířce, jinak by se lámaly do proužku.
+    clear: both;
+
+    // Do dvou sloupců co nejdřív — seznam šesti odrážek pod sebou
+    // sekci zbytečně natahuje.
+    @include up($bp-md) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm) var(--space-xl);
+    }
   }
 
   &__bullet {
     display: flex;
-    gap: 14px;
+    gap: var(--space-sm);
     align-items: flex-start;
     color: var(--color-text);
-    font-size: 1rem;
+    font-size: var(--fs-base);
 
     .icon {
       flex-shrink: 0;
@@ -74,9 +94,7 @@
   }
 
   &__cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
+    clear: both;
+    margin-top: var(--space-xl);
   }
 }

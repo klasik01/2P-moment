@@ -1,0 +1,108 @@
+// ============================================================
+// SEKCE — svislý rytmus stránky, kontejner, hlavička sekce
+// a reveal při scrollu.
+// ============================================================
+
+@use "../abstracts" as *;
+
+.container {
+  @include container;
+}
+
+.section {
+  padding-block: var(--space-section);
+  scroll-margin-top: var(--layout-header);
+  position: relative;
+
+  // Odlišení sousedních sekcí teplejším podkladem.
+  &--muted { background: var(--color-bg-alt); }
+
+  // Bez horního odsazení — když sekce navazuje na jinou přímo.
+  &--flush-top { padding-top: 0; }
+}
+
+// Dvě sousední sekce na stejném podkladu odděluje vlasová linka.
+// Když se podklad mění, linka není potřeba.
+.section + .section:not(.section--muted)::before {
+  content: "";
+  position: absolute;
+  inset-inline: var(--space-gutter);
+  top: 0;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.section--muted + .section:not(.section--muted)::before { display: none; }
+
+// --- Hlavička sekce ---
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: var(--layout-text-width);
+  margin-bottom: var(--space-2xl);
+
+  &--center {
+    margin-inline: auto;
+    text-align: center;
+    align-items: center;
+  }
+}
+
+// --- Reveal při scrollu ---
+// Třídu `is-visible` přidává useRevealOnScroll (IntersectionObserver).
+// Prvky v mřížce si nastaví --reveal-i pro postupné naskakování.
+.reveal,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transform: translateY(var(--reveal-offset));
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease),
+    transform var(--reveal-duration) var(--reveal-ease);
+  transition-delay: calc(var(--reveal-i, 0) * var(--reveal-stagger));
+  will-change: opacity, transform;
+}
+
+// Posun do stran jen na desktopu — na mobilu působí neklidně
+// a tlačí do vodorovného přetečení.
+@include up($bp-md) {
+  .reveal-left  { transform: translateX(calc(var(--reveal-offset) * -1)); }
+  .reveal-right { transform: translateX(var(--reveal-offset)); }
+}
+
+.reveal.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+// Kdo si vypnul animace, dostane obsah rovnou — ne skrytý.
+@include reduced-motion {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+// --- Skip link ---
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: var(--z-skiplink);
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+
+  &:focus {
+    left: var(--space-sm);
+    top: var(--space-sm);
+  }
+}

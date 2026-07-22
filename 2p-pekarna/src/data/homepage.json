@@ -4,8 +4,8 @@
     "title": "Pekárna Pacov – krátkodobé ubytování, skladovací a výrobní prostory",
     "description": "Pekárna Pacov nabízí krátkodobé ubytování ve třech bytech s kapacitou cca 15 osob. Vhodné pro firmy, pracovníky a skupiny. K dispozici také skladovací, výrobní a kancelářské prostory k pronájmu.",
     "keywords": "ubytování Pacov, krátkodobé ubytování Pacov, ubytování pro dělníky Pacov, ubytování pro pracovníky Pacov, levné ubytování Pacov, firemní ubytování Pacov, skladovací prostory Pacov, výrobní prostory Pacov, pronájem prostor Pacov, Pekárna Pacov",
-    "ogImage": "/images/RD,%20Pacov%20(2).jpg",
-    "canonical": "https://pekarna.2pmoment.cz/"
+    "canonical": "https://pekarna.2pmoment.cz/",
+    "ogImageId": "exterior-corner"
   },
   "hero": {
     "visible": true,
@@ -14,8 +14,6 @@
     "titleAccent": "krátkodobé ubytování",
     "titleSuffix": "a prostory k pronájmu",
     "text": "Praktické ubytování v Pacově. Jednoduché, dostupné, bez zbytečností.",
-    "image": "/images/RD,%20Pacov%20(2).jpg",
-    "imageAlt": "Budova bývalé pekárny v Pacově, pohled z ulice",
     "stats": [
       {
         "value": "3",
@@ -29,7 +27,8 @@
     "ctaPrimaryLabel": "Rezervovat ubytování",
     "ctaPrimaryHref": "/rezervace",
     "ctaSecondaryLabel": "Zjistit více o ubytování",
-    "ctaSecondaryHref": "/ubytovani"
+    "ctaSecondaryHref": "/ubytovani",
+    "imageId": "exterior-corner"
   },
   "intro": {
     "visible": true,
@@ -40,9 +39,8 @@
       "Nabízíme krátkodobé ubytování ve třech bytech s celkovou kapacitou přibližně 15 osob. Ubytování je vhodné především pro firmy, pracovníky, montážní a stavební party nebo skupiny osob, které hledají jednoduché a dostupné zázemí v Pacově a okolí.",
       "Součástí objektu jsou také kancelářské, skladovací a výrobní prostory, které je možné individuálně poptat."
     ],
-    "image": "/images/RD,%20Pacov%20(1).jpg",
-    "imageAlt": "Bývalá pekárna — čelní pohled z ulice",
-    "imageSide": "right"
+    "imageSide": "right",
+    "imageId": "exterior-front"
   },
   "accommodation": {
     "visible": true,
@@ -62,8 +60,6 @@
       "praktické zázemí v Pacově",
       "online rezervace ubytování"
     ],
-    "image": "/images/RD,%20Pacov%20(11).jpg",
-    "imageAlt": "Obytný pokoj s arkýřovým oknem",
     "imageSide": "left",
     "cta": {
       "label": "Rezervovat ubytování",
@@ -72,7 +68,8 @@
     "ctaSecondary": {
       "label": "Zjistit více o ubytování",
       "href": "/ubytovani"
-    }
+    },
+    "imageId": "living-bay"
   },
   "audience": {
     "visible": true,
@@ -100,8 +97,6 @@
       "individuální dohoda podle potřeb",
       "vhodné pro firmy, živnostníky i menší provozy"
     ],
-    "image": "/images/RD,%20Pacov%20(5).jpg",
-    "imageAlt": "Skladovací prostor s regály",
     "imageSide": "right",
     "cta": {
       "label": "Poptat komerční prostor",
@@ -110,7 +105,8 @@
     "ctaSecondary": {
       "label": "Komerční prostory",
       "href": "/komercni-prostory"
-    }
+    },
+    "imageId": "storage-shelves"
   },
   "history": {
     "visible": true,
@@ -120,13 +116,12 @@
     "paragraphs": [
       "Pekárna je bývalý pekárenský objekt v Pacově, který dnes získává nové využití. Nabízíme zde krátkodobé ubytování ve třech bytech pro přibližně 15 osob a zároveň prostory vhodné pro skladování, výrobu nebo kanceláře."
     ],
-    "image": "/images/RD,%20Pacov%20(18).jpg",
-    "imageAlt": "Dvorní část objektu s původním komínem",
     "imageSide": "left",
     "cta": {
       "label": "O Pekárně",
       "href": "/o-pekarne"
-    }
+    },
+    "imageId": "courtyard-chimney"
   },
   "contactCta": {
     "visible": true,

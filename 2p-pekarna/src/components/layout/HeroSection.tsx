@@ -1,11 +1,12 @@
 import type { HeroData } from "../../types";
-import type { T } from "../../i18n";
+import type { Translations } from "../../i18n";
+import { media } from "../../services/media";
 import { handleLinkClick } from "../../hooks/useRoute";
-import { asset } from "../../utils/asset";
+import { Button } from "../ui/Button";
 
 type Props = {
   data: HeroData;
-  t: T;
+  t: Translations;
   /** Kotva, na kterou míří náznak scrollování. */
   scrollTo?: string;
 };
@@ -13,22 +14,26 @@ type Props = {
 export function HeroSection({ data, t, scrollTo = "#o-objektu" }: Props) {
   if (data.visible === false) return null;
 
+  const image = media.getImage(data.imageId);
+
   return (
     <section className="hero" id="hero" aria-labelledby="hero-title">
-      <div className="hero__media">
-        <img
-          src={asset(data.image)}
-          alt={data.imageAlt}
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-        />
-        <div className="hero__scrim" aria-hidden="true" />
-      </div>
+      {image ? (
+        <div className="hero__media">
+          <img
+            src={image.url}
+            alt={image.alt}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+          <div className="hero__scrim" aria-hidden="true" />
+        </div>
+      ) : null}
 
       <div className="container hero__inner">
         <div className="hero__content">
-          <p className="hero__eyebrow">{data.eyebrow}</p>
+          <p className="eyebrow eyebrow--inverse">{data.eyebrow}</p>
 
           <h1 id="hero-title" className="hero__title">
             {data.title}{" "}
@@ -38,22 +43,12 @@ export function HeroSection({ data, t, scrollTo = "#o-objektu" }: Props) {
 
           <p className="hero__lede">{data.text}</p>
 
-          <div className="hero__actions">
-            <a
-              href={data.ctaPrimaryHref}
-              className="btn btn--primary"
-              onClick={handleLinkClick}
-            >
-              {data.ctaPrimaryLabel}
-            </a>
+          <div className="btn-group">
+            <Button href={data.ctaPrimaryHref}>{data.ctaPrimaryLabel}</Button>
             {data.ctaSecondaryLabel && data.ctaSecondaryHref ? (
-              <a
-                href={data.ctaSecondaryHref}
-                className="btn btn--ghost"
-                onClick={handleLinkClick}
-              >
+              <Button href={data.ctaSecondaryHref} variant="inverse">
                 {data.ctaSecondaryLabel}
-              </a>
+              </Button>
             ) : null}
           </div>
 

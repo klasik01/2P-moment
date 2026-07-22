@@ -1,11 +1,11 @@
-import type { T } from "../../i18n";
+import type { Translations } from "../../i18n";
 import type { FooterData } from "../../types";
 import { pekarnaConfig } from "../../data/pekarna";
 import { handleLinkClick } from "../../hooks/useRoute";
 
 type Props = {
-  t: T;
-  data?: FooterData;
+  t: Translations;
+  data: FooterData;
 };
 
 export function Footer({ t, data }: Props) {
@@ -17,12 +17,12 @@ export function Footer({ t, data }: Props) {
       <div className="container">
         <div className="footer__grid">
           <div className="footer__brand">
-            <h4>{data?.brandHeading ?? cfg.name}</h4>
-            <p>{data?.brandText ?? cfg.tagline}</p>
+            <h4>{data.brandHeading}</h4>
+            <p>{data.brandText}</p>
           </div>
 
           <div className="footer__col">
-            <h4>{data?.contactHeading ?? t.footer.contactTitle}</h4>
+            <h4>{data.contactHeading}</h4>
             <ul>
               <li>
                 <a href={`tel:${cfg.contact.phone.replace(/\s/g, "")}`}>
@@ -36,25 +36,21 @@ export function Footer({ t, data }: Props) {
             </ul>
           </div>
 
-          {data?.navLinks?.length ? (
-            <div className="footer__col">
-              <h4>{data.navHeading}</h4>
-              <ul>
-                {data.navLinks.map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} onClick={handleLinkClick}>{l.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
+          <div className="footer__col">
+            <h4>{data.navHeading}</h4>
+            <ul>
+              {data.navLinks.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} onClick={handleLinkClick}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="footer__bottom">
-          <span>
-            © {year} {cfg.company.name} — {t.footer.rights}
-          </span>
-          <span>{t.footer.mockupNote}</span>
+          <span>© {year} {cfg.company.name} — {t.footer.rights}</span>
+          <span>{t.footer.icoLabel}: {cfg.company.ico}</span>
         </div>
       </div>
     </footer>

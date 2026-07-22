@@ -1,61 +1,91 @@
-import type { UnitsData } from "../../types";
+import { useState } from "react";
+import type { UnitItem, UnitsData } from "../../types";
+import type { Translations } from "../../i18n";
+import { media } from "../../services/media";
+import { Section, SectionHead } from "../ui/Section";
 import { Icon } from "../ui/Icon";
-import { asset } from "../../utils/asset";
+import { UnitDetailModal } from "../modals/UnitDetailModal";
 
 type Props = {
   data: UnitsData;
+  t: Translations;
   id?: string;
+  muted?: boolean;
 };
 
-/**
- * Mřížka karet — používá se pro byty na stránce Ubytování
- * i pro typy komerčních prostor.
- */
-export function UnitsSection({ data, id = "byty" }: Props) {
+/** Mřížka karet. Klik na kartu otevře detail s vybavením a galerií. */
+export function UnitsSection({ data, t, id = "byty", muted = false }: Props) {
+  const [openUnit, setOpenUnit] = useState<UnitItem | null>(null);
+
   if (data.visible === false) return null;
 
   const titleId = `${id}-title`;
 
   return (
-    <section className="units section" id={id} aria-labelledby={titleId}>
-      <div className="container">
-        <header className="section-head reveal">
-          <span className="section-eyebrow">{data.eyebrow}</span>
-          <h2 id={titleId} className="section-title">{data.title}</h2>
-          <p className="section-desc">{data.desc}</p>
-        </header>
+    <>
+      <Section id={id} muted={muted} labelledBy={titleId}>
+        <SectionHead
+          eyebrow={data.eyebrow}
+          title={data.title}
+          titleId={titleId}
+          paragraphs={[data.desc]}
+        />
 
-        <div className="units__grid">
-          {data.items.map((unit, i) => (
-            <article
-              key={unit.id}
-              className="unit-card reveal"
-              style={{ "--reveal-i": i } as React.CSSProperties}
-            >
-              <div className="unit-card__photo">
-                <img src={asset(unit.image)} alt={unit.imageAlt} loading="lazy" />
-              </div>
-              <div className="unit-card__body">
-                <p className="unit-card__badge">{unit.badge}</p>
-                {unit.name ? <h3 className="unit-card__name">{unit.name}</h3> : null}
-                {unit.description ? (
-                  <p className="unit-card__desc">{unit.description}</p>
+        <div className="card-grid">
+          {data.items.map((unit, i) => {
+            const image = media.getImage(unit.imageId);
+
+            return (
+              <button
+                key={unit.id}
+                type="button"
+                className="card card--interactive reveal"
+                style={{ "--reveal-i": i } as React.CSSProperties}
+                onClick={() => setOpenUnit(unit)}
+                aria-haspopup="dialog"
+              >
+                {image ? (
+                  <div className="card__media">
+                    <img src={image.url} alt={image.alt} loading="lazy" />
+                  </div>
                 ) : null}
-                {unit.specs?.length ? (
-                  <ul className="unit-card__specs" role="list">
-                    {unit.specs.map((s) => (
-                      <li key={s.label}>
-                        <Icon name={s.icon} size={16} />
-                        <span>{s.label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-            </article>
-          ))}
+
+                <div className="card__body">
+                  <p className="card__badge">{unit.badge}</p>
+                  {unit.name ? <h3 className="card__title">{unit.name}</h3> : null}
+                  {unit.description ? (
+                    <p className="card__text">{unit.description}</p>
+                  ) : null}
+
+                  {unit.equipment?.length ? (
+                    <ul className="card__specs" role="list">
+                      {unit.equipment.map((spec) => (
+                        <li key={spec.label}>
+                          <Icon name={spec.icon} size={16} />
+                          <span>{spec.label}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+
+                  <span className="card__more">
+                    {t.unit.detailCta}
+                    <Icon name="arrow-right" size={16} />
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
-      </div>
-    </section>
+      </Section>
+
+      {openUnit ? (
+        <UnitDetailModal
+          unit={openUnit}
+          t={t}
+          onClose={() => setOpenUnit(null)}
+        />
+      ) : null}
+    </>
   );
 }

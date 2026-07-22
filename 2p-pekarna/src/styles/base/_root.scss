@@ -1,0 +1,129 @@
+// ============================================================
+// Propsání SCSS proměnných do CSS custom properties.
+//
+// Tenhle soubor je jediné místo, kde se `$proměnná` mění na
+// `--proměnnou`. Hodnoty needituj tady — patří do
+// abstracts/_variables.scss.
+//
+// Custom properties držíme proto, že se dají měnit za běhu
+// (motiv, tmavý režim) a přepisovat v media queries, což SCSS
+// proměnné neumí.
+// ============================================================
+
+@use "../abstracts" as *;
+
+:root {
+  // --- Barvy ---
+  --color-primary:        #{$color-primary};
+  --color-primary-light:  #{$color-primary-light};
+  --color-primary-dark:   #{$color-primary-dark};
+  --color-primary-soft:   #{$color-primary-soft};
+
+  --color-bg:             #{$color-bg};
+  --color-bg-alt:         #{$color-bg-alt};
+  --color-surface:        #{$color-surface};
+
+  --color-text:                 #{$color-text};
+  --color-text-muted:           #{$color-text-muted};
+  --color-text-soft:            #{$color-text-soft};
+  --color-text-inverse:         #{$color-text-inverse};
+  --color-text-inverse-muted:   #{$color-text-inverse-muted};
+  --color-text-inverse-soft:    #{$color-text-inverse-soft};
+
+  --color-border:         #{$color-border};
+  --color-border-strong:  #{$color-border-strong};
+  --color-border-inverse: #{$color-border-inverse};
+
+  --color-success:        #{$color-success};
+  --color-error:          #{$color-error};
+  --color-overlay:        #{$color-overlay};
+
+  // --- Typografie ---
+  --font-heading: #{$font-heading};
+  --font-body:    #{$font-body};
+
+  --fw-light:     #{$fw-light};
+  --fw-regular:   #{$fw-regular};
+  --fw-medium:    #{$fw-medium};
+  --fw-semibold:  #{$fw-semibold};
+
+  --fs-xs:    #{$fs-xs};
+  --fs-sm:    #{$fs-sm};
+  --fs-base:  #{$fs-base};
+  --fs-md:    #{$fs-md};
+  --fs-lg:    #{$fs-lg};
+  --fs-h1:    #{$fs-h1};
+  --fs-h2:    #{$fs-h2};
+  --fs-h3:    #{$fs-h3};
+
+  --lh-tight: #{$lh-tight};
+  --lh-snug:  #{$lh-snug};
+  --lh-base:  #{$lh-base};
+  --lh-loose: #{$lh-loose};
+
+  --ls-tight:   #{$ls-tight};
+  --ls-base:    #{$ls-base};
+  --ls-wide:    #{$ls-wide};
+  --ls-eyebrow: #{$ls-eyebrow};
+
+  // --- Odsazení ---
+  --space-2xs:     #{$space-2xs};
+  --space-xs:      #{$space-xs};
+  --space-sm:      #{$space-sm};
+  --space-md:      #{$space-md};
+  --space-lg:      #{$space-lg};
+  --space-xl:      #{$space-xl};
+  --space-2xl:     #{$space-2xl};
+  --space-3xl:     #{$space-3xl};
+  --space-section: #{$space-section};
+  --space-gutter:  #{$space-gutter};
+
+  // --- Zaoblení ---
+  --radius-sm:   #{$radius-sm};
+  --radius-md:   #{$radius-md};
+  --radius-lg:   #{$radius-lg};
+  --radius-pill: #{$radius-pill};
+
+  // --- Stíny ---
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+
+  // --- Pohyb ---
+  --transition-fast: #{$transition-fast};
+  --transition-base: #{$transition-base};
+  --transition-slow: #{$transition-slow};
+
+  --reveal-duration: #{$reveal-duration};
+  --reveal-ease:     #{$reveal-ease};
+  --reveal-stagger:  #{$reveal-stagger};
+  --reveal-offset:   #{$reveal-offset};
+
+  // --- Layout ---
+  --layout-max-width:  #{$layout-max-width};
+  --layout-header:     #{$layout-header};
+  --layout-text-width: #{$layout-text-width};
+  --tap-target:        #{$tap-target};
+
+  --z-navbar:   #{$z-navbar};
+  --z-overlay:  #{$z-overlay};
+  --z-modal:    #{$z-modal};
+  --z-skiplink: #{$z-skiplink};
+}
+
+// Písmo roste s plochou. Musí to být tady, protože SCSS proměnné
+// se v media query přepsat nedají — custom properties ano.
+@include up($bp-md) {
+  :root {
+    --fs-md: #{$fs-md-desktop};
+    --fs-lg: #{$fs-lg-desktop};
+    --fs-h2: #{$fs-h2-desktop};
+    --fs-h3: #{$fs-h3-desktop};
+  }
+}
+
+@include up($bp-lg) {
+  :root {
+    --fs-h2: #{$fs-h2-wide};
+  }
+}

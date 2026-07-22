@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "brandAlt": "Pekárna Pacov",
+    "home": "Úvod",
+    "accommodation": "Ubytování",
+    "commercial": "Komerční prostory",
+    "about": "O Pekárně",
+    "contact": "Kontakt",
+    "reserve": "Rezervovat",
+    "menu": "Menu",
+    "closeMenu": "Zavřít menu",
+    "skipToContent": "Přeskočit na obsah"
+  },
+
+  "hero": {
+    "scrollHint": "Scroll"
+  },
+
+  "common": {
+    "close": "Zavřít",
+    "next": "Další",
+    "prev": "Zpět",
+    "loading": "Načítáme…",
+    "open": "Otevřít",
+    "sending": "Odesílám…",
+    "submit": "Odeslat zprávu",
+    "genericError": "Něco se pokazilo, zkuste to prosím znovu.",
+    "required": "Povinné",
+    "galleryHint": "Klikněte na fotku pro zobrazení v plné velikosti."
+  },
+
+  "unit": {
+    "detailCta": "Zobrazit detail",
+    "equipmentTitle": "Vybavení",
+    "galleryTitle": "Fotogalerie",
+    "equipmentMissing": "Podrobné vybavení upřesníme na vyžádání.",
+    "reserveCta": "Rezervovat ubytování",
+    "askCta": "Zeptat se na byt"
+  },
+
+  "lightbox": {
+    "open": "Otevřít fotku",
+    "close": "Zavřít",
+    "prev": "Předchozí",
+    "next": "Další",
+    "counter": "{current} z {total}"
+  },
+
+  "cookies": {
+    "title": "Používáme cookies",
+    "text": "Pro analýzu návštěvnosti a vylepšení stránek používáme Google Analytics. Souhlas můžete kdykoliv odvolat.",
+    "accept": "Přijmout",
+    "reject": "Odmítnout"
+  },
+
+  "footer": {
+    "contactTitle": "Kontakt",
+    "emailLabel": "E-mail",
+    "phoneLabel": "Telefon",
+    "addressLabel": "Adresa",
+    "icoLabel": "IČO",
+    "rights": "Všechna práva vyhrazena."
+  }
+}

@@ -1,31 +1,33 @@
 // ============================================================
-// 2P PEKÁRNA — hlavní SCSS vstup.
-// Styly jsou rozdělené do funkčních celků:
-//   partials/   — tokeny (barvy, typografie, breakpointy, layout)
-//   components/ — jednotlivé vizuální komponenty / sekce
+// PEKÁRNA PACOV — hlavní SCSS vstup.
+//
+// Struktura:
+//   abstracts/  proměnné, breakpointy, mixiny (nic negeneruje)
+//   base/       reset, propsání proměnných, typografie
+//   components/ jednotlivé vizuální celky
+//
+// Hodnoty (barvy, odsazení, velikosti) se mění výhradně
+// v abstracts/_variables.scss.
 // ============================================================
 
-// ---- Partials (musí být první) ----
-@use "partials/breakpoints";
-@use "partials/colors";
-@use "partials/typography";
-@use "partials/tokens";
-@use "partials/layout";
+// ---- Základ (pořadí je závazné) ----
+@use "base/root";
+@use "base/reset";
+@use "base/typography";
 
-// ---- Layout / globální komponenty ----
+// ---- Znovupoužitelné komponenty ----
+@use "components/button";
+@use "components/section";
+@use "components/card";
+@use "components/modal";
+@use "components/gallery";
+@use "components/form";
+
+// ---- Celky stránky ----
 @use "components/navbar";
 @use "components/hero";
-@use "components/footer";
-@use "components/modal";
-@use "components/loader";
-@use "components/cookie";
-@use "components/page";
-
-// ---- Sekce ----
 @use "components/content";
-@use "components/units";
-@use "components/gallery";
 @use "components/contact";
 @use "components/reservation";
-@use "components/form";
-@use "components/lightbox";
+@use "components/footer";
+@use "components/cookie";

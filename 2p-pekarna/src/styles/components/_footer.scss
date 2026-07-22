@@ -1,70 +1,62 @@
-@use "../partials/breakpoints" as *;
+// ============================================================
+// Patička.
+// ============================================================
+
+@use "../abstracts" as *;
 
 .footer {
-  flex-shrink: 0;
-  margin-top: auto;
   background: var(--color-text);
-  color: var(--color-bg-alt);
-  padding: 56px 0 32px;
-
-  h4 {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-bg);
-    margin: 0 0 var(--spacing-md);
-    font-weight: 500;
-  }
-
-  p, a, li {
-    color: rgba(250, 246, 240, 0.7);
-    font-size: 0.95rem;
-  }
-
-  a {
-    text-decoration: none;
-    transition: color var(--transition-fast);
-
-    &:hover {
-      color: var(--color-bg);
-    }
-  }
-
-  ul {
-    list-style: none;
-    display: grid;
-    gap: 8px;
-    padding: 0;
-    margin: 0;
-  }
+  color: var(--color-text-inverse-muted);
+  padding-block: var(--space-3xl) var(--space-xl);
+  margin-top: auto;
 
   &__grid {
     display: grid;
+    gap: var(--space-2xl);
     grid-template-columns: 1fr;
-    gap: 36px;
-    margin-bottom: 36px;
 
-    @include media-up($bp-md) {
-      grid-template-columns: 2fr 1fr 1fr;
-    }
+    @include up($bp-md) { grid-template-columns: 2fr 1fr 1fr; }
+  }
+
+  h4 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-medium);
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-md);
   }
 
   &__brand p {
-    max-width: 320px;
-    line-height: 1.6;
+    font-weight: var(--fw-light);
+    line-height: var(--lh-loose);
+    color: var(--color-text-inverse-soft);
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  &__col ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  a {
+    color: var(--color-text-inverse-muted);
+
+    &:hover { color: var(--color-primary-light); }
   }
 
   &__bottom {
-    padding-top: var(--spacing-lg);
-    border-top: 1px solid rgba(250, 246, 240, 0.12);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border-inverse);
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    font-size: 0.85rem;
-    color: rgba(250, 246, 240, 0.5);
+    gap: var(--space-xs);
+    font-size: var(--fs-sm);
+    color: var(--color-text-inverse-soft);
 
-    @include media-up($bp-md) {
+    @include up($bp-md) {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;

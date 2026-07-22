@@ -1,8 +1,10 @@
 import type { ReservationData } from "../types";
-import { SEOHead } from "../components/ui";
+import type { Translations } from "../i18n";
 import { pekarnaConfig } from "../data/pekarna";
+import { Section, SectionHead, SEOHead, Button } from "../components/ui";
 
 type Props = {
+  t: Translations;
   data: ReservationData;
 };
 
@@ -11,7 +13,7 @@ type Props = {
  * v datech vyplněné `previoUrl`, zobrazí se místo iframe kontaktní
  * náhrada, aby stránka nikdy nebyla prázdná.
  */
-export function ReservationPage({ data }: Props) {
+export function ReservationPage({ t, data }: Props) {
   const cfg = pekarnaConfig;
   const telHref = `tel:${cfg.contact.phone.replace(/\s/g, "")}`;
 
@@ -19,41 +21,39 @@ export function ReservationPage({ data }: Props) {
     <>
       <SEOHead meta={data.seo} />
 
-      <section className="reservation section" aria-labelledby="reservation-title">
-        <div className="container">
-          <header className="section-head">
-            <span className="section-eyebrow">{data.eyebrow}</span>
-            <h1 id="reservation-title" className="section-title">{data.title}</h1>
-            {data.paragraphs.map((p) => (
-              <p key={p} className="section-desc">{p}</p>
-            ))}
-          </header>
+      <Section className="reservation" labelledBy="reservation-title">
+        <SectionHead
+          eyebrow={data.eyebrow}
+          title={data.title}
+          titleId="reservation-title"
+          paragraphs={data.paragraphs}
+          as="h1"
+        />
 
-          {data.previoUrl ? (
-            <div className="reservation__embed">
-              <iframe
-                src={data.previoUrl}
-                title={`Rezervační systém — ${cfg.name}`}
-                loading="lazy"
-                allow="payment"
-              />
+        {data.previoUrl ? (
+          <div className="reservation__embed reveal">
+            <iframe
+              src={data.previoUrl}
+              title={`${t.nav.reserve} — ${cfg.name}`}
+              loading="lazy"
+              allow="payment"
+            />
+          </div>
+        ) : (
+          <div className="reservation__fallback reveal">
+            <h2>{data.fallbackTitle}</h2>
+            <p>{data.fallbackText}</p>
+            <div className="btn-group reservation__actions">
+              <Button href={telHref}>
+                {data.ctaPhoneLabel} — {cfg.contact.phone}
+              </Button>
+              <Button href={`mailto:${cfg.contact.email}`} variant="ghost">
+                {data.ctaEmailLabel}
+              </Button>
             </div>
-          ) : (
-            <div className="reservation__fallback">
-              <h2>{data.fallbackTitle}</h2>
-              <p>{data.fallbackText}</p>
-              <div className="reservation__actions">
-                <a href={telHref} className="btn btn--primary">
-                  {data.ctaPhoneLabel} — {cfg.contact.phone}
-                </a>
-                <a href={`mailto:${cfg.contact.email}`} className="btn btn--ghost">
-                  {data.ctaEmailLabel}
-                </a>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        )}
+      </Section>
     </>
   );
 }

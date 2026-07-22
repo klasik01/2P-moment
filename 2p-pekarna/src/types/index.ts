@@ -1,8 +1,16 @@
-// Centrální typy pro 2P Pekárna
+// ============================================================
+// Centrální typy.
+//
+// Fotky se odkazují přes `MediaId` / `AlbumId` — nikdy cestou
+// k souboru. Rozlišení řeší services/media, aby se dalo bez
+// zásahu do dat přepnout na API.
+// ============================================================
+
+import type { AlbumId, MediaId } from "../services/media";
 
 export type CookieConsentState = "unset" | "accepted" | "rejected";
 
-/** Typ dotazu v kontaktním formuláři — odpovídá zadání klienta. */
+/** Typ dotazu v kontaktním formuláři — podle zadání klienta. */
 export type InquiryType =
   | "ubytovani"
   | "sklad"
@@ -25,7 +33,7 @@ export type SeoMeta = {
   title: string;
   description: string;
   keywords?: string;
-  ogImage?: string;
+  ogImageId?: MediaId;
   canonical?: string;
 };
 
@@ -47,9 +55,7 @@ export type HeroData = {
   titleAccent: string;
   titleSuffix?: string;
   text: string;
-  image: string;
-  imageAlt: string;
-  pills?: string[];
+  imageId: MediaId;
   stats: HeroStat[];
   ctaPrimaryLabel: string;
   ctaPrimaryHref: string;
@@ -59,9 +65,9 @@ export type HeroData = {
 
 // --- Obecná obsahová sekce -----------------------------------------------
 /**
- * Univerzální textová sekce — nadpis, text, volitelné odrážky, obrázek a CTA.
- * Pokrývá většinu sekcí ze zadání (představení, ubytování, pro koho,
- * komerční prostory, historie), takže se nemusí psát komponenta na každou.
+ * Univerzální textová sekce — nadpis, odstavce, odrážky, obrázek a CTA.
+ * Pokrývá většinu sekcí ze zadání, takže se nemusí psát komponenta
+ * na každou.
  */
 export type ContentSectionData = {
   visible?: boolean;
@@ -72,17 +78,17 @@ export type ContentSectionData = {
   /** Odstavce přesně tak, jak je dodal klient v zadání. */
   paragraphs: string[];
   bullets?: string[];
-  image?: string;
-  imageAlt?: string;
+  imageId?: MediaId;
   /** Na které straně stojí obrázek na desktopu. Default "right". */
   imageSide?: "left" | "right";
   cta?: CtaLink;
   ctaSecondary?: CtaLink;
 };
 
-// --- Byty ----------------------------------------------------------------
+// --- Byty / prostory -----------------------------------------------------
 export type UnitSpec = {
-  icon: string; // jméno ikony v Icon komponentě
+  /** Jméno ikony v komponentě Icon. */
+  icon: string;
   label: string;
 };
 
@@ -92,9 +98,11 @@ export type UnitItem = {
   /** Volitelné — zadání popisy jednotlivých bytů neuvádí. */
   name?: string;
   description?: string;
-  image: string;
-  imageAlt: string;
-  specs?: UnitSpec[];
+  imageId: MediaId;
+  /** Album pro galerii v detailu. */
+  albumId?: AlbumId;
+  /** Vybavení. Prázdné, dokud ho klient nedodá. */
+  equipment?: UnitSpec[];
 };
 
 export type UnitsData = {
@@ -106,16 +114,11 @@ export type UnitsData = {
 };
 
 // --- Galerie -------------------------------------------------------------
-export type GalleryImage = {
-  src: string;
-  alt: string;
-};
-
-export type GalleryData = {
+export type GallerySectionData = {
   visible?: boolean;
   eyebrow: string;
   title: string;
-  images: GalleryImage[];
+  albumId: AlbumId;
 };
 
 // --- Kontakt -------------------------------------------------------------
@@ -210,13 +213,14 @@ export type AccommodationPageData = {
   seo: SeoMeta;
   intro: ContentSectionData;
   units: UnitsData;
-  gallery: GalleryData;
+  gallery: GallerySectionData;
   reservationCta: ContentSectionData;
 };
 
 export type CommercialPageData = {
   seo: SeoMeta;
   intro: ContentSectionData;
+  gallery: GallerySectionData;
   contactCta: ContentSectionData;
 };
 

@@ -1,0 +1,24 @@
+// ============================================================
+// BREAKPOINTY — mobile-first.
+//
+// Používej `@include up($bp-md) { ... }`. Varianta `down()`
+// existuje jen pro výjimky; výchozí směr je odspodu nahoru.
+// ============================================================
+
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+
+@mixin up($bp) {
+  @media (min-width: $bp) { @content; }
+}
+
+@mixin down($bp) {
+  @media (max-width: ($bp - 1px)) { @content; }
+}
+
+// Kdo má v systému vypnuté animace.
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) { @content; }
+}

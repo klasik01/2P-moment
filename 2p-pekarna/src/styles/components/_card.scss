@@ -1,0 +1,117 @@
+// ============================================================
+// KARTA — sdílený podklad pro byty, kontakty i formulář.
+// ============================================================
+
+@use "../abstracts" as *;
+
+.card {
+  @include card(0);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+
+  // Klikatelná varianta (renderuje se jako <button>).
+  &--interactive {
+    @include card-interactive;
+    cursor: pointer;
+
+    &:hover .card__media img,
+    &:focus-visible .card__media img { transform: scale(1.05); }
+
+    &:focus-visible { @include focus-ring; }
+  }
+
+  &--padded { padding: var(--space-lg); }
+
+  &__media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--color-bg-alt);
+    flex-shrink: 0;
+
+    img {
+      @include cover-image;
+      transition: transform var(--transition-slow);
+    }
+  }
+
+  &__body {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    flex: 1;
+  }
+
+  &__badge {
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--color-primary-dark);
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-medium);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  &__text {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-light);
+    line-height: var(--lh-base);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  // Seznam vybavení — ikona + popisek.
+  &__specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
+    margin: 0;
+    padding-top: var(--space-md);
+    margin-top: auto;
+    @include hairline(top);
+
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+
+    li {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2xs);
+    }
+
+    .icon { color: var(--color-primary); }
+  }
+
+  // Výzva k otevření detailu.
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-family: var(--font-body);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--color-primary-dark);
+    margin-top: var(--space-sm);
+  }
+}
+
+// Mřížka karet — jedno místo pro rozvržení všech karetních sekcí.
+.card-grid {
+  @include auto-grid($grid-card-min);
+
+  &--2 {
+    grid-template-columns: 1fr;
+    @include up($bp-md) { grid-template-columns: repeat(2, 1fr); }
+  }
+}

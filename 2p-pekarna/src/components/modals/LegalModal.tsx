@@ -1,3 +1,6 @@
+import type { Translations } from "../../i18n";
+import { Modal } from "../ui/Modal";
+
 type LegalDocument = {
   title: string;
   content: string;
@@ -5,22 +8,20 @@ type LegalDocument = {
 
 type Props = {
   document: LegalDocument;
+  t: Translations;
   onClose: () => void;
 };
 
-export function LegalModal({ document: doc, onClose }: Props) {
+export function LegalModal({ document: doc, t, onClose }: Props) {
   return (
-    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="modal modal--legal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal__close" onClick={onClose} aria-label="Zavřít">
-          &times;
-        </button>
-        <h2 className="modal__title">{doc.title}</h2>
+    <Modal onClose={onClose} closeLabel={t.common.close} labelledBy="legal-title">
+      <div className="modal__body">
+        <h2 id="legal-title" className="modal__title">{doc.title}</h2>
         <div
-          className="modal__content"
+          className="modal__prose"
           dangerouslySetInnerHTML={{ __html: doc.content }}
         />
       </div>
-    </div>
+    </Modal>
   );
 }

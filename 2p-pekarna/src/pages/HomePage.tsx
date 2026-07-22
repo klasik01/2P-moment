@@ -1,11 +1,11 @@
 import type { HomepageData } from "../types";
-import type { T } from "../i18n";
+import type { Translations } from "../i18n";
 import { HeroSection } from "../components/layout/HeroSection";
 import { ContentSection } from "../components/sections";
 import { SEOHead } from "../components/ui";
 
 type Props = {
-  t: T;
+  t: Translations;
   data: HomepageData;
 };
 
@@ -14,7 +14,11 @@ export function HomePage({ t, data }: Props) {
   return (
     <>
       <SEOHead meta={data.seo} />
-      <HeroSection data={data.hero} t={t} scrollTo={`#${data.intro.anchor ?? "o-objektu"}`} />
+      <HeroSection
+        data={data.hero}
+        t={t}
+        scrollTo={`#${data.intro.anchor ?? "o-objektu"}`}
+      />
       <ContentSection data={data.intro} />
       <ContentSection data={data.accommodation} muted />
       <ContentSection data={data.audience} />

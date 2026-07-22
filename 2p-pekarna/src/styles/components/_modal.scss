@@ -1,73 +1,156 @@
-.modal-overlay {
+// ============================================================
+// MODÁL — sdílený dialog (detail bytu, právní dokumenty).
+// ============================================================
+
+@use "../abstracts" as *;
+
+.modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.6);
+  z-index: var(--z-modal);
+  background: var(--color-overlay);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: var(--spacing-md);
+  animation: modalFade var(--transition-base) both;
+
+  @include up($bp-md) {
+    align-items: center;
+    padding: var(--space-xl);
+  }
 }
 
 .modal {
-  background: var(--color-bg);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
-  max-width: 480px;
-  width: 100%;
   position: relative;
-  box-shadow: var(--shadow-lg);
+  background: var(--color-surface);
+  width: 100%;
+  max-width: 880px;
+
+  // Na mobilu vyjede odspodu jako plachta a nechá kus pozadí vidět.
+  max-height: 92svh;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: modalSlide var(--transition-base) both;
+
+  @include up($bp-md) {
+    max-height: 88svh;
+    border-radius: var(--radius-lg);
+  }
 
   &__close {
     position: absolute;
-    top: var(--spacing-sm);
-    right: var(--spacing-sm);
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--color-text-muted);
-    &:hover { color: var(--color-text); }
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: 2;
+
+    width: var(--tap-target);
+    height: var(--tap-target);
+    display: grid;
+    place-items: center;
+
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-md);
+    transition: background var(--transition-fast);
+
+    &:hover { background: var(--color-bg-alt); }
+    &:focus-visible { @include focus-ring; }
+  }
+
+  // Úvodní fotka je vizitka, ne hlavní obsah. Na širokém okně ji
+  // zplošťujeme, aby se vybavení i tlačítka vešla bez rolování.
+  &__media {
+    aspect-ratio: 16 / 10;
+    background: var(--color-bg-alt);
+
+    @include up($bp-md)  { aspect-ratio: 21 / 9; }
+    @include up($bp-lg)  { aspect-ratio: 3 / 1; }
+
+    img { @include cover-image; }
+  }
+
+  &__body {
+    padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+
+    @include up($bp-md) { padding: var(--space-2xl); }
+  }
+
+  &__badge {
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--color-primary-dark);
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
   }
 
   &__title {
     font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-tight);
+    margin: 0;
+  }
+
+  &__section-title {
+    font-family: var(--font-heading);
     font-size: var(--fs-h3);
-    margin-bottom: var(--spacing-md);
+    font-weight: var(--fw-medium);
+    margin: var(--space-md) 0 0;
   }
 
-  &__text {
-    color: var(--color-text-muted);
-    margin-bottom: var(--spacing-lg);
-  }
+  // Vybavení jako mřížka odrážek s ikonou.
+  &__specs {
+    display: grid;
+    gap: var(--space-sm);
+    margin: 0;
 
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
+    @include up($bp-sm) { grid-template-columns: repeat(2, 1fr); }
 
-    input {
-      padding: var(--spacing-sm) var(--spacing-md);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
       font-size: var(--fs-base);
-      &:focus { outline: 2px solid var(--color-primary); border-color: transparent; }
+      color: var(--color-text-muted);
+    }
+
+    .icon {
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 2px;
     }
   }
 
-  &__success {
-    color: var(--color-success);
-    font-weight: 600;
-  }
+  &__actions { margin-top: var(--space-md); }
 
-  &__error {
-    color: var(--color-error);
-    font-size: var(--fs-sm);
-  }
+  // Text právních dokumentů.
+  &__prose {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-light);
+    line-height: var(--lh-loose);
+    color: var(--color-text-muted);
 
-  &--legal {
-    max-width: 640px;
-    max-height: 80vh;
-    overflow-y: auto;
+    h3 { color: var(--color-text); margin-top: var(--space-lg); }
   }
+}
+
+@keyframes modalFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalSlide {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+@include reduced-motion {
+  .modal-backdrop,
+  .modal { animation: none; }
 }

@@ -1,37 +1,60 @@
+// ============================================================
+// Lišta se souhlasem s cookies.
+// ============================================================
+
+@use "../abstracts" as *;
+
 .cookie-banner {
   position: fixed;
+  inset-inline: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 900;
-  background: var(--color-text);
-  color: #fff;
-  padding: var(--spacing-md);
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  z-index: var(--z-overlay);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-lg) var(--space-gutter);
+  // Aby lišta nesedla pod gesto-lištu na iOS.
+  padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
 
   &__inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
+    max-width: var(--layout-max-width);
+    margin-inline: auto;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--spacing-md);
+    flex-direction: column;
+    gap: var(--space-sm);
+
+    @include up($bp-lg) {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-xl);
+    }
   }
 
   &__title {
-    font-weight: 700;
-    margin-right: var(--spacing-sm);
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    color: var(--color-text);
+    margin: 0;
   }
 
   &__text {
-    flex: 1;
-    min-width: 200px;
     font-size: var(--fs-sm);
-    color: rgba(255, 255, 255, 0.8);
+    font-weight: var(--fw-light);
+    line-height: var(--lh-base);
+    color: var(--color-text-muted);
+    margin: 0;
+    flex: 1;
   }
 
   &__actions {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: var(--space-sm);
+    flex-shrink: 0;
+
+    .btn { flex: 1; }
+
+    @include up($bp-sm) {
+      .btn { flex: 0 0 auto; }
+    }
   }
 }

@@ -1,9 +1,17 @@
 import type { ContactData } from "../../types";
-import { Icon } from "../ui/Icon";
 import { pekarnaConfig } from "../../data/pekarna";
+import { Section, SectionHead } from "../ui/Section";
+import { Icon } from "../ui/Icon";
 
 type Props = {
   data: ContactData;
+};
+
+type ContactItem = {
+  icon: string;
+  label: string;
+  value: string;
+  href?: string;
 };
 
 /**
@@ -14,65 +22,65 @@ export function ContactInfoSection({ data }: Props) {
   if (data.visible === false) return null;
 
   const cfg = pekarnaConfig;
-  const telHref = `tel:${cfg.contact.phone.replace(/\s/g, "")}`;
+
+  const items: ContactItem[] = [
+    {
+      icon: "phone",
+      label: data.phoneLabel,
+      value: cfg.contact.phone,
+      href: `tel:${cfg.contact.phone.replace(/\s/g, "")}`,
+    },
+    {
+      icon: "mail",
+      label: data.emailLabel,
+      value: cfg.contact.email,
+      href: `mailto:${cfg.contact.email}`,
+    },
+    { icon: "map", label: data.addressLabel, value: cfg.contact.address },
+    { icon: "office", label: data.operatorLabel, value: cfg.company.name },
+  ];
 
   return (
-    <section className="contact section" id="kontakt" aria-labelledby="contact-title">
-      <div className="container">
-        <header className="section-head reveal">
-          <span className="section-eyebrow">{data.eyebrow}</span>
-          <h2 id="contact-title" className="section-title">{data.title}</h2>
-          <p className="section-desc">{data.desc}</p>
-        </header>
+    <Section id="kontakt" labelledBy="contact-title">
+      <SectionHead
+        eyebrow={data.eyebrow}
+        title={data.title}
+        titleId="contact-title"
+        paragraphs={[data.desc]}
+        as="h1"
+      />
 
-        <ul className="contact__grid" role="list">
-          <li className="contact__card reveal" style={{ "--reveal-i": 0 } as React.CSSProperties}>
-            <span className="contact__icon" aria-hidden="true">
-              <Icon name="phone" size={22} />
+      <ul className="contact-grid" role="list">
+        {items.map((item, i) => (
+          <li
+            key={item.label}
+            className="contact-card reveal"
+            style={{ "--reveal-i": i } as React.CSSProperties}
+          >
+            <span className="contact-card__icon" aria-hidden="true">
+              <Icon name={item.icon} size={22} />
             </span>
-            <span className="contact__label">{data.phoneLabel}</span>
-            <a className="contact__value" href={telHref}>{cfg.contact.phone}</a>
+            <span className="contact-card__label">{item.label}</span>
+            {item.href ? (
+              <a className="contact-card__value" href={item.href}>{item.value}</a>
+            ) : (
+              <span className="contact-card__value">{item.value}</span>
+            )}
           </li>
+        ))}
+      </ul>
 
-          <li className="contact__card reveal" style={{ "--reveal-i": 1 } as React.CSSProperties}>
-            <span className="contact__icon" aria-hidden="true">
-              <Icon name="mail" size={22} />
-            </span>
-            <span className="contact__label">{data.emailLabel}</span>
-            <a className="contact__value" href={`mailto:${cfg.contact.email}`}>
-              {cfg.contact.email}
-            </a>
-          </li>
-
-          <li className="contact__card reveal" style={{ "--reveal-i": 2 } as React.CSSProperties}>
-            <span className="contact__icon" aria-hidden="true">
-              <Icon name="map" size={22} />
-            </span>
-            <span className="contact__label">{data.addressLabel}</span>
-            <span className="contact__value">{cfg.contact.address}</span>
-          </li>
-
-          <li className="contact__card reveal" style={{ "--reveal-i": 3 } as React.CSSProperties}>
-            <span className="contact__icon" aria-hidden="true">
-              <Icon name="office" size={22} />
-            </span>
-            <span className="contact__label">{data.operatorLabel}</span>
-            <span className="contact__value">{cfg.company.name}</span>
-          </li>
-        </ul>
-
-        {data.mapEmbedUrl ? (
-          <div className="contact__map">
-            <iframe
-              src={data.mapEmbedUrl}
-              title={`Mapa — ${cfg.name}`}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
-        ) : null}
-      </div>
-    </section>
+      {data.mapEmbedUrl ? (
+        <div className="contact-map reveal">
+          <iframe
+            src={data.mapEmbedUrl}
+            title={`Mapa — ${cfg.name}`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+      ) : null}
+    </Section>
   );
 }

@@ -1,141 +1,106 @@
-@use "../partials/breakpoints" as *;
+// ============================================================
+// Formulář.
+// ============================================================
 
-.form-section {
-  background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
-}
+@use "../abstracts" as *;
 
-.form-card {
-  max-width: 720px;
-  margin: 0 auto;
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  padding: clamp(28px, 5vw, 48px);
+.form {
+  @include card(clamp(28px, 5vw, 48px));
   box-shadow: var(--shadow-md);
-}
+  max-width: 720px;
+  margin-inline: auto;
 
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
 
-  @include media-up($bp-md) {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-
-  &--full {
-    @include media-up($bp-md) {
-      grid-column: 1 / -1;
-    }
+    @include up($bp-md) { grid-template-columns: 1fr 1fr; }
   }
 
-  label,
-  .form-label {
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--color-text);
-  }
-
-  .form-req { color: var(--color-primary-dark); }
-
-  input,
-  textarea,
-  select {
-    font: inherit;
-    font-family: inherit;
-    font-size: 1rem;
-    padding: 12px 14px;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    background: var(--color-bg);
-    color: var(--color-text);
-    transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
-    width: 100%;
-
-    &:focus {
-      outline: none;
-      border-color: var(--color-primary);
-      background: var(--color-surface);
-      box-shadow: 0 0 0 3px var(--color-accent-soft);
-    }
-  }
-
-  textarea {
-    min-height: 120px;
-    resize: vertical;
-  }
-}
-
-.form-radio {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-
-  label {
-    flex: 1;
-    min-width: 140px;
+  &__field {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 14px;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    background: var(--color-bg);
-    transition: border-color var(--transition-fast), background var(--transition-fast);
-    font-weight: 400;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    min-width: 0;
 
-    &:has(input:checked) {
-      border-color: var(--color-primary);
-      background: var(--color-accent-soft);
-      font-weight: 500;
+    &--full {
+      @include up($bp-md) { grid-column: 1 / -1; }
+    }
+
+    label {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      color: var(--color-text);
+    }
+
+    input,
+    textarea,
+    select {
+      font: inherit;
+      // 16px minimum, jinak iOS při zaostření zoomuje stránku.
+      font-size: var(--fs-base);
+      min-height: var(--tap-target);
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-sm);
+      background: var(--color-bg);
+      color: var(--color-text);
+      width: 100%;
+      transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        box-shadow var(--transition-fast);
+
+      &:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        background: var(--color-surface);
+        box-shadow: 0 0 0 3px var(--color-primary-soft);
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      padding-top: var(--space-sm);
     }
   }
 
-  input {
-    width: auto;
+  &__req { color: var(--color-primary-dark); }
+
+  &__actions {
+    margin-top: var(--space-xs);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+
+    @include up($bp-md) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__note {
+    font-size: var(--fs-sm);
+    color: var(--color-text-soft);
     margin: 0;
-    accent-color: var(--color-primary);
   }
-}
 
-.form-actions {
-  margin-top: var(--spacing-sm);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  @include media-up($bp-md) {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  &__error {
+    font-size: var(--fs-base);
+    color: var(--color-error);
+    margin: 0;
   }
-}
 
-.form-note {
-  font-size: 0.85rem;
-  color: var(--color-text-soft);
-  margin: 0;
-}
-
-.form-error {
-  font-size: 0.9rem;
-  color: var(--color-error, #b3261e);
-  margin: 0;
-}
-
-// Honeypot — pole viditelné jen pro boty. Schované mimo viewport,
-// ne `display: none`, protože to část botů umí detekovat.
-.form-hp {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+  // Honeypot — viditelné jen pro boty. Ne `display: none`,
+  // to část botů umí detekovat.
+  &__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
 }

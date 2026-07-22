@@ -1,0 +1,5 @@
+// Jediný import pro všechny komponenty:
+//   @use "../abstracts" as *;
+@forward "variables";
+@forward "breakpoints";
+@forward "mixins";

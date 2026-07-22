@@ -1,95 +1,40 @@
-import type { GalleryData } from "../../types";
-import { cs } from "../../i18n";
-import { Icon } from "../ui/Icon";
-import { asset } from "../../utils/asset";
-import { useLightbox } from "../../hooks/useLightbox";
+import type { GallerySectionData } from "../../types";
+import type { Translations } from "../../i18n";
+import { media } from "../../services/media";
+import { Section, SectionHead } from "../ui/Section";
+import { Gallery, type GalleryVariant } from "../ui/Gallery";
 
 type Props = {
-  data: GalleryData;
+  data: GallerySectionData;
+  t: Translations;
+  muted?: boolean;
+  variant?: GalleryVariant;
+  id?: string;
 };
 
-export function GallerySection({ data }: Props) {
+export function GallerySection({
+  data,
+  t,
+  muted = false,
+  variant = "default",
+  id = "galerie",
+}: Props) {
   if (data.visible === false) return null;
 
-  const { index, isOpen, open, close, prev, next } = useLightbox(data.images.length);
-  const currentImage = index !== null ? data.images[index] : null;
+  const images = media.getAlbum(data.albumId);
+  if (images.length === 0) return null;
+
+  const titleId = `${id}-title`;
 
   return (
-    <section className="gallery section" id="galerie" aria-labelledby="gallery-title">
-      <div className="container">
-        <header className="section-head reveal">
-          <span className="section-eyebrow">{data.eyebrow}</span>
-          <h2 id="gallery-title" className="section-title">{data.title}</h2>
-          <p className="section-desc">{cs.common.galleryHint}</p>
-        </header>
-
-        <ul className="gallery__grid" role="list">
-          {data.images.map((img, i) => (
-            <li
-              key={img.src}
-              className="reveal"
-              // Stagger jen v rámci řádku, ať poslední fotky nečekají věčnost.
-              style={{ "--reveal-i": i % 4 } as React.CSSProperties}
-            >
-              <button
-                type="button"
-                className="gallery__item"
-                onClick={() => open(i)}
-                aria-label={`Otevřít fotku: ${img.alt}`}
-              >
-                <img src={asset(img.src)} alt={img.alt} loading="lazy" />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {isOpen && currentImage ? (
-        <div
-          className="lightbox is-open"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Galerie fotek"
-          onClick={(e) => { if (e.target === e.currentTarget) close(); }}
-        >
-          <button
-            type="button"
-            className="lightbox__close"
-            onClick={close}
-            aria-label="Zavřít"
-          >
-            <Icon name="close" size={20} />
-          </button>
-
-          <button
-            type="button"
-            className="lightbox__nav lightbox__nav--prev"
-            onClick={prev}
-            aria-label="Předchozí"
-          >
-            <Icon name="chevron-left" size={24} />
-          </button>
-
-          <figure className="lightbox__figure">
-            <img src={asset(currentImage.src)} alt={currentImage.alt} />
-            <figcaption className="lightbox__caption">
-              {currentImage.alt}
-              <span className="lightbox__counter">
-                {(index ?? 0) + 1} / {data.images.length}
-              </span>
-            </figcaption>
-          </figure>
-
-          <button
-            type="button"
-            className="lightbox__nav lightbox__nav--next"
-            onClick={next}
-            aria-label="Další"
-          >
-            <Icon name="chevron-right" size={24} />
-          </button>
-        </div>
-      ) : null}
-    </section>
+    <Section id={id} muted={muted} labelledBy={titleId}>
+      <SectionHead
+        eyebrow={data.eyebrow}
+        title={data.title}
+        titleId={titleId}
+        paragraphs={[t.common.galleryHint]}
+      />
+      <Gallery images={images} t={t} variant={variant} />
+    </Section>
   );
 }

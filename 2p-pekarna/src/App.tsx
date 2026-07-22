@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { cs } from "./i18n";
+import { getTranslations } from "./i18n";
 import type {
   AboutPageData,
   AccommodationPageData,
@@ -17,8 +17,8 @@ import { useRoute } from "./hooks/useRoute";
 
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
-import { LegalModal } from "./components/modals/LegalModal";
-import { CookieConsentBanner } from "./components/overlays/CookieConsentBanner";
+import { LegalModal } from "./components/modals";
+import { CookieConsentBanner } from "./components/overlays";
 import { legalDocuments, type LegalId } from "./data/legal";
 
 import { HomePage } from "./pages/HomePage";
@@ -37,7 +37,7 @@ import reservationJson from "./data/reservation.json";
 
 import "./styles/main.scss";
 
-const t = cs;
+const t = getTranslations();
 
 const homepage = homepageJson as HomepageData;
 const accommodation = accommodationJson as AccommodationPageData;
@@ -49,26 +49,27 @@ const reservation = reservationJson as ReservationData;
 function App() {
   const gaMeasurementId = import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined;
 
-  const [cookieConsent, setCookieConsentState] = useState<CookieConsentState>(() => getCookieConsent());
-  const [legalOpen, _setLegalOpen] = useState<LegalId | null>(null);
+  const [cookieConsent, setCookieConsentState] =
+    useState<CookieConsentState>(() => getCookieConsent());
+  const [legalOpen, setLegalOpen] = useState<LegalId | null>(null);
 
   const route = useRoute();
 
-  // Obsah je statický (data/*.json), takže se nečeká na žádná data
-  // a stránka se vykreslí hned.
+  // Obsah je statický, takže se nečeká na žádná data a stránka
+  // se vykreslí hned.
   useRevealOnScroll(route, true);
   useAnalyticsPageView(route, cookieConsent, gaMeasurementId);
 
   const renderPage = () => {
     switch (route) {
       case "/ubytovani":
-        return <AccommodationPage data={accommodation} />;
+        return <AccommodationPage t={t} data={accommodation} />;
       case "/komercni-prostory":
-        return <CommercialPage data={commercial} />;
+        return <CommercialPage t={t} data={commercial} />;
       case "/o-pekarne":
         return <AboutPage data={about} />;
       case "/rezervace":
-        return <ReservationPage data={reservation} />;
+        return <ReservationPage t={t} data={reservation} />;
       case "/kontakt":
         return <ContactPage t={t} data={contact} />;
       default:
@@ -90,20 +91,21 @@ function App() {
 
       <Footer t={t} data={homepage.footer} />
 
-      {legalOpen && (
+      {legalOpen ? (
         <LegalModal
           document={legalDocuments[legalOpen]}
-          onClose={() => _setLegalOpen(null)}
+          t={t}
+          onClose={() => setLegalOpen(null)}
         />
-      )}
+      ) : null}
 
-      {cookieConsent === "unset" && gaMeasurementId && (
+      {cookieConsent === "unset" && gaMeasurementId ? (
         <CookieConsentBanner
           t={t}
           onAccept={() => { setCookieConsent("accepted"); setCookieConsentState("accepted"); }}
           onReject={() => { setCookieConsent("rejected"); setCookieConsentState("rejected"); }}
         />
-      )}
+      ) : null}
     </>
   );
 }

@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "brandAlt": "Pekárna Pacov",
+    "home": "Home",
+    "accommodation": "Accommodation",
+    "commercial": "Commercial spaces",
+    "about": "About",
+    "contact": "Contact",
+    "reserve": "Book",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content"
+  },
+
+  "hero": {
+    "scrollHint": "Scroll"
+  },
+
+  "common": {
+    "close": "Close",
+    "next": "Next",
+    "prev": "Previous",
+    "loading": "Loading…",
+    "open": "Open",
+    "sending": "Sending…",
+    "submit": "Send message",
+    "genericError": "Something went wrong, please try again.",
+    "required": "Required",
+    "galleryHint": "Click a photo to view it full size."
+  },
+
+  "unit": {
+    "detailCta": "View detail",
+    "equipmentTitle": "Amenities",
+    "galleryTitle": "Photo gallery",
+    "equipmentMissing": "Detailed amenities available on request.",
+    "reserveCta": "Book accommodation",
+    "askCta": "Ask about this flat"
+  },
+
+  "lightbox": {
+    "open": "Open photo",
+    "close": "Close",
+    "prev": "Previous",
+    "next": "Next",
+    "counter": "{current} of {total}"
+  },
+
+  "cookies": {
+    "title": "We use cookies",
+    "text": "We use Google Analytics to measure traffic and improve the site. You can withdraw consent at any time.",
+    "accept": "Accept",
+    "reject": "Reject"
+  },
+
+  "footer": {
+    "contactTitle": "Contact",
+    "emailLabel": "E-mail",
+    "phoneLabel": "Phone",
+    "addressLabel": "Address",
+    "icoLabel": "Company ID",
+    "rights": "All rights reserved."
+  }
+}

@@ -1,21 +1,153 @@
-@use "../partials/breakpoints" as *;
+// ============================================================
+// Hlavička. Nad hero fotkou leží průhledně, po odscrollování zpevní.
+// Tlačítka uvnitř používají sdílenou .btn — vlastní odsazení si
+// navbar nedefinuje.
+// ============================================================
+
+@use "../abstracts" as *;
 
 .navbar {
   position: fixed;
+  inset-inline: 0;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
+  z-index: var(--z-navbar);
   background: rgba(250, 246, 240, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
   transition:
     background var(--transition-base),
-    border-color var(--transition-base),
-    color var(--transition-base);
+    border-color var(--transition-base);
 
-  // Průhledná varianta nad hero fotkou. Text zbělá, aby byl čitelný.
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    height: var(--layout-header);
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: var(--font-heading);
+    font-weight: var(--fw-medium);
+    font-size: 1.4rem;
+    letter-spacing: var(--ls-wide);
+    color: var(--color-text);
+    text-transform: uppercase;
+
+    &:hover { color: var(--color-text); }
+
+    &-mark {
+      width: $navbar-mark-size;
+      height: $navbar-mark-size;
+      border-radius: var(--radius-pill);
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      display: grid;
+      place-items: center;
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-semibold);
+      letter-spacing: 0;
+      flex-shrink: 0;
+    }
+  }
+
+  // --- Desktopová navigace ---
+  &__nav {
+    display: none;
+
+    @include up($bp-lg) { display: block; }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+
+    a:not(.btn) {
+      font-size: var(--fs-base);
+      color: var(--color-text);
+      padding-block: var(--space-xs);
+
+      &:hover,
+      &[aria-current="page"] { color: var(--color-primary-dark); }
+    }
+  }
+
+  // --- Přepínač mobilního menu ---
+  &__toggle {
+    display: grid;
+    place-items: center;
+    width: var(--tap-target);
+    height: var(--tap-target);
+    margin-right: calc(var(--space-sm) * -1);
+
+    @include up($bp-lg) { display: none; }
+
+    span,
+    span::before,
+    span::after {
+      content: "";
+      display: block;
+      width: $navbar-burger-w;
+      height: 2px;
+      background: var(--color-text);
+      border-radius: 2px;
+      transition: transform var(--transition-base), opacity var(--transition-fast);
+    }
+
+    span {
+      position: relative;
+      &::before { position: absolute; top: -$navbar-burger-gap; }
+      &::after  { position: absolute; top: $navbar-burger-gap; }
+    }
+
+    &.is-open span {
+      background: transparent;
+      &::before { transform: translateY($navbar-burger-gap) rotate(45deg); }
+      &::after  { transform: translateY(-$navbar-burger-gap) rotate(-45deg); }
+    }
+  }
+
+  // --- Mobilní menu ---
+  &__mobile {
+    display: block;
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-md) var(--space-gutter) var(--space-xl);
+    max-height: calc(100svh - var(--layout-header));
+    overflow-y: auto;
+
+    @include up($bp-lg) { display: none; }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+    }
+
+    a:not(.btn) {
+      display: block;
+      padding: var(--space-md) 0;
+      font-family: var(--font-heading);
+      font-size: var(--fs-lg);
+      color: var(--color-text);
+      @include hairline(bottom);
+
+      &:hover,
+      &[aria-current="page"] { color: var(--color-primary-dark); }
+    }
+
+    // Poslední položka je CTA tlačítko — dostane vzduch a žádnou linku.
+    li:last-child {
+      margin-top: var(--space-lg);
+      a { border-bottom: 0; }
+    }
+  }
+
+  // --- Průhledná varianta nad hero fotkou ---
   &--over {
     background: transparent;
     backdrop-filter: none;
@@ -23,184 +155,16 @@
     border-bottom-color: transparent;
 
     .navbar__brand,
-    .navbar__links a:not(.navbar__cta) {
-      color: #fff;
-    }
+    .navbar__links a:not(.btn) { color: var(--color-text-inverse); }
 
     .navbar__brand-mark {
       background: rgba(255, 255, 255, 0.16);
-      color: #fff;
+      color: var(--color-text-inverse);
       backdrop-filter: blur(6px);
     }
 
     .navbar__toggle span,
     .navbar__toggle span::before,
-    .navbar__toggle span::after {
-      background: #fff;
-    }
-  }
-
-  &__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: var(--header-height);
-  }
-
-  &__brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: 1.4rem;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-    text-transform: uppercase;
-    text-decoration: none;
-
-    &-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--color-primary);
-      color: var(--color-bg);
-      display: grid;
-      place-items: center;
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 0;
-    }
-
-    &:hover { color: var(--color-text); }
-  }
-
-  // Desktop nav (skrytá na mobilu, mobil má samostatný overlay)
-  &__nav {
-    display: none;
-
-    @include media-up($bp-lg) {
-      display: block;
-    }
-  }
-
-  &__links {
-    display: flex;
-    gap: var(--spacing-xl);
-    align-items: center;
-    list-style: none;
-
-    a {
-      font-size: 0.95rem;
-      color: var(--color-text-muted);
-      text-decoration: none;
-      font-weight: 400;
-      transition: color var(--transition-fast);
-
-      &:hover {
-        color: var(--color-text);
-      }
-    }
-  }
-
-  &__cta {
-    background: var(--color-primary);
-    color: var(--color-bg) !important;
-    padding: 10px 20px;
-    border-radius: var(--radius-pill);
-    font-weight: 500;
-    transition: background var(--transition-fast), transform var(--transition-fast);
-
-    &:hover {
-      background: var(--color-primary-dark);
-      color: var(--color-bg) !important;
-      transform: translateY(-1px);
-    }
-  }
-
-  // Toggle button
-  &__toggle {
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-fast);
-
-    &:hover {
-      background: var(--color-bg-alt);
-    }
-
-    span {
-      display: block;
-      position: relative;
-      width: 22px;
-      height: 2px;
-      background: var(--color-text);
-      transition: transform var(--transition-fast), background var(--transition-fast);
-
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        width: 22px;
-        height: 2px;
-        background: var(--color-text);
-        transition: transform var(--transition-fast), top var(--transition-fast), opacity var(--transition-fast);
-      }
-
-      &::before { top: -7px; }
-      &::after  { top:  7px; }
-    }
-
-    &.is-open span {
-      transform: rotate(45deg);
-      &::before { transform: rotate(-90deg); top: 0; }
-      &::after  { opacity: 0; }
-    }
-
-    @include media-up($bp-lg) {
-      display: none;
-    }
-  }
-
-  // Mobile overlay menu
-  &__mobile {
-    display: block;
-    border-top: 1px solid var(--color-border);
-    background: var(--color-bg);
-    padding: var(--spacing-md) var(--spacing-gutter) var(--spacing-lg);
-
-    &[hidden] { display: none; }
-
-    ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-    }
-
-    a {
-      display: block;
-      padding: 14px 0;
-      font-family: var(--font-heading);
-      font-size: 1.1rem;
-      letter-spacing: 0.04em;
-      color: var(--color-text);
-      border-bottom: 1px solid var(--color-border);
-      text-decoration: none;
-    }
-
-    li:last-child a { border-bottom: none; }
-
-    .navbar__cta {
-      margin-top: var(--spacing-md);
-      display: inline-block;
-      border-bottom: none !important;
-    }
-
-    @include media-up($bp-lg) {
-      display: none;
-    }
+    .navbar__toggle span::after { background: var(--color-text-inverse); }
   }
 }
