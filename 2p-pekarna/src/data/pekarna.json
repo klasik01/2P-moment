@@ -6,11 +6,10 @@
     "name": "2P moment s.r.o.",
     "ico": "22395512"
   },
-  "_TODO": "Klient v zadání uvádí u kontaktů 'doplnit'. Telefon a e-mail jsou převzaté z Hive House a NEJSOU potvrzené. Adresa je zatím jen město — bez ulice a č.p. nejde udělat mapa ani lokální SEO.",
   "contact": {
     "email": "pekarna@2pmoment.cz",
-    "phone": "+420 774 110 224",
-    "address": "Pacov, Vysočina"
+    "phone": "+420 739 214 492",
+    "address": "Myslíkova 66, 395 01 Pacov"
   },
   "checkInOut": {
     "checkIn": "14:00",

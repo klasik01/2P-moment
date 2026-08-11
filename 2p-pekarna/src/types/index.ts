@@ -136,7 +136,12 @@ export type ContactData = {
   emailLabel: string;
   addressLabel: string;
   operatorLabel: string;
-  /** Embed URL mapy. Prázdné = mapa se nevykreslí (čeká se na adresu). */
+  /** Popisek odkazu „otevřít v mapách“ pod mapou. */
+  mapLinkLabel: string;
+  /**
+   * Ruční override embed URL mapy. Prázdné = mapa se odvodí z adresy
+   * v pekarna.json. Když není ani adresa, mapa se nevykreslí.
+   */
   mapEmbedUrl?: string;
 };
 

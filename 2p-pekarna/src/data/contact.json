@@ -15,6 +15,7 @@
     "emailLabel": "E-mail",
     "addressLabel": "Adresa",
     "operatorLabel": "Provozovatel",
+    "mapLinkLabel": "Otevřít v Google Maps",
     "mapEmbedUrl": ""
   },
   "inquiry": {

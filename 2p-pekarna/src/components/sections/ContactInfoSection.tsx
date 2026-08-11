@@ -23,6 +23,20 @@ export function ContactInfoSection({ data }: Props) {
 
   const cfg = pekarnaConfig;
 
+  // Mapa se odvozuje z adresy v pekarna.json — jeden zdroj pravdy.
+  // `mapEmbedUrl` v datech funguje jako ruční override (např. odkaz
+  // na konkrétní zápis v Google). Google embed s `q=` vykreslí
+  // interaktivní mapu se špendlíkem bez API klíče.
+  const address = cfg.contact.address;
+  const mapSrc =
+    data.mapEmbedUrl ||
+    (address
+      ? `https://maps.google.com/maps?q=${encodeURIComponent(address)}&z=16&output=embed`
+      : "");
+  const mapLink = address
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
+    : "";
+
   const items: ContactItem[] = [
     {
       icon: "phone",
@@ -70,16 +84,24 @@ export function ContactInfoSection({ data }: Props) {
         ))}
       </ul>
 
-      {data.mapEmbedUrl ? (
-        <div className="contact-map reveal">
+      {mapSrc ? (
+        <figure className="contact-map reveal">
           <iframe
-            src={data.mapEmbedUrl}
-            title={`Mapa — ${cfg.name}`}
+            className="contact-map__frame"
+            src={mapSrc}
+            title={`Mapa — ${cfg.name}, ${address}`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
-        </div>
+          {mapLink ? (
+            <figcaption className="contact-map__caption">
+              <a href={mapLink} target="_blank" rel="noopener noreferrer">
+                {data.mapLinkLabel} ↗
+              </a>
+            </figcaption>
+          ) : null}
+        </figure>
       ) : null}
     </Section>
   );
