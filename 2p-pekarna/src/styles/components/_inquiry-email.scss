@@ -1,0 +1,20 @@
+// ============================================================
+// Poptávka e-mailem — mailto CTA místo formuláře.
+// Stejný tlačítkový vzor jako náhrada v Rezervaci.
+// ============================================================
+
+@use "../abstracts" as *;
+
+.inquiry-email {
+  text-align: center;
+
+  &__actions {
+    justify-content: center;
+  }
+
+  &__note {
+    margin: var(--space-lg) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--color-text-soft);
+  }
+}

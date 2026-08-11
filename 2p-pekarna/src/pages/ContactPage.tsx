@@ -1,10 +1,8 @@
 import type { ContactPageData, InquiryType } from "../types";
-import type { Translations } from "../i18n";
-import { ContactInfoSection, InquiryFormSection } from "../components/sections";
+import { ContactInfoSection, InquiryEmailSection } from "../components/sections";
 import { SEOHead } from "../components/ui";
 
 type Props = {
-  t: Translations;
   data: ContactPageData;
 };
 
@@ -22,12 +20,12 @@ function typeFromQuery(): InquiryType | undefined {
   return VALID_TYPES.find((type) => type === raw);
 }
 
-export function ContactPage({ t, data }: Props) {
+export function ContactPage({ data }: Props) {
   return (
     <>
       <SEOHead meta={data.seo} />
       <ContactInfoSection data={data.contact} />
-      <InquiryFormSection data={data.inquiry} t={t} defaultType={typeFromQuery()} />
+      <InquiryEmailSection data={data.inquiry} type={typeFromQuery()} />
     </>
   );
 }

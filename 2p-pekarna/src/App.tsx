@@ -71,7 +71,7 @@ function App() {
       case "/rezervace":
         return <ReservationPage t={t} data={reservation} />;
       case "/kontakt":
-        return <ContactPage t={t} data={contact} />;
+        return <ContactPage data={contact} />;
       default:
         return <HomePage t={t} data={homepage} />;
     }

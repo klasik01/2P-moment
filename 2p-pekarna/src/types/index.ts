@@ -145,28 +145,30 @@ export type ContactData = {
   mapEmbedUrl?: string;
 };
 
-// --- Kontaktní formulář ---------------------------------------------------
+// --- Poptávka e-mailem ----------------------------------------------------
 export type InquiryTypeOption = {
   value: InquiryType;
   label: string;
 };
 
-export type InquiryFormData = {
+/**
+ * Dokud neběží backend (GCP + relay), poptávka se neposílá formulářem,
+ * ale otevře e-mailový program uživatele přes mailto s předvyplněným
+ * příjemcem, předmětem a tělem. Adresát je e-mail z pekarna.json.
+ */
+export type InquiryEmailData = {
   visible?: boolean;
   eyebrow: string;
   title: string;
   desc: string;
   note: string;
-  /** Potvrzovací hláška ze zadání klienta. */
-  successLabel: string;
-  fields: {
-    name: string;
-    phone: string;
-    email: string;
-    message: string;
-    messagePlaceholder: string;
-    inquiryType: string;
-  };
+  buttonLabel: string;
+  callLabel: string;
+  /** Základ předmětu; k němu se podle ?typ= připojí druh poptávky. */
+  subjectBase: string;
+  /** Šablona těla s placeholderem {typ}. */
+  bodyTemplate: string;
+  /** Popisky druhů poptávky — pro odvození předmětu a těla z ?typ=. */
   inquiryTypes: InquiryTypeOption[];
 };
 
@@ -237,5 +239,5 @@ export type AboutPageData = {
 export type ContactPageData = {
   seo: SeoMeta;
   contact: ContactData;
-  inquiry: InquiryFormData;
+  inquiry: InquiryEmailData;
 };

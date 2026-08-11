@@ -21,39 +21,19 @@
   "inquiry": {
     "visible": true,
     "eyebrow": "Napište nám",
-    "title": "Kontaktní formulář",
-    "desc": "",
-    "note": "Odesláním souhlasíte se zpracováním kontaktních údajů pro vyřízení poptávky.",
-    "successLabel": "Děkujeme za zprávu. Ozveme se vám co nejdříve.",
-    "fields": {
-      "name": "Jméno a příjmení",
-      "phone": "Telefon",
-      "email": "E-mail",
-      "message": "Zpráva",
-      "messagePlaceholder": "",
-      "inquiryType": "Typ dotazu"
-    },
+    "title": "Máte zájem? Napište nám",
+    "desc": "Klikněte a otevře se váš e-mailový program s předvyplněným příjemcem i předmětem. Stačí doplnit údaje a odeslat.",
+    "note": "Zpráva se otevře ve vašem e-mailovém programu. Ozveme se co nejdříve.",
+    "buttonLabel": "Napsat e-mail",
+    "callLabel": "Zavolat",
+    "subjectBase": "Poptávka z webu – Pekárna Pacov",
+    "bodyTemplate": "Dobrý den,\n\nmám zájem o {typ}.\n\nJméno a příjmení:\nTelefon:\nTermín:\nPočet osob:\n\nZpráva:\n",
     "inquiryTypes": [
-      {
-        "value": "ubytovani",
-        "label": "Ubytování"
-      },
-      {
-        "value": "sklad",
-        "label": "Skladovací prostor"
-      },
-      {
-        "value": "vyroba",
-        "label": "Výrobní prostor"
-      },
-      {
-        "value": "kancelar",
-        "label": "Kancelář"
-      },
-      {
-        "value": "ostatni",
-        "label": "Ostatní"
-      }
+      { "value": "ubytovani", "label": "ubytování" },
+      { "value": "sklad", "label": "skladovací prostor" },
+      { "value": "vyroba", "label": "výrobní prostor" },
+      { "value": "kancelar", "label": "kancelář" },
+      { "value": "ostatni", "label": "ostatní" }
     ]
   }
 }
