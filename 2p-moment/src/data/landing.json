@@ -1,0 +1,49 @@
+{
+  "_zdroj": "Zastřešující rozcestník 2P Moment. Právní údaje (IČO, DIČ, datová schránka, sídlo) převzaty z 2p-hive-house/src/config/contact.ts — jde o stejnou právnickou osobu.",
+
+  "seo": {
+    "title": "2P Moment | Společnost za projekty Hive House a Pekárna",
+    "description": "2P moment s.r.o. — společnost, která stojí za projekty Hive House a Pekárna. Místa pro ubytování, práci a zážitky na Vysočině."
+  },
+
+  "hero": {
+    "eyebrow": "2P moment s.r.o.",
+    "brand": "2P Moment",
+    "statement": "Společnost, která stojí za projekty pro ubytování, práci a zážitky.",
+    "hint": "Vyberte projekt"
+  },
+
+  "projects": [
+    {
+      "id": "hivehouse",
+      "name": "Hive House",
+      "descriptor": "Glamping & apiterapie",
+      "location": "Hojanovice, Vysočina",
+      "href": "https://hivehouse.2pmoment.cz",
+      "cta": "Navštívit",
+      "logo": "/logos/hive-house.png"
+    },
+    {
+      "id": "pekarna",
+      "name": "Pekárna Pacov",
+      "descriptor": "Ubytování & prostory k pronájmu",
+      "location": "Pacov, Vysočina",
+      "href": "https://pekarna.2pmoment.cz",
+      "cta": "Navštívit",
+      "logoText": "2P"
+    }
+  ],
+
+  "contact": {
+    "heading": "Kontakt",
+    "email": "info@2pmoment.cz",
+    "phone": "+420 774 110 224",
+    "legalHeading": "Fakturační údaje",
+    "company": "2P moment s.r.o.",
+    "ico": "22395512",
+    "dic": "CZ22395512",
+    "dataBox": "2jj2mpz",
+    "addressLines": ["Hojanovice 17, 396 01 Hojanovice", "Česká republika"],
+    "note": "Společnost zapsaná v obchodním rejstříku vedeném u Krajského soudu v Českých Budějovicích."
+  }
+}

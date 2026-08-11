@@ -1,0 +1,338 @@
+// ============================================================
+// 2P Moment — zastřešující rozcestník.
+//
+// Samostatná paleta pod .landing: tmavý „mateřský" základ + dvě
+// značkové barvy projektů (Hive House medová, Pekárna hnědá).
+// Mobile-first, split-screen na desktopu.
+// ============================================================
+
+.landing {
+  // --- Paleta ---
+  --m-bg: #17120c;          // warm near-black
+  --m-bg-soft: #211a12;
+  --m-text: #f4ede1;
+  --m-text-muted: rgba(244, 237, 225, 0.66);
+  --m-text-soft: rgba(244, 237, 225, 0.42);
+  --m-border: rgba(244, 237, 225, 0.12);
+
+  // Značkové akcenty
+  --m-honey: #f5a623;
+  --m-honey-dark: #cf8417;
+  --m-bread: #b0855a;
+  --m-bread-dark: #6e4a28;
+
+  --m-font-display: "Oswald", "Helvetica Neue", Arial, sans-serif;
+  --m-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --m-max: 1120px;
+  --m-gutter: clamp(20px, 5vw, 56px);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background: var(--m-bg);
+  color: var(--m-text);
+  font-family: var(--m-font-body);
+}
+
+// Ať přetečení / overscroll neblikne bílou.
+body:has(.landing) { background: #17120c; }
+
+// ---- Hero ----
+.hero {
+  padding: clamp(72px, 14vh, 160px) var(--m-gutter) clamp(48px, 9vh, 96px);
+  text-align: center;
+  // Jemná záře shora, ať tmavá plocha nepůsobí plocho.
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(245, 166, 35, 0.14), transparent 60%),
+    var(--m-bg);
+
+  &__inner {
+    max-width: 720px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(16px, 3vw, 24px);
+  }
+
+  &__eyebrow {
+    font-family: var(--m-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--m-text-soft);
+  }
+
+  &__brand {
+    font-family: var(--m-font-display);
+    font-weight: 500;
+    font-size: clamp(3rem, 12vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__accent {
+    color: var(--m-honey);
+  }
+
+  &__statement {
+    font-size: clamp(1.0625rem, 2.4vw, 1.375rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--m-text-muted);
+    max-width: 40ch;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  &__hint {
+    margin-top: clamp(8px, 3vh, 28px);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--m-text-soft);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    &::after {
+      content: "";
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--m-honey), transparent);
+    }
+  }
+}
+
+// ---- Projekty (split-screen) ----
+.projects {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;                       // vlasová spára mezi panely
+  background: var(--m-border);    // prosvítá jako předěl
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.project {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(20px, 4vw, 32px);
+  min-height: 340px;
+  padding: clamp(28px, 5vw, 56px);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @media (min-width: 768px) {
+    min-height: min(64vh, 620px);
+  }
+
+  // Ztlumení druhého panelu při najetí na jeden — fokus na výběr.
+  .projects:hover &:not(:hover) { opacity: 0.72; }
+
+  &:hover { transform: translateY(-4px); }
+
+  &:focus-visible {
+    outline: 3px solid var(--m-text);
+    outline-offset: -6px;
+  }
+
+  // Obří monogram jako textura na pozadí.
+  &__monogram {
+    position: absolute;
+    top: clamp(-24px, -2vw, -8px);
+    right: clamp(-12px, 2vw, 24px);
+    font-family: var(--m-font-display);
+    font-weight: 700;
+    font-size: clamp(12rem, 34vw, 26rem);
+    line-height: 0.8;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.16;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  }
+
+  &:hover &__monogram { transform: scale(1.06) rotate(-2deg); opacity: 0.22; }
+
+  // Logo v bílém chipu — nahoře na kartě. Bílé pozadí je nutné,
+  // aby medové logo Hive House bylo na oranžovém panelu čitelné.
+  &__logo {
+    margin-bottom: auto;      // drží chip nahoře, obsah karty dole
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 76px;
+    min-width: 76px;
+    padding: 10px 16px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.35);
+
+    img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+  }
+
+  &__logo-text {
+    font-family: var(--m-font-display);
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--m-bread-dark);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__location {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  &__name {
+    font-family: var(--m-font-display);
+    font-weight: 500;
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  &__descriptor {
+    font-size: clamp(1rem, 2.2vw, 1.1875rem);
+    font-weight: 300;
+    opacity: 0.85;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--m-font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  &__arrow {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &:hover &__arrow { transform: translateX(6px); }
+
+  // --- Značkové varianty ---
+  &--hivehouse {
+    background: linear-gradient(150deg, var(--m-honey) 0%, var(--m-honey-dark) 100%);
+    color: #2a1c05;
+
+    .project__monogram { color: #fff; }
+  }
+
+  &--pekarna {
+    background: linear-gradient(150deg, var(--m-bread) 0%, var(--m-bread-dark) 100%);
+    color: #fbf4ea;
+
+    .project__monogram { color: #fff; }
+  }
+}
+
+// ---- Právní patička ----
+.legal {
+  background: var(--m-bg-soft);
+  border-top: 1px solid var(--m-border);
+  padding: clamp(40px, 7vw, 72px) var(--m-gutter) clamp(28px, 4vw, 40px);
+
+  &__inner {
+    max-width: var(--m-max);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vw, 48px);
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__heading {
+    font-family: var(--m-font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--m-text);
+    margin: 0 0 16px;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9375rem;
+    font-weight: 300;
+    color: var(--m-text-muted);
+
+    a {
+      color: var(--m-text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      &:hover { color: var(--m-honey); }
+    }
+  }
+
+  &__bottom {
+    max-width: var(--m-max);
+    margin: clamp(32px, 5vw, 48px) auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--m-border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.8125rem;
+    color: var(--m-text-soft);
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+  }
+
+  &__note {
+    max-width: 60ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project,
+  .project__monogram,
+  .project__arrow { transition: none; }
+}
