@@ -170,6 +170,28 @@
   }
 }
 
+// ---- Vstupní animace ----
+// Obsah hero po příchodu postupně naskočí (fade + jemný posun zdola).
+// `both` drží prvky skryté i během delay, takže neproblikne obsah.
+@keyframes heroEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero__content > * {
+  animation: heroEnter 0.7s var(--reveal-ease) both;
+}
+
+.hero__content > *:nth-child(1) { animation-delay: 0.15s; }
+.hero__content > *:nth-child(2) { animation-delay: 0.28s; }
+.hero__content > *:nth-child(3) { animation-delay: 0.41s; }
+.hero__content > *:nth-child(4) { animation-delay: 0.54s; }
+.hero__content > *:nth-child(5) { animation-delay: 0.67s; }
+
+.hero__scroll {
+  animation: heroEnter 0.7s var(--reveal-ease) both 0.8s;
+}
+
 @keyframes heroZoom {
   from { transform: scale(1.08); }
   to   { transform: scale(1); }
@@ -182,5 +204,7 @@
 
 @include reduced-motion {
   .hero__media img,
-  .hero__scroll::after { animation: none; }
+  .hero__scroll,
+  .hero__scroll::after,
+  .hero__content > * { animation: none; }
 }

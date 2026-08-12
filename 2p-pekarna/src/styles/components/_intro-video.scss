@@ -1,0 +1,98 @@
+// ============================================================
+// Uvítací video — záclona přes celou obrazovku, sjede shora dolů,
+// po zavření vyjede zpět nahoru a odkryje aplikaci.
+// ============================================================
+
+@use "../abstracts" as *;
+
+.intro-video {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  overflow: hidden;
+
+  // Plocha záclony — poloprůhledná tmavá, web pod ní prosvítá.
+  // Míru ztmavení lze doladit alfou (0 = průhledné, 1 = plná černá).
+  &__panel {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    transform: translateY(-100%);
+    animation: curtainDown 0.6s var(--reveal-ease) both;
+  }
+
+  &--closing &__panel {
+    animation: curtainUp 0.5s var(--reveal-ease) both;
+  }
+
+  // Video vyplní plochu, celé viditelné. Bez podkladu, aby okolo
+  // videa prosvítal ztmavený web (ne černé pruhy).
+  &__player {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: transparent;
+  }
+
+  &__close {
+    position: absolute;
+    top: var(--space-lg);
+    right: var(--space-lg);
+    z-index: 2;
+    width: var(--tap-target);
+    height: var(--tap-target);
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-pill);
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    backdrop-filter: blur(6px);
+    transition: background var(--transition-fast);
+
+    &:hover { background: rgba(0, 0, 0, 0.85); }
+    &:focus-visible { @include focus-ring; }
+  }
+
+  &__sound {
+    position: absolute;
+    left: 50%;
+    bottom: var(--space-2xl);
+    transform: translateX(-50%);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    padding: 10px 22px;
+    border-radius: var(--radius-pill);
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    backdrop-filter: blur(6px);
+    transition: background var(--transition-fast);
+
+    &:hover { background: var(--color-primary); }
+    &:focus-visible { @include focus-ring; }
+  }
+}
+
+@keyframes curtainDown {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes curtainUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+
+// Bez animací: záclona rovnou na místě, zavření skryje bez posunu.
+@include reduced-motion {
+  .intro-video__panel { animation: none; transform: none; }
+  .intro-video--closing .intro-video__panel { display: none; }
+}

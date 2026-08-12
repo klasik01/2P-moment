@@ -29,6 +29,12 @@
     "galleryHint": "Klikněte na fotku pro zobrazení v plné velikosti."
   },
 
+  "intro": {
+    "label": "Uvítací video",
+    "unmute": "Zapnout zvuk",
+    "mute": "Ztlumit"
+  },
+
   "unit": {
     "detailCta": "Zobrazit detail",
     "equipmentTitle": "Vybavení",

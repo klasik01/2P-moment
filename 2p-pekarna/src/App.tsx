@@ -10,6 +10,7 @@ import type {
   ReservationData,
 } from "./types";
 import { getCookieConsent, setCookieConsent } from "./utils/cookieConsent";
+import { wasIntroSeen, markIntroSeen, isHomepage, cameFromExternalDomain } from "./utils/introVideo";
 
 import { useRevealOnScroll } from "./hooks/useRevealOnScroll";
 import { useAnalyticsPageView } from "./hooks/useAnalyticsPageView";
@@ -18,8 +19,9 @@ import { useRoute } from "./hooks/useRoute";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { LegalModal } from "./components/modals";
-import { CookieConsentBanner } from "./components/overlays";
+import { CookieConsentBanner, IntroVideoModal } from "./components/overlays";
 import { legalDocuments, type LegalId } from "./data/legal";
+import { pekarnaConfig } from "./data/pekarna";
 
 import { HomePage } from "./pages/HomePage";
 import { AccommodationPage } from "./pages/AccommodationPage";
@@ -52,6 +54,25 @@ function App() {
   const [cookieConsent, setCookieConsentState] =
     useState<CookieConsentState>(() => getCookieConsent());
   const [legalOpen, setLegalOpen] = useState<LegalId | null>(null);
+
+  // Uvítací video — jen při příchodu (ne po refreshi), když je zapnuté
+  // v configu a je nastavený zdroj.
+  const introSrc = pekarnaConfig.introVideo;
+  const introEnabled = pekarnaConfig.introVideoEnabled !== false && Boolean(introSrc);
+  const introTtlMs = (pekarnaConfig.introVideoTtlMinutes ?? 60) * 60_000;
+  const introExternalOnly = pekarnaConfig.introVideoExternalOnly === true;
+  // Úvodní stránka + vypršelý cooldown; případně navíc příchod z cizí domény.
+  // `?intro` v URL vynutí náhled (obejde vše) — pro testování.
+  const [showIntro, setShowIntro] = useState(() => {
+    if (!introSrc) return false;
+    const forced =
+      typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).has("intro");
+    if (forced) return true;
+    if (!introEnabled || !isHomepage()) return false;
+    if (introExternalOnly && !cameFromExternalDomain()) return false;
+    return !wasIntroSeen(introTtlMs);
+  });
 
   const route = useRoute();
 
@@ -104,6 +125,14 @@ function App() {
           t={t}
           onAccept={() => { setCookieConsent("accepted"); setCookieConsentState("accepted"); }}
           onReject={() => { setCookieConsent("rejected"); setCookieConsentState("rejected"); }}
+        />
+      ) : null}
+
+      {showIntro && introSrc ? (
+        <IntroVideoModal
+          src={introSrc}
+          t={t}
+          onClose={() => { markIntroSeen(); setShowIntro(false); }}
         />
       ) : null}
     </>

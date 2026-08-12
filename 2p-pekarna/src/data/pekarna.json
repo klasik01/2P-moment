@@ -17,5 +17,9 @@
   },
   "socials": {
     "instagram": ""
-  }
+  },
+  "introVideoEnabled": true,
+  "introVideoTtlMinutes": 60,
+  "introVideoExternalOnly": false,
+  "introVideo": "/images/video.mp4"
 }

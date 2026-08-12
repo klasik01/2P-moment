@@ -13,6 +13,14 @@ export type PekarnaConfig = {
   contact: { email: string; phone: string; address: string };
   checkInOut: { checkIn: string; checkOut: string };
   socials: { instagram: string };
+  /** Vypínač uvítacího videa. false = popup se nikdy nezobrazí. */
+  introVideoEnabled?: boolean;
+  /** Po zhlédnutí se video znovu neukáže tolik minut. Default 60. */
+  introVideoTtlMinutes?: number;
+  /** true = ukázat jen při příchodu z cizí domény. Default false. */
+  introVideoExternalOnly?: boolean;
+  /** Uvítací video v popupu při příchodu. Prázdné = popup se nezobrazí. */
+  introVideo?: string;
 };
 
 export const pekarnaConfig = raw as PekarnaConfig;

@@ -29,6 +29,12 @@
     "galleryHint": "Click a photo to view it full size."
   },
 
+  "intro": {
+    "label": "Welcome video",
+    "unmute": "Unmute",
+    "mute": "Mute"
+  },
+
   "unit": {
     "detailCta": "View detail",
     "equipmentTitle": "Amenities",
