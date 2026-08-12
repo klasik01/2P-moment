@@ -4,7 +4,8 @@
     "title": "Kontakt | Pekárna Pacov",
     "description": "Kontaktujte nás ohledně krátkodobého ubytování, skladovacích, výrobních nebo kancelářských prostor v objektu Pekárna v Pacově.",
     "keywords": "kontakt Pekárna Pacov, ubytování Pacov kontakt, pronájem prostor Pacov kontakt",
-    "canonical": "https://pekarna.2pmoment.cz/kontakt"
+    "canonical": "https://pekarna.2pmoment.cz/kontakt",
+    "ogImageId": "exterior-front"
   },
   "contact": {
     "visible": true,

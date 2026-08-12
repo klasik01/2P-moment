@@ -43,7 +43,11 @@ export function SEOHead({ meta }: Props) {
     const ogImage = meta.ogImageId ? media.getImage(meta.ogImageId) : undefined;
     if (ogImage) {
       // Sdílení potřebuje absolutní URL, relativní cesta nestačí.
-      property("og:image", new URL(ogImage.url, window.location.origin).href);
+      const absolute = new URL(ogImage.url, window.location.origin).href;
+      property("og:image", absolute);
+      property("og:image:alt", ogImage.alt);
+      named("twitter:image", absolute);
+      named("twitter:image:alt", ogImage.alt);
     }
 
     upsert('link[rel="canonical"]', () => {
