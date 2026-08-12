@@ -28,30 +28,28 @@
   }
 
   &__brand {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: var(--space-xs);
-    font-family: var(--font-heading);
-    font-weight: var(--fw-medium);
-    font-size: 1.4rem;
-    letter-spacing: var(--ls-wide);
-    color: var(--color-text);
-    text-transform: uppercase;
+    height: 100%;
+    flex-shrink: 0;
+  }
 
-    &:hover { color: var(--color-text); }
+  // Logo v navbaru — vyšší než text bývalo, ať se pozná budova
+  // i nápis. Barevná i světlá varianta leží přes sebe, přepíná se
+  // opacitou podle stavu navbaru.
+  &__logo {
+    height: $navbar-logo-height;
+    width: auto;
+    display: block;
+    transition: opacity var(--transition-base);
 
-    &-mark {
-      width: $navbar-mark-size;
-      height: $navbar-mark-size;
-      border-radius: var(--radius-pill);
-      background: var(--color-primary);
-      color: var(--color-text-inverse);
-      display: grid;
-      place-items: center;
-      font-size: var(--fs-sm);
-      font-weight: var(--fw-semibold);
-      letter-spacing: 0;
-      flex-shrink: 0;
+    &--light {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
     }
   }
 
@@ -154,14 +152,11 @@
     -webkit-backdrop-filter: none;
     border-bottom-color: transparent;
 
-    .navbar__brand,
     .navbar__links a:not(.btn) { color: var(--color-text-inverse); }
 
-    .navbar__brand-mark {
-      background: rgba(255, 255, 255, 0.16);
-      color: var(--color-text-inverse);
-      backdrop-filter: blur(6px);
-    }
+    // Přes hero fotku světlá varianta loga.
+    .navbar__logo--dark { opacity: 0; }
+    .navbar__logo--light { opacity: 1; }
 
     .navbar__toggle span,
     .navbar__toggle span::before,

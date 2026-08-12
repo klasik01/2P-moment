@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Translations } from "../../i18n";
 import { handleLinkClick, useRoute } from "../../hooks/useRoute";
 import { Button } from "../ui/Button";
+import { asset } from "../../utils/asset";
 
 type Props = {
   t: Translations;
@@ -90,8 +91,20 @@ export function Navbar({ t }: Props) {
           onClick={handleLinkClick}
           aria-label={`${t.nav.brandAlt} — ${t.nav.home}`}
         >
-          <span className="navbar__brand-mark" aria-hidden="true">2P</span>
-          <span>Pekárna</span>
+          {/* Dvě varianty loga — barevná na plném navbaru, světlá přes
+              hero fotku. Přepíná se opacitou přes .navbar--over, ať
+              nebliká a obě se přednačtou. */}
+          <img
+            className="navbar__logo navbar__logo--dark"
+            src={asset("/images/logo-tight.png")}
+            alt={t.nav.brandAlt}
+          />
+          <img
+            className="navbar__logo navbar__logo--light"
+            src={asset("/images/logo-white-tight.png")}
+            alt=""
+            aria-hidden="true"
+          />
         </a>
 
         <nav className="navbar__nav" aria-label={t.nav.menu}>

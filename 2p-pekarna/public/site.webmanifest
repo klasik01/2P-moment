@@ -1,9 +1,12 @@
 {
-  "name": "2P Pekárna",
+  "name": "Pekárna Pacov",
   "short_name": "Pekárna",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#8B4513",
-  "icons": []
+  "background_color": "#6E4A28",
+  "theme_color": "#6E4A28",
+  "icons": [
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
 }
