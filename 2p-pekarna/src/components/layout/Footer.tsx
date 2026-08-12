@@ -19,6 +19,21 @@ export function Footer({ t, data }: Props) {
           <div className="footer__brand">
             <h4>{data.brandHeading}</h4>
             <p>{data.brandText}</p>
+
+            {data.group ? (
+              <a
+                className="footer__group"
+                href={data.group.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${data.group.label}: ${data.group.name}`}
+              >
+                <span className="footer__group-label">{data.group.label}</span>
+                <span className="footer__group-logo" aria-hidden="true">
+                  2P <span>Moment</span>
+                </span>
+              </a>
+            ) : null}
           </div>
 
           <div className="footer__col">

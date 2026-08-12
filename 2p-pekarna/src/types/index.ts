@@ -201,6 +201,12 @@ export type FooterData = {
   contactHeading: string;
   navHeading: string;
   navLinks: FooterNavLink[];
+  /** Odkaz na zastřešující skupinu 2P Moment. */
+  group?: {
+    label: string;
+    name: string;
+    url: string;
+  };
 };
 
 // --- Kořeny stránek --------------------------------------------------------

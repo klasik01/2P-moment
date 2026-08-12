@@ -145,6 +145,11 @@
     "brandText": "Pekárna Pacov je praktické místo pro ubytování pracovníků, firemní pobyty a pronájem komerčních prostor. Navazuje na historii původní pekárny, kterou v Pacově znají celé generace.",
     "contactHeading": "Kontakt",
     "navHeading": "Navigace",
+    "group": {
+      "label": "Součást skupiny",
+      "name": "2P Moment",
+      "url": "https://2pmoment.cz"
+    },
     "navLinks": [
       {
         "href": "/ubytovani",
