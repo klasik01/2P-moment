@@ -73,6 +73,30 @@
   margin-bottom: 18px;
 }
 .project-modal-summary { line-height: 1.8; color: rgba(255, 255, 255, .74); margin-bottom: 28px; }
+.project-modal-download { margin-bottom: 28px; align-self: flex-start; }
+
+/* Document variant – portrait page shown whole, no cropping. */
+.project-modal.is-document { grid-template-columns: 1fr 1fr; }
+
+.project-modal.is-document .project-modal-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 40px;
+  background: var(--dark-2);
+}
+
+.project-modal.is-document .project-modal-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 128px);
+  object-fit: contain;
+  box-shadow: var(--shadow-dialog);
+}
+
+.project-modal.is-document .project-modal-body { display: flex; flex-direction: column; }
 
 .project-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 

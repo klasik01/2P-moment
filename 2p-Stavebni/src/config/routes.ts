@@ -8,6 +8,7 @@ export const ROUTES = {
   services: "#sluzby",
   about: "#o-nas",
   projects: "#reference",
+  grants: "#dotacni-programy",
   contact: "#kontakt",
 } as const;
 

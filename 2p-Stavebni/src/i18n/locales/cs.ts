@@ -46,6 +46,7 @@ export const cs: Translations = {
   "modal.close": "Zavřít detail projektu",
   "modal.prev": "Předchozí fotografie",
   "modal.next": "Další fotografie",
+  "modal.openDocument": "Otevřít PDF",
 
   // ─── Promo popup ─────────────────────────────────────────────────────
   "promo.close": "Zavřít akci",

@@ -62,6 +62,13 @@ export type ProjectImage = {
   useInHero?: boolean;
 };
 
+/**
+ * `gallery` – klasická fotogalerie realizace (výchozí).
+ * `document` – jednostránkový dokument (publicita, certifikát); karta i
+ * detail ho zobrazují celý, na výšku, bez ořezu.
+ */
+export type ProjectKind = "gallery" | "document";
+
 export type Project = {
   slug: string;
   category: string;
@@ -69,6 +76,9 @@ export type Project = {
   summary: string;
   location?: string;
   hidden?: boolean;
+  kind?: ProjectKind;
+  /** Odkaz na původní dokument (PDF) – v detailu se nabídne k otevření. */
+  documentUrl?: string;
   images: ProjectImage[];
 };
 
@@ -79,6 +89,9 @@ export type ProjectsContent = {
   description: string;
   items: Project[];
 };
+
+/** Dotační programy sdílejí datový model s referencemi (karta + detail). */
+export type GrantsContent = ProjectsContent;
 
 export type DiaryContent = {
   label: string;
@@ -163,6 +176,7 @@ export type SiteContent = {
   services: ServicesContent;
   about: AboutContent;
   projects: ProjectsContent;
+  grants: GrantsContent;
   diary: DiaryContent;
   faq: FaqContent;
   contact: ContactContent;

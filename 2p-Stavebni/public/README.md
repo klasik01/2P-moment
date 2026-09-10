@@ -43,6 +43,22 @@ takže cesty jsou absolutní (`/favicon.ico`, `/assets/images/...`).
 | `assets/images/logo-01.png` | Světlá varianta loga (1205×657) |
 | `assets/images/logo-02.png` | Barevná varianta loga (1193×629) |
 
+### Dotační programy
+
+| Soubor | Účel |
+|---|---|
+| `assets/images/grants/technicke-zazemi/publicita-a3.jpg` | Náhled publicity projektu „Technické zázemí" (1400×1980, karta + detail) |
+| `assets/documents/grants/publicita-technicke-zazemi.pdf` | Originál publicity A3 – odkaz „Otevřít PDF" v detailu |
+
+Náhled dokumentu vznikl z PDF (macOS, bez ImageMagick):
+
+```bash
+qlmanage -t -s 2400 -o /tmp/grant "Publicita A3 k vyvěšení.pdf"
+sips -s format jpeg -s formatOptions 82 --resampleWidth 1400 \
+  "/tmp/grant/Publicita A3 k vyvěšení.pdf.png" \
+  --out public/assets/images/grants/technicke-zazemi/publicita-a3.jpg
+```
+
 ## Jak regenerovat rastrové ikony
 
 Pokud se změní zdrojové logo, přegeneruj ikony z `logo-02.png` pomocí ImageMagick:

@@ -45,10 +45,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   }
 
   const activeImage = visibleImages[activeIndex];
+  const isDocument = project.kind === "document";
 
   return (
     <div className="modal-backdrop open" onClick={onClose}>
-      <div className="project-modal" onClick={(event) => event.stopPropagation()}>
+      <div
+        className={`project-modal ${isDocument ? "is-document" : ""}`}
+        onClick={(event) => event.stopPropagation()}
+      >
         <button
           type="button"
           className="modal-close"
@@ -91,18 +95,31 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           <h3 className="project-modal-title">{project.title}</h3>
           {project.location ? <p className="project-modal-location">{project.location}</p> : null}
           <p className="project-modal-summary">{project.summary}</p>
-          <div className="project-thumbs">
-            {visibleImages.map((image, index) => (
-              <button
-                type="button"
-                className={`project-thumb ${index === activeIndex ? "active" : ""}`}
-                key={image.src}
-                onClick={() => setActiveIndex(index)}
-              >
-                <img src={image.src} alt={image.alt || project.title} />
-              </button>
-            ))}
-          </div>
+          {project.documentUrl ? (
+            <a
+              className="btn btn-primary project-modal-download"
+              href={project.documentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="file" size={16} />
+              {t("modal.openDocument")}
+            </a>
+          ) : null}
+          {visibleImages.length > 1 ? (
+            <div className="project-thumbs">
+              {visibleImages.map((image, index) => (
+                <button
+                  type="button"
+                  className={`project-thumb ${index === activeIndex ? "active" : ""}`}
+                  key={image.src}
+                  onClick={() => setActiveIndex(index)}
+                >
+                  <img src={image.src} alt={image.alt || project.title} />
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

@@ -1,0 +1,73 @@
+/* Grants section (light) – document cards. */
+.grants { padding: 100px 0; background: var(--gray-light); }
+
+.grants-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.grants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.grant-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  text-align: left;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.grant-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-elevated); }
+
+/* A-series paper ratio so the whole document is visible without cropping. */
+.grant-card-media {
+  display: block;
+  aspect-ratio: 1 / 1.4142;
+  overflow: hidden;
+  background: #e6e6e6;
+  border-bottom: 1px solid var(--overlay-soft);
+}
+
+.grant-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform var(--transition-slow);
+}
+
+.grant-card:hover .grant-card-img { transform: scale(1.03); }
+
+.grant-card-body { display: flex; flex-direction: column; padding: 24px 24px 28px; }
+
+.grant-card-title {
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--dark);
+  text-transform: uppercase;
+}
+
+.grant-card-meta {
+  margin-top: 10px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.grant-card:hover .project-arrow { opacity: 1; transform: scale(1); }

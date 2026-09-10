@@ -4,6 +4,7 @@ import { ContactSection } from "./components/ContactSection";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
 import { DiarySection } from "./components/DiarySection";
 import { Footer } from "./components/Footer";
+import { GrantsSection } from "./components/GrantsSection";
 import { HeroSection } from "./components/HeroSection";
 import { Navbar } from "./components/Navbar";
 import { ProjectModal } from "./components/ProjectModal";
@@ -167,6 +168,7 @@ function App() {
           content={content.projects}
           onProjectOpen={setSelectedProject}
         />
+        <GrantsSection content={content.grants} onProjectOpen={setSelectedProject} />
         <DiarySection content={content.diary} />
         <ContactSection content={content.contact} />
       </main>

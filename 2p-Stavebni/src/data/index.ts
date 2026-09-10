@@ -6,6 +6,7 @@ import { contact } from "./pages/home/contact";
 import { diary } from "./pages/home/diary";
 import { faq } from "./pages/home/faq";
 import { footer } from "./pages/home/footer";
+import { grants } from "./pages/home/grants";
 import { hero } from "./pages/home/hero";
 import { projects } from "./pages/home/projects";
 import { services } from "./pages/home/services";
@@ -27,6 +28,7 @@ export const siteContent: SiteContent = {
   services,
   about,
   projects,
+  grants,
   diary,
   faq,
   contact,

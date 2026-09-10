@@ -10,5 +10,6 @@ export const navigation: NavItem[] = [
   { label: "Služby", href: ROUTES.services },
   { label: "O nás", href: ROUTES.about },
   { label: "Reference", href: ROUTES.projects },
+  { label: "Dotační programy", href: ROUTES.grants },
   { label: "Kontakt", href: ROUTES.contact, isButton: true },
 ];

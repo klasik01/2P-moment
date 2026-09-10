@@ -9,7 +9,7 @@ import { socials } from "../../socials";
  * nové verze aplikace". Formát YYYY-MM-DD se shoduje se sitemap.xml
  * `lastmod` a je přímo konzumovatelný v <time datetime="…"> HTML prvku.
  */
-export const SITE_LAST_UPDATED = "2026-04-17";
+export const SITE_LAST_UPDATED = "2026-09-10";
 
 export const footer: FooterContent = {
   description:

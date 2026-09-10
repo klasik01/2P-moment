@@ -9,5 +9,32 @@
   .footer-top { grid-template-columns: 1fr 1fr; }
   .footer-brand { grid-column: span 2; }
 
-  .project-modal { grid-template-columns: 1fr; }
+  .project-modal,
+  .project-modal.is-document { grid-template-columns: 1fr; }
+
+  .project-modal.is-document .project-modal-media { padding: 24px; }
+  .project-modal.is-document .project-modal-image { max-height: 60vh; }
+}
+
+/* Six nav items no longer fit on narrow tablets – switch to the hamburger earlier. */
+@media (max-width: 960px) {
+  .navbar {
+    background: rgba(17, 17, 17, .96);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .24);
+  }
+
+  .navbar-nav { display: none; }
+  .hamburger { display: inline-flex; }
+
+  .navbar-nav.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--dark);
+    padding: 24px;
+    gap: 20px;
+  }
 }
