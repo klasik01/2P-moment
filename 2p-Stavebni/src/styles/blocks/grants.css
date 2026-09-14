@@ -70,3 +70,7 @@
 }
 
 .grant-card:hover .project-arrow { opacity: 1; transform: scale(1); }
+
+.grant-card--image { padding: 0; }
+.grant-card--image .grant-card-media { width: 100%; border: 0; }
+.grant-card:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }

@@ -45,12 +45,16 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   }
 
   const activeImage = visibleImages[activeIndex];
-  const isDocument = project.kind === "document";
+  const imageOnly = project.displayMode === "image";
+  const isDocument = project.kind === "document" && !imageOnly;
 
   return (
     <div className="modal-backdrop open" onClick={onClose}>
       <div
-        className={`project-modal ${isDocument ? "is-document" : ""}`}
+        className={`project-modal ${isDocument ? "is-document" : ""} ${imageOnly ? "is-image-only" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={project.title}
         onClick={(event) => event.stopPropagation()}
       >
         <button
@@ -90,37 +94,39 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </>
           ) : null}
         </div>
-        <div className="project-modal-body">
-          <span className="project-cat static">{project.category}</span>
-          <h3 className="project-modal-title">{project.title}</h3>
-          {project.location ? <p className="project-modal-location">{project.location}</p> : null}
-          <p className="project-modal-summary">{project.summary}</p>
-          {project.documentUrl ? (
-            <a
-              className="btn btn-primary project-modal-download"
-              href={project.documentUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon name="file" size={16} />
-              {t("modal.openDocument")}
-            </a>
-          ) : null}
-          {visibleImages.length > 1 ? (
-            <div className="project-thumbs">
-              {visibleImages.map((image, index) => (
-                <button
-                  type="button"
-                  className={`project-thumb ${index === activeIndex ? "active" : ""}`}
-                  key={image.src}
-                  onClick={() => setActiveIndex(index)}
-                >
-                  <img src={image.src} alt={image.alt || project.title} />
-                </button>
-              ))}
-            </div>
-          ) : null}
-        </div>
+        {!imageOnly && (
+          <div className="project-modal-body">
+            <span className="project-cat static">{project.category}</span>
+            <h3 className="project-modal-title">{project.title}</h3>
+            {project.location ? <p className="project-modal-location">{project.location}</p> : null}
+            <p className="project-modal-summary">{project.summary}</p>
+            {project.documentUrl ? (
+              <a
+                className="btn btn-primary project-modal-download"
+                href={project.documentUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name="file" size={16} />
+                {t("modal.openDocument")}
+              </a>
+            ) : null}
+            {visibleImages.length > 1 ? (
+              <div className="project-thumbs">
+                {visibleImages.map((image, index) => (
+                  <button
+                    type="button"
+                    className={`project-thumb ${index === activeIndex ? "active" : ""}`}
+                    key={image.src}
+                    onClick={() => setActiveIndex(index)}
+                  >
+                    <img src={image.src} alt={image.alt || project.title} />
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        )}
       </div>
     </div>
   );

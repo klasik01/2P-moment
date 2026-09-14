@@ -8,6 +8,7 @@ import type { GrantsContent } from "../../../types/content";
 const BASE = import.meta.env.BASE_URL;
 
 export const grants: GrantsContent = {
+  displayMode: "image", // Přepnutím na "detail" zobrazíte původní texty a detail s PDF.
   label: "Podpořené projekty",
   title: "Dotační",
   titleAccent: "programy",

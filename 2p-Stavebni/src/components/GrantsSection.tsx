@@ -14,6 +14,7 @@ type GrantsSectionProps = {
  * layoutem karty: dokument je na výšku a zobrazuje se celý, bez ořezu.
  */
 export function GrantsSection({ content, onProjectOpen }: GrantsSectionProps) {
+  const imageOnly = content.displayMode === "image";
   const items = content.items
     .filter((project) => !project.hidden)
     .map((project) => ({ project, primaryImage: getPrimaryProjectImage(project) }))
@@ -24,23 +25,25 @@ export function GrantsSection({ content, onProjectOpen }: GrantsSectionProps) {
   return (
     <section className="grants" id="dotacni-programy">
       <div className="container">
-        <div className="grants-header">
-          <div>
-            <SectionHeading
-              label={content.label}
-              title={content.title}
-              titleAccent={content.titleAccent}
-            />
+        {!imageOnly && (
+          <div className="grants-header">
+            <div>
+              <SectionHeading
+                label={content.label}
+                title={content.title}
+                titleAccent={content.titleAccent}
+              />
+            </div>
+            <p className="section-desc reveal">{content.description}</p>
           </div>
-          <p className="section-desc reveal">{content.description}</p>
-        </div>
+        )}
         <div className="grants-grid">
           {items.map(({ project, primaryImage }) => (
             <button
               type="button"
-              className="grant-card reveal"
+              className={`grant-card reveal${imageOnly ? " grant-card--image" : ""}`}
               key={project.slug}
-              onClick={() => onProjectOpen(project)}
+              onClick={() => onProjectOpen({ ...project, displayMode: content.displayMode })}
             >
               <span className="grant-card-media">
                 <img
@@ -50,16 +53,20 @@ export function GrantsSection({ content, onProjectOpen }: GrantsSectionProps) {
                   loading="lazy"
                 />
               </span>
-              <span className="grant-card-body">
-                <span className="project-cat static">{project.category}</span>
-                <h3 className="grant-card-title">{project.title}</h3>
-                {project.location ? (
-                  <span className="grant-card-meta">{project.location}</span>
-                ) : null}
-              </span>
-              <span className="project-arrow">
-                <Icon name="arrow-right" size={16} strokeWidth={2.5} />
-              </span>
+              {!imageOnly && (
+                <>
+                <span className="grant-card-body">
+                  <span className="project-cat static">{project.category}</span>
+                  <h3 className="grant-card-title">{project.title}</h3>
+                  {project.location ? (
+                    <span className="grant-card-meta">{project.location}</span>
+                  ) : null}
+                </span>
+                <span className="project-arrow">
+                  <Icon name="arrow-right" size={16} strokeWidth={2.5} />
+                </span>
+                </>
+              )}
             </button>
           ))}
         </div>

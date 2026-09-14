@@ -110,3 +110,26 @@
 
 .project-thumb.active { border-color: var(--red); }
 .project-thumb img { width: 100%; height: 90px; object-fit: cover; }
+
+/* Publicity lightbox: the whole image without the project information panel. */
+.project-modal.is-image-only {
+  display: block;
+  background: transparent;
+  border-radius: 0;
+}
+.project-modal.is-image-only .project-modal-media {
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+}
+.project-modal.is-image-only .project-modal-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 48px);
+  object-fit: contain;
+}
+.project-modal.is-image-only .modal-close {
+  background: rgba(17, 17, 17, .8);
+}
+.project-modal.is-image-only .modal-close:hover { background: var(--red); }

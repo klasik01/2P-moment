@@ -77,6 +77,7 @@ export type Project = {
   location?: string;
   hidden?: boolean;
   kind?: ProjectKind;
+  displayMode?: "image" | "detail";
   /** Odkaz na původní dokument (PDF) – v detailu se nabídne k otevření. */
   documentUrl?: string;
   images: ProjectImage[];
@@ -91,7 +92,10 @@ export type ProjectsContent = {
 };
 
 /** Dotační programy sdílejí datový model s referencemi (karta + detail). */
-export type GrantsContent = ProjectsContent;
+export type GrantsContent = ProjectsContent & {
+  /** image: pouze obrázek a lightbox; detail: nadpisy, texty a detail projektu. */
+  displayMode: "image" | "detail";
+};
 
 export type DiaryContent = {
   label: string;
