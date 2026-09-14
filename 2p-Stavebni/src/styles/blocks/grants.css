@@ -32,10 +32,10 @@
 
 .grant-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-elevated); }
 
-/* A-series paper ratio so the whole document is visible without cropping. */
+/* Landscape A-series paper ratio for the publicity document. */
 .grant-card-media {
   display: block;
-  aspect-ratio: 1 / 1.4142;
+  aspect-ratio: 1.4142 / 1;
   overflow: hidden;
   background: #e6e6e6;
   border-bottom: 1px solid var(--overlay-soft);
@@ -44,12 +44,11 @@
 .grant-card-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: top;
   transition: transform var(--transition-slow);
 }
 
-.grant-card:hover .grant-card-img { transform: scale(1.03); }
 
 .grant-card-body { display: flex; flex-direction: column; padding: 24px 24px 28px; }
 

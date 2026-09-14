@@ -47,16 +47,19 @@ takže cesty jsou absolutní (`/favicon.ico`, `/assets/images/...`).
 
 | Soubor | Účel |
 |---|---|
-| `assets/images/grants/technicke-zazemi/publicita-a3.jpg` | Náhled publicity projektu „Technické zázemí" (1400×1980, karta + detail) |
-| `assets/documents/grants/publicita-technicke-zazemi.pdf` | Originál publicity A3 – odkaz „Otevřít PDF" v detailu |
+| `assets/images/grants/technicke-zazemi/publicita-a3-2.jpg` | Náhled publicity projektu „Technické zázemí" (1400×990, karta + detail) |
+| `assets/documents/grants/publicita-technicke-zazemi-2.pdf` | Originál publicity A3 – odkaz „Otevřít PDF" v detailu |
 
-Náhled dokumentu vznikl z PDF (macOS, bez ImageMagick):
+Náhled je samostatný JPG a při změně PDF je nutné jej přegenerovat. Při výměně použij nový název PDF i JPG a uprav odkazy v `src/data/pages/home/grants.ts`, aby se obešla dlouhodobá cache.
+
+Náhled dokumentu vznikl z PDF (macOS, bez ImageMagick; spuštěno z `2p-stavebni/`):
 
 ```bash
-qlmanage -t -s 2400 -o /tmp/grant "Publicita A3 k vyvěšení.pdf"
+mkdir -p /tmp/grant
+qlmanage -t -s 2400 -o /tmp/grant public/assets/documents/grants/publicita-technicke-zazemi-2.pdf
 sips -s format jpeg -s formatOptions 82 --resampleWidth 1400 \
-  "/tmp/grant/Publicita A3 k vyvěšení.pdf.png" \
-  --out public/assets/images/grants/technicke-zazemi/publicita-a3.jpg
+  "/tmp/grant/publicita-technicke-zazemi-2.pdf.png" \
+  --out public/assets/images/grants/technicke-zazemi/publicita-a3-2.jpg
 ```
 
 ## Jak regenerovat rastrové ikony

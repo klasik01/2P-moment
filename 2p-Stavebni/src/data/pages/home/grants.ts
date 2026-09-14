@@ -22,10 +22,10 @@ export const grants: GrantsContent = {
       summary:
         "Cílem projektu je vybudování vlastního technického zázemí, které umožní lepší organizaci stavebních prací, zefektivní logistiku materiálu a techniky, výrazně sníží náklady na pronájmy a zvýší celkovou kapacitu pro nové zakázky. Projekt je realizován v rámci Strategického plánu SZP a je spolufinancován Evropskou unií.",
       location: "Strategický plán SZP",
-      documentUrl: `${BASE}assets/documents/grants/publicita-technicke-zazemi.pdf`,
+      documentUrl: `${BASE}assets/documents/grants/publicita-technicke-zazemi-2.pdf`,
       images: [
         {
-          src: `${BASE}assets/images/grants/technicke-zazemi/publicita-a3.jpg`,
+          src: `${BASE}assets/images/grants/technicke-zazemi/publicita-a3-2.jpg`,
           alt: "Publicita projektu Technické zázemí společnosti 2P stavební s.r.o. – spolufinancováno Evropskou unií",
           isPrimary: true,
         },
